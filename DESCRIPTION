@@ -1,0 +1,37 @@
+Package: CytoTree
+Type: Package
+Title: A Toolkit for Flow And Mass Cytometry Data
+Version: 0.99.1
+Date: 2020-05-10
+Authors@R: person("Yuting", "Dai", role = c("aut", "cre"), email = "forlynna@sjtu.edu.cn")
+Description: A trajectory inference and visualization toolkit 
+    for flow and mass cytometry data. CytoTree offers complete 
+    analyzing workflow for flow and mass cytometry data. CytoTree 
+    can be a valuable tool for application ranging from clustering 
+    and dimensionality reduction to trajectory reconstruction 
+    and pseudotime estimation for flow and mass cytometry data.
+Depends: R (>= 3.6), igraph
+Imports: FlowSOM, Rtsne, ggplot2, destiny, gmodels,
+        flowUtils, Biobase, Matrix, flowCore, sva,
+        matrixStats, methods, mclust, prettydoc, 
+        RANN(>= 2.5), Rcpp (>= 0.12.0), BiocNeighbors,
+        cluster, pheatmap, scatterpie, umap, scatterplot3d,
+        limma, stringr, grDevices, grid, stats
+Suggests: BiocGenerics, knitr, RColorBrewer,
+        rmarkdown, testthat, BiocStyle
+biocViews: CellBiology, Clustering, Visualization, 
+        Software, CellBasedAssays, FlowCytometry,
+        NetworkInference, Network
+VignetteBuilder: knitr
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.0
+BugReports: https://github.com/JhuangLab/CytoTree/issues
+git_url: https://github.com/JhuangLab/CytoTree
+URL: http://www.r-project.org, https://github.com/JhuangLab/CytoTree
+git_last_commit: 
+git_last_commit_date: 
+Date/Publication: 
+LinkingTo: Rcpp
+Packaged: 
