@@ -36,18 +36,7 @@ To objectively inference differential trajectory based on time courses FCS data,
 
 ## 2 Installation
 
-### 2.1 From Bioconductor
-
-```
-
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-
-BiocManager::install("CytoTree")
-
-```
-
-### 2.2 From Github
+### 2.1 From Github
 
 This requires the `devtools` package to be installed first.
 
