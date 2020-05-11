@@ -132,7 +132,7 @@ May 10, 2020
  - Changes:
    - First commit of CytoTree
 
-## 6 Notice
+## 6 Note
 
 
 The previous version of `CytoTree` is `flowSpy` **[link to GitHub](https://github.com/JhuangLab/CytoTree) and [link to Bioconductor](https://bioconductor.org/packages/flowSpy/)**. To improve the identification and avoid awkward duplication of names in some situations, we changed the name of `flowSpy` to `CytoTree`. `CytoTree` more fits the functional orientation of this software.
