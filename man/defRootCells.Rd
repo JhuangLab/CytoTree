@@ -7,14 +7,14 @@
 defRootCells(object, root.cells = NULL, verbose = FALSE)
 }
 \arguments{
-\item{object}{an FSPY object}
+\item{object}{an CYT object}
 
 \item{root.cells}{vector. Cell name of the root cells}
 
 \item{verbose}{logical. Whether to print calculation progress.}
 }
 \value{
-An FSPY object
+An CYT object
 }
 \description{
 definition of root cells
@@ -23,13 +23,13 @@ definition of root cells
 
 if (FALSE) {
 # Define root cells by cluster
-fspy <- defRootCells(fspy, root.cells = 6, verbose = TRUE)
-fspy <- defRootCells(fspy, root.cells = c(6,8), verbose = TRUE)
+cyt <- defRootCells(cyt, root.cells = 6, verbose = TRUE)
+cyt <- defRootCells(cyt, root.cells = c(6,8), verbose = TRUE)
 
 # Define root cells by cell names
 cells <- test.meta.data$cell[which(test.meta.data$stage == "D0")]
 cells <- as.character(cells)
-fspy <- defRootCells(fspy, root.cells = cells, verbose = TRUE)
+cyt <- defRootCells(cyt, root.cells = cells, verbose = TRUE)
 }
 
 

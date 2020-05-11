@@ -77,11 +77,11 @@ Extract the FCS expresssion data with preprocessing of
 
 if (FALSE) {
 # See vignette tutorials for more information
-vignette(package = "flowSpy")
-vignette("Quick_start", package = "flowSpy")
+vignette(package = "CytoTree")
+vignette("Quick_start", package = "CytoTree")
 
   # Path to your FCS files
-  fcs.path <- "flowSpy-dataset/FCS/usecase1/"
+  fcs.path <- "CytoTree-dataset/FCS/usecase1/"
   fcs.file <- paste0(fcs.path, "FR-FCM-ZY9R-Bone_Marrow_cytof.fcs")
 
   # Read FCS files

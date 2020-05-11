@@ -2,25 +2,25 @@
 % Please edit documentation in R/utils.R
 \name{updatePlotMeta}
 \alias{updatePlotMeta}
-\title{Update plot meta information of FSPY}
+\title{Update plot meta information of CYT}
 \usage{
 updatePlotMeta(object, verbose = TRUE)
 }
 \arguments{
-\item{object}{An FSPY object}
+\item{object}{An CYT object}
 
 \item{verbose}{logical. Whether to print calculation progress.}
 }
 \value{
-An FSPY object
+An CYT object
 }
 \description{
-Update plot meta information of FSPY
+Update plot meta information of CYT
 }
 \examples{
 
 if (FALSE) {
-fspy <- updatePlotMeta(fspy)
+cyt <- updatePlotMeta(cyt)
 }
 
 

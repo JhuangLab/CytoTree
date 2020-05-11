@@ -2,7 +2,7 @@
 % Please edit documentation in R/tsne.R
 \name{runTSNE}
 \alias{runTSNE}
-\title{Calculate t-Distributed Stochastic Neighbor Embedding in FSPY}
+\title{Calculate t-Distributed Stochastic Neighbor Embedding in CYT}
 \usage{
 runTSNE(
   object,
@@ -22,7 +22,7 @@ runTSNE(
 )
 }
 \arguments{
-\item{object}{an FSPY object}
+\item{object}{an CYT object}
 
 \item{dims}{integer, Output dimensionality (default: 2)}
 
@@ -46,17 +46,17 @@ See \code{\link[Rtsne]{Rtsne}}}
 \item{...}{Parameters passing to \code{\link[Rtsne]{Rtsne}} function}
 }
 \value{
-An FSPY object
+An CYT object
 }
 \description{
-Calculate t-Distributed Stochastic Neighbor Embedding in FSPY
+Calculate t-Distributed Stochastic Neighbor Embedding in CYT
 }
 \examples{
 
 if (FALSE) {
 
-fspy <- runTSNE(fspy, dims = 2, verbose = TRUE)
-fspy <- runTSNE(fspy, dims = 2, perplexity = 20, verbose = TRUE)
+cyt <- runTSNE(cyt, dims = 2, verbose = TRUE)
+cyt <- runTSNE(cyt, dims = 2, perplexity = 20, verbose = TRUE)
 
 }
 

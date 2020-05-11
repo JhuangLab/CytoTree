@@ -7,7 +7,7 @@
 defLeafCells(object, leaf.cells = NULL, pseudotime.cutoff = 0, verbose = FALSE)
 }
 \arguments{
-\item{object}{an FSPY object}
+\item{object}{an CYT object}
 
 \item{leaf.cells}{character or numeric. Cell name of the root cells or
 cluster.id of root.cells}
@@ -18,7 +18,7 @@ over pseudotime.cutoff will be set to be leaf cells}
 \item{verbose}{logical. Whether to print calculation progress.}
 }
 \value{
-An FSPY object
+An CYT object
 }
 \description{
 definition of root cells
@@ -27,13 +27,13 @@ definition of root cells
 
 if (FALSE) {
 # Define leaf cells by cluster
-fspy <- defLeafCells(fspy, leaf.cells = 1, verbose = TRUE)
-fspy <- defLeafCells(fspy, leaf.cells = c(1,3), verbose = TRUE)
+cyt <- defLeafCells(cyt, leaf.cells = 1, verbose = TRUE)
+cyt <- defLeafCells(cyt, leaf.cells = c(1,3), verbose = TRUE)
 
 # Define root cells by cell names
 cells <- test.meta.data$cell[which(test.meta.data$stage == "D10")]
 cells <- as.character(cells)
-fspy <- defLeafCells(fspy, leaf.cells = cells, verbose = TRUE)
+cyt <- defLeafCells(cyt, leaf.cells = cells, verbose = TRUE)
 }
 
 

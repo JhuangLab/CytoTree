@@ -4,12 +4,13 @@ Title: A Toolkit for Flow And Mass Cytometry Data
 Version: 0.99.1
 Date: 2020-05-10
 Authors@R: person("Yuting", "Dai", role = c("aut", "cre"), email = "forlynna@sjtu.edu.cn")
-Description: A trajectory inference and visualization toolkit 
-    for flow and mass cytometry data. CytoTree offers complete 
-    analyzing workflow for flow and mass cytometry data. CytoTree 
-    can be a valuable tool for application ranging from clustering 
+Description: A trajectory inference toolkit for flow and mass 
+    cytometry data. CytoTree is a valuable tool to build a 
+    tree-shaped trajectory using flow and mass cytometry data. 
+    The application of CytoTree ranges from clustering 
     and dimensionality reduction to trajectory reconstruction 
-    and pseudotime estimation for flow and mass cytometry data.
+    and pseudotime estimation. It offers complete analyzing 
+    workflow for flow and mass cytometry data. 
 Depends: R (>= 3.6), igraph
 Imports: FlowSOM, Rtsne, ggplot2, destiny, gmodels,
         flowUtils, Biobase, Matrix, flowCore, sva,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/destiny.R
 \name{runDiffusionMap}
 \alias{runDiffusionMap}
-\title{Calculate diffusion map in FSPY}
+\title{Calculate diffusion map in CYT}
 \usage{
 runDiffusionMap(
   object,
@@ -15,7 +15,7 @@ runDiffusionMap(
 )
 }
 \arguments{
-\item{object}{an FSPY object}
+\item{object}{an CYT object}
 
 \item{sigma.use}{numeric. Diffusion scale parameter of the Gaussian kernel. One of '\code{local}',
  '\code{global}', a \code{\link[base]{numeric}} global sigma or a Sigmas object.
@@ -35,15 +35,15 @@ For the allowed values, see \code{destiny}}
 \item{...}{options to pass on to the \code{destiny}.}
 }
 \value{
-An FSPY object
+An CYT object
 }
 \description{
-Calculate diffusion map in FSPY
+Calculate diffusion map in CYT
 }
 \examples{
 
 if (FALSE) {
-fspy <- runDiffusionMap(fspy, verbose = TRUE)
+cyt <- runDiffusionMap(cyt, verbose = TRUE)
 }
 
 }

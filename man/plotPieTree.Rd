@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotTree.R
 \name{plotPieTree}
 \alias{plotPieTree}
-\title{plot MST pie of FSPY}
+\title{plot MST pie of CYT}
 \usage{
 plotPieTree(
   object,
@@ -14,7 +14,7 @@ plotPieTree(
 )
 }
 \arguments{
-\item{object}{an FSPY object}
+\item{object}{an CYT object}
 
 \item{cex.size}{numeric. size cex of the dot}
 
@@ -30,14 +30,14 @@ plotPieTree(
 ggplot2 figure
 }
 \description{
-plot MST pie of FSPY
+plot MST pie of CYT
 }
 \examples{
 
 if (FALSE) {
 
 # Runs only have two or more stages
-plotPieTree(fspy, cex.size = 1, size.by.cell.number = T) +
+plotPieTree(cyt, cex.size = 1, size.by.cell.number = T) +
    scale_fill_manual(values = c("#00599F","#FF3222","#009900",
                                 "#FF9933","#FF99FF","#7A06A0"))
 }

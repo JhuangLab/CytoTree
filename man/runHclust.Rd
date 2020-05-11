@@ -13,7 +13,7 @@ runHclust(
 )
 }
 \arguments{
-\item{object}{an FSPY object}
+\item{object}{an CYT object}
 
 \item{k}{numeric. The number of clusters.}
 
@@ -30,10 +30,10 @@ or "minkowski". Or you can specify an equation as input, for example
 \item{verbose}{logical. Whether to print calculation progress.}
 }
 \value{
-An FSPY object with cluster
+An CYT object with cluster
 
 if (FALSE) {
-fspy <- runHclust(fspy, k = 9, verbose = TRUE)
+cyt <- runHclust(cyt, k = 9, verbose = TRUE)
 }
 }
 \description{

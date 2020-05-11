@@ -2,19 +2,19 @@
 % Please edit documentation in R/plot2D.R
 \name{plotPieCluster}
 \alias{plotPieCluster}
-\title{Visualization pie plot of cluster data of FSPY}
+\title{Visualization pie plot of cluster data of CYT}
 \usage{
 plotPieCluster(
   object,
   item.use = c("PC_1", "PC_2"),
   cex.size = 1,
   size.by.cell.number = TRUE,
-  main = "2D pie plot of FSPY",
+  main = "2D pie plot of CYT",
   plot.theme = theme_bw()
 )
 }
 \arguments{
-\item{object}{An FSPY object}
+\item{object}{An CYT object}
 
 \item{item.use}{character. Items use to 2D plot, axes x and y must be numeric.}
 
@@ -30,23 +30,23 @@ plotPieCluster(
 ggplot2 figure
 }
 \description{
-Visualization pie plot of cluster data of FSPY
+Visualization pie plot of cluster data of CYT
 }
 \examples{
 
 if (FALSE) {
 # Runs only have more than two stages
-plotPieCluster(fspy, cex.size = 0.5)
+plotPieCluster(cyt, cex.size = 0.5)
 
-plotPieCluster(fspy, item.use = c("PC_1", "PC_2"), cex.size = 0.5)
-plotPieCluster(fspy, item.use = c("PC_2", "PC_3"), cex.size = 0.5)
+plotPieCluster(cyt, item.use = c("PC_1", "PC_2"), cex.size = 0.5)
+plotPieCluster(cyt, item.use = c("PC_2", "PC_3"), cex.size = 0.5)
 
-plotPieCluster(fspy, item.use = c("tSNE_1", "tSNE_2"), cex.size = 20)
+plotPieCluster(cyt, item.use = c("tSNE_1", "tSNE_2"), cex.size = 20)
 
-plotPieCluster(fspy, item.use = c("DC_1", "DC_2"), cex.size = 0.5)
+plotPieCluster(cyt, item.use = c("DC_1", "DC_2"), cex.size = 0.5)
 
-plotPieCluster(fspy, item.use = c("UMAP_1", "UMAP_2"), cex.size = 1)
-plotPieCluster(fspy, item.use = c("UMAP_1", "UMAP_2"), cex.size = 1) +
+plotPieCluster(cyt, item.use = c("UMAP_1", "UMAP_2"), cex.size = 1)
+plotPieCluster(cyt, item.use = c("UMAP_1", "UMAP_2"), cex.size = 1) +
    scale_fill_manual(values = c("#00599F","#FF3222","#009900",
                                 "#FF9933","#FF99FF","#7A06A0"))
 }

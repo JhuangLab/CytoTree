@@ -2,12 +2,12 @@
 % Please edit documentation in R/pca.R
 \name{runFastPCA}
 \alias{runFastPCA}
-\title{Calculate principal components in FSPY}
+\title{Calculate principal components in CYT}
 \usage{
 runFastPCA(object, center = FALSE, scale. = TRUE, verbose = FALSE, ...)
 }
 \arguments{
-\item{object}{an FSPY object}
+\item{object}{an CYT object}
 
 \item{center}{logical, a logical value indicating whether the variables
 should be shifted to be zero centered. Alternately, a vector
@@ -26,15 +26,15 @@ The value is passed to scale. See \code{\link[gmodels]{fast.prcomp}}}
 \item{...}{Parameters passing to \code{\link[gmodels]{fast.prcomp}} function}
 }
 \value{
-An FSPY object with PCA
+An CYT object with PCA
 }
 \description{
-Calculate principal components in FSPY
+Calculate principal components in CYT
 }
 \examples{
 
 if (FALSE) {
-fspy <- runFastPCA(fspy, verbose = TRUE)
+cyt <- runFastPCA(cyt, verbose = TRUE)
 }
 
 }

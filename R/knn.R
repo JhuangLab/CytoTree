@@ -1,5 +1,5 @@
 #'
-#' Calculate k-nearest neighbors of FSPY
+#' Calculate k-nearest neighbors of CYT
 #'
 #' @name runKNN
 #'
@@ -7,16 +7,16 @@
 #'    distance with (KMKNN) algorithm using log-transformed signaling matrix of
 #'    flow cytometry data. The base function are base on \code{\link[BiocNeighbors]{findKNN}}.
 #'
-#' @param object an FSPY object
+#' @param object an CYT object
 #' @param given.mat matrix. Given matrix to run knn
 #' @param knn numeric. Number of k-nearest neighbors.
-#' @param knn.replace logic. Whether to replace knn in FSPY object
+#' @param knn.replace logic. Whether to replace knn in CYT object
 #' @param verbose logical. Whether to print calculation progress.
 #' @param ... Parameters passing to \code{\link[BiocNeighbors]{findKNN}} function
 #'
 #' @seealso \code{\link[BiocNeighbors]{findKNN}}
 #'
-#' @return An FSPY object with knn, knn.index and knn.distance information.
+#' @return An CYT object with knn, knn.index and knn.distance information.
 #'
 #' @import BiocNeighbors
 #'
@@ -25,7 +25,7 @@
 #' @examples
 #' if (FALSE) {
 #'
-#' fspy <- runKNN(fspy)
+#' cyt <- runKNN(cyt)
 #'
 #' }
 #'
@@ -37,7 +37,7 @@ runKNN <- function(object,
                    verbose = FALSE, ...) {
 
   if (isTRUE(object@knn > 0) & !(knn.replace)) {
-    if (verbose) message(Sys.time(), " [INFO] Using knn in FSPY object: ", object@knn )
+    if (verbose) message(Sys.time(), " [INFO] Using knn in CYT object: ", object@knn )
   } else if ( isTRUE(object@knn > 0) & (knn.replace) ) {
     if (verbose) message(Sys.time(), " [INFO] Using knn provided in this function: ", knn )
     object@knn <- knn

@@ -2,12 +2,12 @@
 % Please edit documentation in R/utils.R
 \name{fetchPlotMeta}
 \alias{fetchPlotMeta}
-\title{Fetching plot metadata of FSPY}
+\title{Fetching plot metadata of CYT}
 \usage{
 fetchPlotMeta(object, markers = NULL, verbose = FALSE)
 }
 \arguments{
-\item{object}{An FSPY object}
+\item{object}{An CYT object}
 
 \item{markers}{vector. Makers fetched from expression matrix}
 
@@ -17,15 +17,15 @@ fetchPlotMeta(object, markers = NULL, verbose = FALSE)
 a data.frame containing meta information for visualization
 }
 \description{
-Fetching plot metadata of FSPY
+Fetching plot metadata of CYT
 }
 \examples{
 
 if (FALSE) {
-plot.data <- fetchPlotMeta(fspy)
+plot.data <- fetchPlotMeta(cyt)
 head(plot.data)
 
-plot.data <- fetchPlotMeta(fspy, markers = c("CD43", "CD34"))
+plot.data <- fetchPlotMeta(cyt, markers = c("CD43", "CD34"))
 head(plot.data)
 }
 

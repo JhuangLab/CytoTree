@@ -17,7 +17,7 @@ runClara(
 )
 }
 \arguments{
-\item{object}{an FSPY object}
+\item{object}{an CYT object}
 
 \item{k}{numeric. The number of clusters. It is required that
 0 < k < n where n is the number of observations (i.e., n = nrow(x)).}
@@ -40,14 +40,14 @@ The default is N = 5,}
 \item{...}{Parameters passing to \code{\link[cluster]{clara}} function}
 }
 \value{
-an FSPY object with clara.id in meta.data
+an CYT object with clara.id in meta.data
 }
 \description{
 Clustering a data matrix into k clusters
 }
 \examples{
 if (FALSE) {
-fspy <- runClara(fspy, k = 25, verbose = TRUE)
+cyt <- runClara(cyt, k = 25, verbose = TRUE)
 }
 
 }

@@ -1,5 +1,5 @@
 ---
-title: "Quick start of flowSpy"
+title: "Quick start of CytoTree"
 author: "Yuting Dai"
 date: "`r Sys.Date()`"
 output:
@@ -12,7 +12,7 @@ output:
   html_document:
     df_print: paged
     toc: yes
-package: flowSpy
+package: CytoTree
 vignette: |
   %\VignetteIndexEntry{Quick_start} 
   \usepackage[utf8]{inputenc} 
@@ -27,37 +27,40 @@ knitr::opts_chunk$set(echo = TRUE, cache = FALSE, eval = TRUE,
 
 ## Link to the tutorial
 
-See the quick start tutorial of flowSpy, please visit [Quick start of flowSpy](https://ytdai.github.io/flowSpy/Quick_start.html).
+See the quick start tutorial of CytoTree, please visit [Quick start of CytoTree](https://ytdai.github.io/CytoTree/Quick_start.html).
 
-See the basic tutorial of flowSpy, please visit [Tutorial of flowSpy](https://ytdai.github.io/flowSpy/basic.html).
+See the basic tutorial of CytoTree, please visit [Tutorial of CytoTree](https://ytdai.github.io/CytoTree/basic.html).
 
-See time-course data analysis of flowSpy, please visit [Time-course workflow of flowSpy](https://ytdai.github.io/flowSpy/Time_course.html).
+See time-course data analysis of CytoTree, please visit [Time-course workflow of CytoTree](https://ytdai.github.io/CytoTree/Time_course.html).
 
+The previous version of `CytoTree` is `flowSpy` **[link to GitHub](https://github.com/JhuangLab/CytoTree) and [link to Bioconductor](https://bioconductor.org/packages/flowSpy/)**. To improve the identification and avoid awkward duplication of names in some situations, we changed the name of `flowSpy` to `CytoTree`. `CytoTree` more fits the functional orientation of this software.
+
+We apologized for the inconvenience.
 
 ## Introduction
 
-Although multidimensional single-cell-based flow and mass cytometry have been increasingly applied to microenvironmental composition and stem-cell research, integrated analysis workflows to facilitate the interpretation of experimental cytometry data remain underdeveloped. We present flowSpy, a comprehensive R package designed for the analysis and interpretation of flow and mass cytometry data. We applied flowSpy to mass cytometry and time-course flow cytometry data to demonstrate the usage and practical utility of its computational modules. flowSpy is a reliable tool for multidimensional cytometry data workflows and produces compelling results for trajectory construction and pseudotime estimation. 
+Although multidimensional single-cell-based flow and mass cytometry have been increasingly applied to microenvironmental composition and stem-cell research, integrated analysis workflows to facilitate the interpretation of experimental cytometry data remain underdeveloped. We present CytoTree, a comprehensive R package designed for the analysis and interpretation of flow and mass cytometry data. We applied CytoTree to mass cytometry and time-course flow cytometry data to demonstrate the usage and practical utility of its computational modules. CytoTree is a reliable tool for multidimensional cytometry data workflows and produces compelling results for trajectory construction and pseudotime estimation. 
 
 <img src="../inst/figures/logo.png" align="right" height=150 width=150/>
 
-## Overview of flowSpy workflow
+## Overview of CytoTree workflow
 
-The flowSpy package is developed to complete the majority of standard analysis and visualization workflow for FCS data. In flowSpy workflow, an S4 object in R is built to implement the statistical and computational approach, and all computational modules are integrated into one single channel which only requires a specified input data format.
+The CytoTree package is developed to complete the majority of standard analysis and visualization workflow for FCS data. In CytoTree workflow, an S4 object in R is built to implement the statistical and computational approach, and all computational modules are integrated into one single channel which only requires a specified input data format.
 
-`flowSpy` can help you to perform four main types of analysis:
+`CytoTree` can help you to perform four main types of analysis:
 
-- **Clustering**. `flowSpy` can help you to discover and identify subtypes of cells. 
+- **Clustering**. `CytoTree` can help you to discover and identify subtypes of cells. 
 
-- **Dimensionality Reduction**. Several dimensionality reduction methods are provided in `flowSpy` package such as Principal Components Analysis (PCA), t-distributed Stochastic Neighbor Embedding (tSNE), Diffusion Maps and Uniform Manifold Approximation and Projection (UMAP). flowSpy provides both cell-based and cluster-based dimensionality reduction.
+- **Dimensionality Reduction**. Several dimensionality reduction methods are provided in `CytoTree` package such as Principal Components Analysis (PCA), t-distributed Stochastic Neighbor Embedding (tSNE), Diffusion Maps and Uniform Manifold Approximation and Projection (UMAP). CytoTree provides both cell-based and cluster-based dimensionality reduction.
 
-- **Trajectory Inference**. `flowSpy` can help you to construct the cellular differential based on minimum spanning tree (MST) algorithm. 
+- **Trajectory Inference**. `CytoTree` can help you to construct the cellular differential based on minimum spanning tree (MST) algorithm. 
 
-- **Pseudotime and Intermediate states definition**. The root cells need to be defined by users. The trajctroy value will be calculated based on Shortest Path from root cells and leaf cells using R `igraph` package. Subset FCS data set in `flowSpy` and find the key intermediate cell states based on trajectory value.
+- **Pseudotime and Intermediate states definition**. The root cells need to be defined by users. The trajctroy value will be calculated based on Shortest Path from root cells and leaf cells using R `igraph` package. Subset FCS data set in `CytoTree` and find the key intermediate cell states based on trajectory value.
 
 
-<center> <img src="../inst/figures/algorithm.jpg" alt="Workflow of flowSpy" /> </center>
+<center> <img src="../inst/figures/algorithm.jpg" alt="Workflow of CytoTree" /> </center>
 
-<center> **Fig. 1  Workflow of flowSpy** </center>
+<center> **Fig. 1  Workflow of CytoTree** </center>
 
 ## References
 

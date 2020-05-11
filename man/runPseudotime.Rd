@@ -14,7 +14,7 @@ runPseudotime(
 )
 }
 \arguments{
-\item{object}{An FSPY object}
+\item{object}{An CYT object}
 
 \item{mode}{character. Specifies how igraph should interpret the supplied matrix.
 Possible values are: directed, undirected, upper, lower, max, min, plus.}
@@ -29,7 +29,7 @@ pseudotime: raw, umap, tsne, dc and pca. By default is raw.}
 \item{...}{Parameters passing to calculation function.}
 }
 \value{
-An FSPY object
+An CYT object
 }
 \description{
 calculation of Pseudotime based on KNN
@@ -38,18 +38,18 @@ calculation of Pseudotime based on KNN
 
 if (FALSE) {
 
-fspy <- runPseudotime(fspy, verbose = TRUE, dim.type = "raw")
-fspy <- runPseudotime(fspy, verbose = TRUE, dim.type = "umap", dim.use = 1:2)
-fspy <- runPseudotime(fspy, verbose = TRUE, dim.type = "tsne", dim.use = 1:2)
-fspy <- runPseudotime(fspy, verbose = TRUE, dim.type = "dc", dim.use = 1:3)
-fspy <- runPseudotime(fspy, verbose = TRUE, dim.type = "pca", dim.use = 1:3)
+cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "raw")
+cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "umap", dim.use = 1:2)
+cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "tsne", dim.use = 1:2)
+cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "dc", dim.use = 1:3)
+cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "pca", dim.use = 1:3)
 
 # tSNE plot colored by pseudotime
-plot2D(fspy, item.use = c("tSNE_1", "tSNE_2"), category = "numeric",
+plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), category = "numeric",
        size = 1, color.by = "pseudotime") +
        scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
 # UMAP plot colored by pseudotime
-plot2D(fspy, item.use = c("UMAP_1", "UMAP_2"), category = "numeric",
+plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), category = "numeric",
        size = 1, color.by = "pseudotime") +
        scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
 }

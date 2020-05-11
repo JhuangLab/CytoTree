@@ -2,12 +2,12 @@
 % Please edit documentation in R/utils.R
 \name{fetchCell}
 \alias{fetchCell}
-\title{Fetching cellls of FSPY}
+\title{Fetching cellls of CYT}
 \usage{
 fetchCell(object, logical.connect = "or", verbose = FALSE, ...)
 }
 \arguments{
-\item{object}{An FSPY object}
+\item{object}{An CYT object}
 
 \item{logical.connect}{character. "and" or "or"}
 
@@ -19,14 +19,14 @@ fetchCell(object, logical.connect = "or", verbose = FALSE, ...)
 a vector containing cell names
 }
 \description{
-Fetching cellls of FSPY
+Fetching cellls of CYT
 }
 \examples{
 
 if (FALSE) {
-cell.fetch <- fetchCell(fspy, traj.value.log = 0.01)
-cell.fetch <- fetchCell(fspy, stage = c("D0", "D10"))
-cell.fetch <- fetchCell(fspy, stage = c("D0", "D10"), traj.value.log = 0.01,
+cell.fetch <- fetchCell(cyt, traj.value.log = 0.01)
+cell.fetch <- fetchCell(cyt, stage = c("D0", "D10"))
+cell.fetch <- fetchCell(cyt, stage = c("D0", "D10"), traj.value.log = 0.01,
                         logical.connect = "or")
 }
 

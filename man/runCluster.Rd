@@ -12,7 +12,7 @@ runCluster(
 )
 }
 \arguments{
-\item{object}{an FSPY object}
+\item{object}{an CYT object}
 
 \item{cluster.method}{character. Four clustering method are provided: som, clara, kmeans and phenograph.
 Clustering method "hclust" and "mclust" are not recommended because of long computing time.}
@@ -22,7 +22,7 @@ Clustering method "hclust" and "mclust" are not recommended because of long comp
 \item{...}{options to pass on to the clustering functions.}
 }
 \value{
-An FSPY object with cluster
+An CYT object with cluster
 }
 \description{
 Compute a specific clustering using the combined flow
@@ -33,28 +33,28 @@ Compute a specific clustering using the combined flow
 \examples{
 
 if (FALSE) {
-# After building an FSPY object
+# After building an CYT object
 # Set random seed to make results reproducible
 
 set.seed(1)
-fspy <- runCluster(fspy, cluster.method = "som", xdim = 3, ydim = 3, verbose = TURE)
+cyt <- runCluster(cyt, cluster.method = "som", xdim = 3, ydim = 3, verbose = TURE)
 
 # K-means clustering
-fspy <- runCluster(fspy, cluster.method = "kmeans", k = 9, verbose = TRUE)
+cyt <- runCluster(cyt, cluster.method = "kmeans", k = 9, verbose = TRUE)
 
 # Clara clustering
-fspy <- runCluster(fspy, cluster.method = "clara", k = 9, verbose = TRUE)
+cyt <- runCluster(cyt, cluster.method = "clara", k = 9, verbose = TRUE)
 
 # phenoGraph clustering
-fspy <- runCluster(fspy, cluster.method = "phenograph", verbose = TRUE)
+cyt <- runCluster(cyt, cluster.method = "phenograph", verbose = TRUE)
 
 # hclust clustering
 # not recommended for large cell size
-fspy <- runCluster(fspy, cluster.method = "hclust", k = 9, verbose = TRUE)
+cyt <- runCluster(cyt, cluster.method = "hclust", k = 9, verbose = TRUE)
 
 # mclust clustering
 # not recommended for large cell size
-fspy <- runCluster(fspy, cluster.method = "mclust", verbose = TRUE)
+cyt <- runCluster(cyt, cluster.method = "mclust", verbose = TRUE)
 }
 
 }

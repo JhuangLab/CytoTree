@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot2D.R
 \name{plotBranchHeatmap}
 \alias{plotBranchHeatmap}
-\title{Visualization heatmap of branch data of FSPY}
+\title{Visualization heatmap of branch data of CYT}
 \usage{
 plotBranchHeatmap(
   object,
@@ -12,7 +12,7 @@ plotBranchHeatmap(
 )
 }
 \arguments{
-\item{object}{An FSPY object}
+\item{object}{An CYT object}
 
 \item{color}{vector. Colors used in heatmap.}
 
@@ -26,16 +26,16 @@ the row direction or the column direction, or none. Corresponding values are
 ggplot2 figure
 }
 \description{
-Visualization heatmap of branch data of FSPY
+Visualization heatmap of branch data of CYT
 }
 \examples{
 
 if (FALSE) {
 
-plotBranchHeatmap(fspy)
-plotBranchHeatmap(fspy, color = colorRampPalette(c("purple","white","yellow"))(100))
-plotBranchHeatmap(fspy, cluster_row = FALSE)
-plotBranchHeatmap(fspy, cluster_row = FALSE, cluster_col = FALSE)
+plotBranchHeatmap(cyt)
+plotBranchHeatmap(cyt, color = colorRampPalette(c("purple","white","yellow"))(100))
+plotBranchHeatmap(cyt, cluster_row = FALSE)
+plotBranchHeatmap(cyt, cluster_row = FALSE, cluster_col = FALSE)
 
 }
 

@@ -6,7 +6,7 @@
 #'
 #' @description Walk between root cells and leaf cells
 #'
-#' @param object An FSPY object
+#' @param object An CYT object
 #' @param mode character. Specifies how igraph should interpret the supplied matrix.
 #'    Possible values are: undirected, directed, upper, lower, max, min, plus. By 
 #'    default is undirected.
@@ -18,15 +18,15 @@
 #'
 #' @importFrom igraph graph.adjacency simplify shortest_paths
 #'
-#' @return An FSPY object
+#' @return An CYT object
 #'
 #' @export
 #'
 #' @examples
 #'
 #' if (FALSE) {
-#'   fspy <- runWalk(fspy, verbose = TRUE)
-#'   fspy <- runWalk(fspy, backward.walk = FALSE, verbose = TRUE)
+#'   cyt <- runWalk(cyt, verbose = TRUE)
+#'   cyt <- runWalk(cyt, backward.walk = FALSE, verbose = TRUE)
 #' }
 #'
 #'
@@ -38,7 +38,7 @@ runWalk <- function(object, mode = c("undirected", "directed", "max", "min", "up
 
   if (missing(object)) stop(Sys.time(), " [ERROR] object is missing.")
 
-  if (dim(object@knn.index)[1] == 0) stop(Sys.time(), " [ERROR] KNN information is missing in FSPY, please run runKNN first.")
+  if (dim(object@knn.index)[1] == 0) stop(Sys.time(), " [ERROR] KNN information is missing in CYT, please run runKNN first.")
 
   if (verbose) message(Sys.time(), " [INFO] Calculating walk between root.cells and leaf.cells .")
 

@@ -2,12 +2,12 @@
 % Please edit documentation in R/utils.R
 \name{fetchClustMeta}
 \alias{fetchClustMeta}
-\title{Fetching clusters' metadata of FSPY}
+\title{Fetching clusters' metadata of CYT}
 \usage{
 fetchClustMeta(object, verbose = FALSE)
 }
 \arguments{
-\item{object}{An FSPY object}
+\item{object}{An CYT object}
 
 \item{verbose}{logical. Whether to print calculation progress.}
 }
@@ -15,12 +15,12 @@ fetchClustMeta(object, verbose = FALSE)
 a data.frame containing clustering information for visualization
 }
 \description{
-Fetching clusters' metadata of FSPY
+Fetching clusters' metadata of CYT
 }
 \examples{
 
 if (FALSE) {
-clust.data <- fetchClustMeta(fspy)
+clust.data <- fetchClustMeta(cyt)
 head(clust.data)
 }
 

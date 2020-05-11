@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot2D.R
 \name{plotHeatmap}
 \alias{plotHeatmap}
-\title{Visualization heatmap of data of FSPY}
+\title{Visualization heatmap of data of CYT}
 \usage{
 plotHeatmap(
   object,
@@ -16,7 +16,7 @@ plotHeatmap(
 )
 }
 \arguments{
-\item{object}{An FSPY object}
+\item{object}{An CYT object}
 
 \item{markers}{vector. markers to plot on the heatmap}
 
@@ -38,16 +38,16 @@ the row direction or the column direction, or none. Corresponding values are
 ggplot2 figure
 }
 \description{
-Visualization heatmap of data of FSPY
+Visualization heatmap of data of CYT
 }
 \examples{
 
 if (FALSE) {
 
-plotHeatmap(fspy)
-plotHeatmap(fspy, cluster_rows = T)
-plotHeatmap(fspy, cluster_rows = T, clustering_method = "ward.D")
-plotHeatmap(fspy, cluster_rows = T, cluster_cols = T)
+plotHeatmap(cyt)
+plotHeatmap(cyt, cluster_rows = T)
+plotHeatmap(cyt, cluster_rows = T, clustering_method = "ward.D")
+plotHeatmap(cyt, cluster_rows = T, cluster_cols = T)
 
 }
 

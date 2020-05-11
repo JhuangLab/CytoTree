@@ -2,25 +2,25 @@
 % Please edit documentation in R/utils.R
 \name{updateClustMeta}
 \alias{updateClustMeta}
-\title{Update clusters' meta information of FSPY}
+\title{Update clusters' meta information of CYT}
 \usage{
 updateClustMeta(object, verbose = TRUE)
 }
 \arguments{
-\item{object}{An FSPY object}
+\item{object}{An CYT object}
 
 \item{verbose}{logical. Whether to print calculation progress.}
 }
 \value{
-An FSPY object
+An CYT object
 }
 \description{
-Update clusters' meta information of FSPY
+Update clusters' meta information of CYT
 }
 \examples{
 
 if (FALSE) {
-fspy <- updateClustMeta(fspy)
+cyt <- updateClustMeta(cyt)
 }
 
 }

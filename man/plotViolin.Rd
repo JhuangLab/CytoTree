@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot2D.R
 \name{plotViolin}
 \alias{plotViolin}
-\title{Visualization violin plot of FSPY}
+\title{Visualization violin plot of CYT}
 \usage{
 plotViolin(
   object,
@@ -11,12 +11,12 @@ plotViolin(
   order.by = NULL,
   size = 1,
   text.angle = 0,
-  main = "Violin plot FSPY",
+  main = "Violin plot CYT",
   plot.theme = theme_bw()
 )
 }
 \arguments{
-\item{object}{An FSPY object}
+\item{object}{An CYT object}
 
 \item{marker}{character. Markers used to plot}
 
@@ -37,13 +37,13 @@ of plot.meta, or it can be just "density" (the default value).}
 ggplot2 figure
 }
 \description{
-Visualization violin plot of FSPY
+Visualization violin plot of CYT
 }
 \examples{
 
 if (FALSE) {
-plotViolin(fspy, marker = "CD34")
-plotViolin(fspy, marker = "CD34", order.by = "pseudotime")
+plotViolin(cyt, marker = "CD34")
+plotViolin(cyt, marker = "CD34", order.by = "pseudotime")
 }
 
 }

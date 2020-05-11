@@ -1,9 +1,9 @@
 #'
-#' Calculate principal components in FSPY
+#' Calculate principal components in CYT
 #'
 #' @name runFastPCA
 #'
-#' @param object an FSPY object
+#' @param object an CYT object
 #' @param center logical, a logical value indicating whether the variables
 #'    should be shifted to be zero centered. Alternately, a vector
 #'    of length equal the number of columns of x can be supplied.
@@ -21,11 +21,11 @@
 #' @seealso \code{\link[gmodels]{fast.prcomp}}
 #'
 #' @export
-#' @return An FSPY object with PCA
+#' @return An CYT object with PCA
 #' @examples
 #'
 #' if (FALSE) {
-#' fspy <- runFastPCA(fspy, verbose = TRUE)
+#' cyt <- runFastPCA(cyt, verbose = TRUE)
 #' }
 #'
 runFastPCA <- function(object, center = FALSE, scale. = TRUE,

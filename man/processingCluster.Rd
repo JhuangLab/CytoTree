@@ -17,7 +17,7 @@ processingCluster(
 )
 }
 \arguments{
-\item{object}{an FSPY object}
+\item{object}{an CYT object}
 
 \item{perplexity}{numeric. Perplexity parameter (should not be bigger than 3 *
 perplexity < nrow(X) - 1, see details for interpretation). See \code{\link[Rtsne]{Rtsne}}
@@ -40,9 +40,9 @@ an uniform downsampling will be processed.}
 \item{...}{options to pass on to the dimensionality reduction functions.}
 }
 \value{
-An FSPY object with cluster.id in meta.data
+An CYT object with cluster.id in meta.data
 
-An FSPY object with dimensionality reduction of clusters
+An CYT object with dimensionality reduction of clusters
 }
 \description{
 Calculate Principal Components Analysis (PCA), t-Distributed
@@ -55,17 +55,17 @@ if (FALSE) {
 
 # After running clustering
 set.seed(1)
-fspy <- runCluster(fspy, cluster.method = "som", xdim = 3, ydim = 3, verbose = T)
+cyt <- runCluster(cyt, cluster.method = "som", xdim = 3, ydim = 3, verbose = T)
 
 # Do not perfrom downsampling
-fspy <- processingCluster(fspy, perplexity = 2)
+cyt <- processingCluster(cyt, perplexity = 2)
 
 # Perform cluster based downsampling
 # Only keep 50\% cells
-fspy <- processingCluster(fspy, perplexity = 2, downsampling.size = 0.5)
+cyt <- processingCluster(cyt, perplexity = 2, downsampling.size = 0.5)
 
 # Processing clusters without downsampling step
-fspy <- processingCluster(fspy, perplexity = 2, force.resample = FALSE)
+cyt <- processingCluster(cyt, perplexity = 2, force.resample = FALSE)
 
 }
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/knn.R
 \name{runKNN}
 \alias{runKNN}
-\title{Calculate k-nearest neighbors of FSPY}
+\title{Calculate k-nearest neighbors of CYT}
 \usage{
 runKNN(
   object,
@@ -14,20 +14,20 @@ runKNN(
 )
 }
 \arguments{
-\item{object}{an FSPY object}
+\item{object}{an CYT object}
 
 \item{given.mat}{matrix. Given matrix to run knn}
 
 \item{knn}{numeric. Number of k-nearest neighbors.}
 
-\item{knn.replace}{logic. Whether to replace knn in FSPY object}
+\item{knn.replace}{logic. Whether to replace knn in CYT object}
 
 \item{verbose}{logical. Whether to print calculation progress.}
 
 \item{...}{Parameters passing to \code{\link[BiocNeighbors]{findKNN}} function}
 }
 \value{
-An FSPY object with knn, knn.index and knn.distance information.
+An CYT object with knn, knn.index and knn.distance information.
 }
 \description{
 Calculates and stores a k-nearest neighbor graph based on Euclidean
@@ -37,7 +37,7 @@ Calculates and stores a k-nearest neighbor graph based on Euclidean
 \examples{
 if (FALSE) {
 
-fspy <- runKNN(fspy)
+cyt <- runKNN(cyt)
 
 }
 

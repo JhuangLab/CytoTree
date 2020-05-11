@@ -1,9 +1,9 @@
 #'
-#' Calculate diffusion map in FSPY
+#' Calculate diffusion map in CYT
 #'
 #' @name runDiffusionMap
 #'
-#' @param object an FSPY object
+#' @param object an CYT object
 #' @param sigma.use numeric. Diffusion scale parameter of the Gaussian kernel. One of '\code{local}',
 #'     '\code{global}', a \code{\link[base]{numeric}} global sigma or a Sigmas object.
 #'     When choosing '\code{global}', a global sigma will be calculated using find_sigmas
@@ -21,12 +21,12 @@
 #' @import destiny
 #'
 #' @export
-#' @return An FSPY object
+#' @return An CYT object
 #'
 #' @examples
 #'
 #' if (FALSE) {
-#' fspy <- runDiffusionMap(fspy, verbose = TRUE)
+#' cyt <- runDiffusionMap(cyt, verbose = TRUE)
 #' }
 #'
 runDiffusionMap <- function(object, sigma.use = NULL,

@@ -13,7 +13,7 @@ buildTree(
 )
 }
 \arguments{
-\item{object}{an FSPY object}
+\item{object}{an CYT object}
 
 \item{method}{character. Mehtod to build MST.}
 
@@ -28,7 +28,7 @@ And if the \code{dim.use} is 'tsne' or 'umap', the default \code{dim.use} is 1:2
 \item{verbose}{logical. Whether to print calculation progress.}
 }
 \value{
-An FSPY object with tree
+An CYT object with tree
 }
 \description{
 buildTree
@@ -37,19 +37,19 @@ buildTree
 
 if (FALSE) {
 # build minimum spanning tree (MST) based on raw expression matrix
-fspy <- buildTree(fspy, dim.type = "raw")
+cyt <- buildTree(cyt, dim.type = "raw")
 
 # build minimum spanning tree (MST) based on tsne
-fspy <- buildTree(fspy, dim.type = "tsne", dim.use = 1:2)
+cyt <- buildTree(cyt, dim.type = "tsne", dim.use = 1:2)
 
 # Using PCA
-fspy <- buildTree(fspy, dim.type = "pca", dim.use = 1:4)
+cyt <- buildTree(cyt, dim.type = "pca", dim.use = 1:4)
 
 # Using UMAP
-fspy <- buildTree(fspy, dim.type = "umap", dim.use = 1:2)
+cyt <- buildTree(cyt, dim.type = "umap", dim.use = 1:2)
 
 # Using Diffusion Maps
-fspy <- buildTree(fspy, dim.type = "dc", dim.use = 1:3)
+cyt <- buildTree(cyt, dim.type = "dc", dim.use = 1:3)
 }
 
 }

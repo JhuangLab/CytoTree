@@ -1,9 +1,9 @@
 #'
-#' Visualization of 3D data of FSPY
+#' Visualization of 3D data of CYT
 #'
 #' @name plot3D
 #'
-#' @param object An FSPY object
+#' @param object An CYT object
 #' @param item.use character. Items use to 3D plot, axes x and y and z must be numeric.
 #' @param color.by character. Dot or mesh color by which character. It can be one of the column
 #'     of plot.meta, or it can be just "density" (the default value).
@@ -25,7 +25,7 @@
 #'
 #' if (FALSE) {
 #'
-#'  plot3D(fspy, item.use = c("DC_2","DC_1","DC_3"), color.by = "stage",
+#'  plot3D(cyt, item.use = c("DC_2","DC_1","DC_3"), color.by = "stage",
 #'         size = 0.5, angle = 60, color.theme = c("#FF99FF","#7A06A0","#FF3222"))
 #'
 #' }
@@ -38,7 +38,7 @@ plot3D <- function(object,
                    angle = 60,
                    scale.y = 0.8,
                    category = "categorical",
-                   main = "3D plot of FSPY",
+                   main = "3D plot of CYT",
                    color.theme = NULL,
                    ...) {
 
@@ -52,9 +52,9 @@ plot3D <- function(object,
     plot.meta <- cbind(plot.meta, sub)
   }
 
-  if ( !all(item.use %in% colnames(plot.meta)) ) stop(Sys.time(), " [ERROR] item.use is not in plot.meta of FSPY, please run updatePlotMeta first.")
+  if ( !all(item.use %in% colnames(plot.meta)) ) stop(Sys.time(), " [ERROR] item.use is not in plot.meta of CYT, please run updatePlotMeta first.")
 
-  if ( !all(color.by %in% colnames(plot.meta)) ) stop(Sys.time(), " [ERROR] item.use is not in plot.meta of FSPY, please run updatePlotMeta first.")
+  if ( !all(color.by %in% colnames(plot.meta)) ) stop(Sys.time(), " [ERROR] item.use is not in plot.meta of CYT, please run updatePlotMeta first.")
 
   if (length(item.use) < 3) stop(Sys.time(), " [ERROR] item.use is less than two characters.")
   if (length(item.use) > 3) {

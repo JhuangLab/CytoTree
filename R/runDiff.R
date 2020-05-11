@@ -5,7 +5,7 @@
 #'
 #' @description Calculating differentially expressed markers
 #'
-#' @param object an FSPY object
+#' @param object an CYT object
 #' @param branch.id vector. Branch ids use to run differentially expressed markers
 #' @param branch.id.2 vector. Branch ids use to run differentially expressed
 #'    markers in compare with branch.id
@@ -13,7 +13,7 @@
 #'
 #' @seealso  \code{bulidTree}
 #'
-#' @return An FSPY object with cluster.id in meta.data
+#' @return An CYT object with cluster.id in meta.data
 #'
 #' @import limma
 #' @importFrom stringr str_replace_all fixed
@@ -26,7 +26,7 @@
 #'
 #' if (FALSE) {
 #'
-#' DEG.table <- runDiff(fspy)
+#' DEG.table <- runDiff(cyt)
 #'
 #' }
 #'
@@ -35,7 +35,7 @@
 runDiff <- function(object, branch.id = NULL, branch.id.2 = NULL, verbose = FALSE) {
 
   if (verbose) message(Sys.time(), " [INFO] Calculating differentially expressed markers.")
-  if (missing(object)) stop(Sys.time(), " [ERROR] FSPY object is missing.")
+  if (missing(object)) stop(Sys.time(), " [ERROR] CYT object is missing.")
   if (!"branch.id" %in% colnames(object@meta.data)) stop(Sys.time(), " [ERROR] branch.id is missing, please run buildTree first.")
 
   all.branch.ids <- unique(object@meta.data$branch.id)

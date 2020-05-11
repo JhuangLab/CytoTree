@@ -1,9 +1,9 @@
 #'
-#' Visualization of 2D data of FSPY
+#' Visualization of 2D data of CYT
 #'
 #' @name plot2D
 #'
-#' @param object An FSPY object
+#' @param object An CYT object
 #' @param item.use character. Items use to 2D plot, axes x and y must be numeric.
 #' @param color.by character. Dot or mesh color by which character. It can be one of the column
 #'     of plot.meta, or it can be just "density" (the default value).
@@ -27,68 +27,68 @@
 #' if (FALSE) {
 #'
 #' # Default plot
-#' plot2D(fspy)
+#' plot2D(cyt)
 #'
 #' # PCA plot
-#' plot2D(fspy, item.use = c("PC_1", "PC_2"))
-#' plot2D(fspy, item.use = c("PC_1", "PC_2"), color.by = "cluster.id")
-#' plot2D(fspy, item.use = c("PC_1", "PC_2"), color.by = "stage")
-#' plot2D(fspy, item.use = c("PC_2", "PC_3"), color.by = "stage") +
+#' plot2D(cyt, item.use = c("PC_1", "PC_2"))
+#' plot2D(cyt, item.use = c("PC_1", "PC_2"), color.by = "cluster.id")
+#' plot2D(cyt, item.use = c("PC_1", "PC_2"), color.by = "stage")
+#' plot2D(cyt, item.use = c("PC_2", "PC_3"), color.by = "stage") +
 #'   scale_color_manual(values = c("#00599F","#009900","#FF9933",
 #'                                 "#FF99FF","#7A06A0","#FF3222"))
-#' plot2D(fspy, item.use = c("PC_2", "PC_3"), color.by = "CD43",
+#' plot2D(cyt, item.use = c("PC_2", "PC_3"), color.by = "CD43",
 #'        category = "numeric")
-#' plot2D(fspy, item.use = c("PC_2", "PC_3"), color.by = "CD43",
+#' plot2D(cyt, item.use = c("PC_2", "PC_3"), color.by = "CD43",
 #'        category = "numeric") +
 #'        scale_colour_gradientn(colors = c("blue","white","red"))
 #'
 #' # tSNE plot
-#' plot2D(fspy, item.use = c("tSNE_1", "tSNE_2"))
-#' plot2D(fspy, item.use = c("tSNE_1", "tSNE_2"), color.by = "stage")
-#' plot2D(fspy, item.use = c("tSNE_1", "tSNE_2"), color.by = "cluster.id",
+#' plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"))
+#' plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), color.by = "stage")
+#' plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), color.by = "cluster.id",
 #'        alpha = 0.5, main = "tSNE Plot")
-#' plot2D(fspy, item.use = c("tSNE_1", "tSNE_2"), color.by = "cluster.id",
+#' plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), color.by = "cluster.id",
 #'        alpha = 1, main = "tSNE Plot", show.cluser.id = T)
-#' plot2D(fspy, item.use = c("tSNE_1", "tSNE_2"), color.by = "CD43",
+#' plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), color.by = "CD43",
 #'        category = "numeric", size = 3) +
 #'        scale_colour_gradientn(colors = c("blue","white","red"))
-#' plot2D(fspy, item.use = c("tSNE_1", "tSNE_2"), color.by = "stage") +
+#' plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), color.by = "stage") +
 #'   scale_color_manual(values = c("#00599F","#009900","#FF9933",
 #'                                 "#FF99FF","#7A06A0","#FF3222"))
 #'
 #' # Diffusion Map plot
-#' plot2D(fspy, item.use = c("DC_1", "DC_2"))
-#' plot2D(fspy, item.use = c("DC_1", "DC_2"), color.by = "stage")
-#' plot2D(fspy, item.use = c("DC_2", "DC_3"), color.by = "cluster.id",
+#' plot2D(cyt, item.use = c("DC_1", "DC_2"))
+#' plot2D(cyt, item.use = c("DC_1", "DC_2"), color.by = "stage")
+#' plot2D(cyt, item.use = c("DC_2", "DC_3"), color.by = "cluster.id",
 #'        alpha = 0.5, main = "Diffusion Map Plot")
-#' plot2D(fspy, item.use = c("DC_2", "DC_3"), color.by = "cluster.id",
+#' plot2D(cyt, item.use = c("DC_2", "DC_3"), color.by = "cluster.id",
 #'        alpha = 1, main = "Diffusion Map Plot", show.cluser.id = T)
-#' plot2D(fspy, item.use = c("DC_1", "DC_2"), color.by = "CD43",
+#' plot2D(cyt, item.use = c("DC_1", "DC_2"), color.by = "CD43",
 #'        category = "numeric", size = 3) +
 #'        scale_colour_gradientn(colors = c("blue","white","red"))
 #'
 #' # UMAP plot
-#' plot2D(fspy, item.use = c("UMAP_1", "UMAP_2"))
-#' plot2D(fspy, item.use = c("UMAP_1", "UMAP_2"), color.by = "stage")
-#' plot2D(fspy, item.use = c("UMAP_1", "UMAP_2"), color.by = "cluster.id",
+#' plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"))
+#' plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), color.by = "stage")
+#' plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), color.by = "cluster.id",
 #'        alpha = 0.5, main = "UMAP Plot")
-#' plot2D(fspy, item.use = c("UMAP_1", "UMAP_2"), color.by = "cluster.id",
+#' plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), color.by = "cluster.id",
 #'        alpha = 1, main = "UMAP Plot", show.cluser.id = T)
-#' plot2D(fspy, item.use = c("UMAP_1", "UMAP_2"), color.by = "CD43",
+#' plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), color.by = "CD43",
 #'        category = "numeric", size = 3) +
 #'        scale_colour_gradientn(colors = c("blue","white","red"))
-#' plot2D(fspy, item.use = c("UMAP_1", "UMAP_2"), color.by = "stage") +
+#' plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), color.by = "stage") +
 #'   scale_color_manual(values = c("#00599F","#009900","#FF9933",
 #'                                 "#FF99FF","#7A06A0","#FF3222"))
 #'
 #' # Marker Plot
-#' plot2D(fspy, item.use = c("CD43", "CD90"), color.by = "cluster.id")
-#' plot2D(fspy, item.use = c("CD34", "CD90"), color.by = "CD43",
+#' plot2D(cyt, item.use = c("CD43", "CD90"), color.by = "cluster.id")
+#' plot2D(cyt, item.use = c("CD34", "CD90"), color.by = "CD43",
 #'        category = "numeric", size = 3) +
 #'        scale_colour_gradientn(colors = c("blue","white","red"))
 #'
 #' # Pseudotime
-#' plot2D(fspy, item.use = c("pseudotime", "CD43"), color.by = "stage")
+#' plot2D(cyt, item.use = c("pseudotime", "CD43"), color.by = "stage")
 #'
 #' }
 #'
@@ -101,7 +101,7 @@ plot2D <- function(object,
                    category = "categorical",
                    show.cluser.id = FALSE,
                    show.cluser.id.size = 4,
-                   main = "2D plot of FSPY",
+                   main = "2D plot of CYT",
                    plot.theme = theme_bw()) {
 
   # update and fetch plot meta information
@@ -116,10 +116,10 @@ plot2D <- function(object,
   }
 
   # check item.use parameter in plot.meta data.frame
-  if ( !all(item.use %in% colnames(plot.meta)) ) stop(Sys.time(), " [ERROR] item.use is not in plot.meta of FSPY, please run updatePlotMeta first.")
+  if ( !all(item.use %in% colnames(plot.meta)) ) stop(Sys.time(), " [ERROR] item.use is not in plot.meta of CYT, please run updatePlotMeta first.")
 
   # check color.by parameter in plot.meta data.frame
-  if ( !all(color.by %in% colnames(plot.meta)) ) stop(Sys.time(), " [ERROR] color.by is not in plot.meta of FSPY, please run updatePlotMeta first.")
+  if ( !all(color.by %in% colnames(plot.meta)) ) stop(Sys.time(), " [ERROR] color.by is not in plot.meta of CYT, please run updatePlotMeta first.")
 
   if (length(item.use) < 2) stop(Sys.time(), " [ERROR] item.use is less than two elements.")
   if (length(item.use) > 2) {
@@ -181,11 +181,11 @@ plot2D <- function(object,
 }
 
 #'
-#' Visualization violin plot of FSPY
+#' Visualization violin plot of CYT
 #'
 #' @name plotViolin
 #'
-#' @param object An FSPY object
+#' @param object An CYT object
 #' @param marker character. Markers used to plot
 #' @param color.by character. Dot or mesh color by which character. It can be one of the column
 #'     of plot.meta, or it can be just "density" (the default value).
@@ -204,8 +204,8 @@ plot2D <- function(object,
 #' @examples
 #'
 #' if (FALSE) {
-#' plotViolin(fspy, marker = "CD34")
-#' plotViolin(fspy, marker = "CD34", order.by = "pseudotime")
+#' plotViolin(cyt, marker = "CD34")
+#' plotViolin(cyt, marker = "CD34", order.by = "pseudotime")
 #' }
 #'
 plotViolin <- function(object,
@@ -214,7 +214,7 @@ plotViolin <- function(object,
                        order.by = NULL,
                        size = 1,
                        text.angle = 0,
-                       main = "Violin plot FSPY",
+                       main = "Violin plot CYT",
                        plot.theme = theme_bw()) {
 
   # update plot meta information
@@ -234,7 +234,7 @@ plotViolin <- function(object,
 
 
   # check color.by parameter in plot.meta data.frame
-  if ( !all(color.by %in% colnames(plot.meta)) ) stop(Sys.time(), " [ERROR] color.by is not in plot.meta of FSPY, please run updatePlotMeta first.")
+  if ( !all(color.by %in% colnames(plot.meta)) ) stop(Sys.time(), " [ERROR] color.by is not in plot.meta of CYT, please run updatePlotMeta first.")
 
   if (length(color.by) > 1) {
     warning(Sys.time(), " [WARNING] color.by has more than one elements. Only the first one will be used")
@@ -279,11 +279,11 @@ plotViolin <- function(object,
 
 
 #'
-#' Visualization pie plot of cluster data of FSPY
+#' Visualization pie plot of cluster data of CYT
 #'
 #' @name plotPieCluster
 #'
-#' @param object An FSPY object
+#' @param object An CYT object
 #' @param item.use character. Items use to 2D plot, axes x and y must be numeric.
 #' @param cex.size numeric. Size of the dot
 #' @param size.by.cell.number logical. Whether to show size of cell number.
@@ -299,17 +299,17 @@ plotViolin <- function(object,
 #'
 #' if (FALSE) {
 #' # Runs only have more than two stages
-#' plotPieCluster(fspy, cex.size = 0.5)
+#' plotPieCluster(cyt, cex.size = 0.5)
 #'
-#' plotPieCluster(fspy, item.use = c("PC_1", "PC_2"), cex.size = 0.5)
-#' plotPieCluster(fspy, item.use = c("PC_2", "PC_3"), cex.size = 0.5)
+#' plotPieCluster(cyt, item.use = c("PC_1", "PC_2"), cex.size = 0.5)
+#' plotPieCluster(cyt, item.use = c("PC_2", "PC_3"), cex.size = 0.5)
 #'
-#' plotPieCluster(fspy, item.use = c("tSNE_1", "tSNE_2"), cex.size = 20)
+#' plotPieCluster(cyt, item.use = c("tSNE_1", "tSNE_2"), cex.size = 20)
 #'
-#' plotPieCluster(fspy, item.use = c("DC_1", "DC_2"), cex.size = 0.5)
+#' plotPieCluster(cyt, item.use = c("DC_1", "DC_2"), cex.size = 0.5)
 #'
-#' plotPieCluster(fspy, item.use = c("UMAP_1", "UMAP_2"), cex.size = 1)
-#' plotPieCluster(fspy, item.use = c("UMAP_1", "UMAP_2"), cex.size = 1) +
+#' plotPieCluster(cyt, item.use = c("UMAP_1", "UMAP_2"), cex.size = 1)
+#' plotPieCluster(cyt, item.use = c("UMAP_1", "UMAP_2"), cex.size = 1) +
 #'    scale_fill_manual(values = c("#00599F","#FF3222","#009900",
 #'                                 "#FF9933","#FF99FF","#7A06A0"))
 #' }
@@ -318,7 +318,7 @@ plotPieCluster <- function(object,
                            item.use = c("PC_1", "PC_2"),
                            cex.size = 1,
                            size.by.cell.number = TRUE,
-                           main = "2D pie plot of FSPY",
+                           main = "2D pie plot of CYT",
                            plot.theme = theme_bw()) {
 
   if (missing(object)) stop(Sys.time(), " [ERROR] object is missing")
@@ -329,7 +329,7 @@ plotPieCluster <- function(object,
   plot.data <- fetchClustMeta(object, verbose = FALSE)
 
   # check item.use parameter in cluster data.frame
-  if ( !all(item.use %in% colnames(object@cluster)) ) stop(Sys.time(), " [ERROR] item.use is not in plot.meta of FSPY, please run updatePlotMeta first.")
+  if ( !all(item.use %in% colnames(object@cluster)) ) stop(Sys.time(), " [ERROR] item.use is not in plot.meta of CYT, please run updatePlotMeta first.")
 
   if (length(item.use) < 2) stop(Sys.time(), " [ERROR] item.use is less than two elements.")
   if (length(item.use) > 2) {
@@ -362,11 +362,11 @@ plotPieCluster <- function(object,
 }
 
 #'
-#' Visualization of cluster data of FSPY
+#' Visualization of cluster data of CYT
 #'
 #' @name plotCluster
 #'
-#' @param object An FSPY object
+#' @param object An CYT object
 #' @param item.use character. Items use to 2D plot, axes x and y must be numeric.
 #' @param color.by character. Dot or mesh color by which character. It can be one of the column
 #'     of plot.meta, or it can be just "density" (the default value).
@@ -388,20 +388,20 @@ plotPieCluster <- function(object,
 #' @examples
 #'
 #' if (FALSE) {
-#' plotCluster(fspy)
+#' plotCluster(cyt)
 #'
-#' plotCluster(fspy, item.use = c("PC_1", "PC_2"))
-#' plotCluster(fspy, item.use = c("PC_2", "PC_3"))
-#' plotCluster(fspy, item.use = c("PC_2", "PC_3"), color.by = "CD43", category = "numeric")
-#' plotCluster(fspy, item.use = c("PC_2", "PC_3"), color.by = "CD43", category = "numeric") +
+#' plotCluster(cyt, item.use = c("PC_1", "PC_2"))
+#' plotCluster(cyt, item.use = c("PC_2", "PC_3"))
+#' plotCluster(cyt, item.use = c("PC_2", "PC_3"), color.by = "CD43", category = "numeric")
+#' plotCluster(cyt, item.use = c("PC_2", "PC_3"), color.by = "CD43", category = "numeric") +
 #'     scale_colour_gradientn(colors = c("blue", "white", "red"))
 #'
-#' plotCluster(fspy, item.use = c("tSNE_1", "tSNE_2"))
-#' plotCluster(fspy, item.use = c("tSNE_1", "tSNE_2"), show.cluser.id = T)
+#' plotCluster(cyt, item.use = c("tSNE_1", "tSNE_2"))
+#' plotCluster(cyt, item.use = c("tSNE_1", "tSNE_2"), show.cluser.id = T)
 #'
-#' plotCluster(fspy, item.use = c("DC_1", "DC_2"))
+#' plotCluster(cyt, item.use = c("DC_1", "DC_2"))
 #'
-#' plotCluster(fspy, item.use = c("UMAP_1", "UMAP_2"))
+#' plotCluster(cyt, item.use = c("UMAP_1", "UMAP_2"))
 #' }
 #'
 plotCluster <- function(object,
@@ -414,7 +414,7 @@ plotCluster <- function(object,
                         category = "categorical",
                         show.cluser.id = FALSE,
                         show.cluser.id.size = 4,
-                        main = "2D plot of cluster in FSPY",
+                        main = "2D plot of cluster in CYT",
                         plot.theme = theme_bw()) {
 
   # update plot meta information
@@ -422,13 +422,13 @@ plotCluster <- function(object,
   plot.meta.data <- cbind(plot.meta.data, object@cluster)
 
   # check item.use parameter in plot.meta data.frame
-  if ( !all(item.use %in% colnames(plot.meta.data)) ) stop(Sys.time(), " [ERROR] item.use is not in cluster data of FSPY, please run processingCluster first.")
+  if ( !all(item.use %in% colnames(plot.meta.data)) ) stop(Sys.time(), " [ERROR] item.use is not in cluster data of CYT, please run processingCluster first.")
 
   # check color.by parameter in plot.meta data.frame
-  if ( !all(color.by %in% colnames(plot.meta.data)) ) stop(Sys.time(), " [ERROR] color.by is not in cluster data of FSPY, please run processingCluster first.")
+  if ( !all(color.by %in% colnames(plot.meta.data)) ) stop(Sys.time(), " [ERROR] color.by is not in cluster data of CYT, please run processingCluster first.")
 
   # check size.by parameter in plot.meta data.frame
-  if ( !all(size.by %in% colnames(plot.meta.data)) ) stop(Sys.time(), " [ERROR] size.by is not in cluster data of FSPY, please run processingCluster first.")
+  if ( !all(size.by %in% colnames(plot.meta.data)) ) stop(Sys.time(), " [ERROR] size.by is not in cluster data of CYT, please run processingCluster first.")
 
   if (length(item.use) < 2) stop(Sys.time(), " [ERROR] item.use is less than two elements.")
   if (length(item.use) > 2) {
@@ -494,11 +494,11 @@ plotCluster <- function(object,
 
 
 #'
-#' Visualization heatmap of cluster data of FSPY
+#' Visualization heatmap of cluster data of CYT
 #'
 #' @name plotClusterHeatmap
 #'
-#' @param object An FSPY object
+#' @param object An CYT object
 #' @param color vector. Colors used in heatmap.
 #' @param scale character. Whether the values should be centered and scaled in either
 #'    the row direction or the column direction, or none. Corresponding values are
@@ -515,10 +515,10 @@ plotCluster <- function(object,
 #'
 #' if (FALSE) {
 #'
-#' plotClusterHeatmap(fspy)
-#' plotClusterHeatmap(fspy, color = colorRampPalette(c("purple","white","yellow"))(100))
-#' plotClusterHeatmap(fspy, cluster_row = F)
-#' plotClusterHeatmap(fspy, cluster_row = F, cluster_col = F)
+#' plotClusterHeatmap(cyt)
+#' plotClusterHeatmap(cyt, color = colorRampPalette(c("purple","white","yellow"))(100))
+#' plotClusterHeatmap(cyt, cluster_row = F)
+#' plotClusterHeatmap(cyt, cluster_row = F, cluster_col = F)
 #'
 #' }
 #'
@@ -538,11 +538,11 @@ plotClusterHeatmap <- function(object,
 }
 
 #'
-#' Visualization heatmap of branch data of FSPY
+#' Visualization heatmap of branch data of CYT
 #'
 #' @name plotBranchHeatmap
 #'
-#' @param object An FSPY object
+#' @param object An CYT object
 #' @param color vector. Colors used in heatmap.
 #' @param scale character. Whether the values should be centered and scaled in either
 #'    the row direction or the column direction, or none. Corresponding values are
@@ -560,10 +560,10 @@ plotClusterHeatmap <- function(object,
 #'
 #' if (FALSE) {
 #'
-#' plotBranchHeatmap(fspy)
-#' plotBranchHeatmap(fspy, color = colorRampPalette(c("purple","white","yellow"))(100))
-#' plotBranchHeatmap(fspy, cluster_row = FALSE)
-#' plotBranchHeatmap(fspy, cluster_row = FALSE, cluster_col = FALSE)
+#' plotBranchHeatmap(cyt)
+#' plotBranchHeatmap(cyt, color = colorRampPalette(c("purple","white","yellow"))(100))
+#' plotBranchHeatmap(cyt, cluster_row = FALSE)
+#' plotBranchHeatmap(cyt, cluster_row = FALSE, cluster_col = FALSE)
 #'
 #' }
 #'
@@ -586,11 +586,11 @@ plotBranchHeatmap <- function(object,
 }
 
 #'
-#' Visualization heatmap of intermediate cells of FSPY
+#' Visualization heatmap of intermediate cells of CYT
 #'
 #' @name plotTrajHeatmap
 #'
-#' @param object An FSPY object
+#' @param object An CYT object
 #' @param cutoff numeric. value to identify intermediate state cells
 #' @param markers markers to plot on the heatmap
 #' @param color vector. Colors used in heatmap.
@@ -610,10 +610,10 @@ plotBranchHeatmap <- function(object,
 #'
 #' if (FALSE) {
 #'
-#' plotTrajHeatmap(fspy)
-#' plotBranchHeatmap(fspy, color = colorRampPalette(c("purple","white","yellow"))(100))
-#' plotBranchHeatmap(fspy, cluster_row = FALSE)
-#' plotBranchHeatmap(fspy, cluster_row = FALSE, cluster_col = FALSE)
+#' plotTrajHeatmap(cyt)
+#' plotBranchHeatmap(cyt, color = colorRampPalette(c("purple","white","yellow"))(100))
+#' plotBranchHeatmap(cyt, cluster_row = FALSE)
+#' plotBranchHeatmap(cyt, cluster_row = FALSE, cluster_col = FALSE)
 #'
 #' }
 #'
@@ -649,11 +649,11 @@ plotTrajHeatmap <- function(object,
 
 
 #'
-#' Visualization heatmap of data of FSPY
+#' Visualization heatmap of data of CYT
 #'
 #' @name plotHeatmap
 #'
-#' @param object An FSPY object
+#' @param object An CYT object
 #' @param color vector. Colors used in heatmap.
 #' @param markers vector. markers to plot on the heatmap
 #' @param scale character. Whether the values should be centered and scaled in either
@@ -674,10 +674,10 @@ plotTrajHeatmap <- function(object,
 #'
 #' if (FALSE) {
 #'
-#' plotHeatmap(fspy)
-#' plotHeatmap(fspy, cluster_rows = T)
-#' plotHeatmap(fspy, cluster_rows = T, clustering_method = "ward.D")
-#' plotHeatmap(fspy, cluster_rows = T, cluster_cols = T)
+#' plotHeatmap(cyt)
+#' plotHeatmap(cyt, cluster_rows = T)
+#' plotHeatmap(cyt, cluster_rows = T, clustering_method = "ward.D")
+#' plotHeatmap(cyt, cluster_rows = T, cluster_cols = T)
 #'
 #' }
 #'

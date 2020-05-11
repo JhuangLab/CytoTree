@@ -7,7 +7,7 @@
 runPhenograph(object, knn = 30, scale = FALSE, verbose = FALSE, ...)
 }
 \arguments{
-\item{object}{an FSPY object.}
+\item{object}{an CYT object.}
 
 \item{knn}{numeric. Number of nearest neighbours, default is 30.}
 
@@ -18,7 +18,7 @@ runPhenograph(object, knn = 30, scale = FALSE, verbose = FALSE, ...)
 \item{...}{Parameters passing to \code{igraph} function}
 }
 \value{
-An FSPY object with cluster
+An CYT object with cluster
 }
 \description{
 A simple R implementation of the phenograph
@@ -32,7 +32,7 @@ A simple R implementation of the phenograph
 }
 \examples{
 if (FALSE) {
-fspy <- runPhenograph(fspy, knn = 30, verbose = TRUE)
+cyt <- runPhenograph(cyt, knn = 30, verbose = TRUE)
 }
 
 }

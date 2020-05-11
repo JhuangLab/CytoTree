@@ -17,7 +17,6 @@ https://github.com/JhuangLab/CytoTree-dataset
 
 You can view and clone the use cases of CytoTree on GitHub at by `git clone https://github.com/JhuangLab/CytoTree-dataset`
 
-The previous version of `CytoTree` is `flowSpy`. To aviod name conflicts in some situations, we changes the name of `flowSpy` to `CytoTree` and made some performance optimizations. 
 
 ## 1 Introduction
 
@@ -97,8 +96,8 @@ meta.data$stage <- factor(as.character(meta.data$stage), levels = day.list)
 
 markers <- c("CD43","CD34","CD90","CD45RA","CD31","CD49f","CD73","CD45","FLK1","CD38")
 
-# Build the FSPY object
-cyt <- createFSPY(raw.data = fcs.data, markers = markers,
+# Build the CYT object
+cyt <- createCYT(raw.data = fcs.data, markers = markers,
                    meta.data = meta.data,
                    normalization.method = "log",
                    verbose = TRUE)
@@ -133,8 +132,15 @@ May 10, 2020
  - Changes:
    - First commit of CytoTree
 
+## 6 Notice
 
-## 6 Reference
+
+The previous version of `CytoTree` is `flowSpy` **[link to GitHub](https://github.com/JhuangLab/CytoTree) and [link to Bioconductor](https://bioconductor.org/packages/flowSpy/)**. To improve the identification and avoid awkward duplication of names in some situations, we changed the name of `flowSpy` to `CytoTree`. `CytoTree` more fits the functional orientation of this software.
+
+We apologized for the inconvenience.
+
+
+## 7 Reference
 
 [1] Sofie Van Gassen, Britt Callebaut and Yvan Saeys (2019). FlowSOM: Using
   self-organizing maps for visualization and interpretation of cytometry data.

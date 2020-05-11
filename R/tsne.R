@@ -1,9 +1,9 @@
 #'
-#' Calculate t-Distributed Stochastic Neighbor Embedding in FSPY
+#' Calculate t-Distributed Stochastic Neighbor Embedding in CYT
 #'
 #' @name runTSNE
 #'
-#' @param object an FSPY object
+#' @param object an CYT object
 #' @param dims integer, Output dimensionality (default: 2)
 #' @param initial_dims integer. the number of dimensions that should
 #'    be retained in the initial PCA step (default: 50). See \code{\link[Rtsne]{Rtsne}}
@@ -20,7 +20,7 @@
 #'
 #' @import Rtsne
 #' @seealso \code{\link[Rtsne]{Rtsne}}
-#' @return An FSPY object
+#' @return An CYT object
 #'
 #' @references
 #'    Maaten, L. Van Der, 2014. Accelerating t-SNE using Tree-Based
@@ -35,8 +35,8 @@
 #'
 #' if (FALSE) {
 #'
-#' fspy <- runTSNE(fspy, dims = 2, verbose = TRUE)
-#' fspy <- runTSNE(fspy, dims = 2, perplexity = 20, verbose = TRUE)
+#' cyt <- runTSNE(cyt, dims = 2, verbose = TRUE)
+#' cyt <- runTSNE(cyt, dims = 2, perplexity = 20, verbose = TRUE)
 #'
 #' }
 #'

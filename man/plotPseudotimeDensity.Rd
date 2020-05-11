@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotFSPY.R
 \name{plotPseudotimeDensity}
 \alias{plotPseudotimeDensity}
-\title{plot Pseudotime density of FSPY}
+\title{plot Pseudotime density of CYT}
 \usage{
 plotPseudotimeDensity(
   object,
@@ -13,7 +13,7 @@ plotPseudotimeDensity(
 )
 }
 \arguments{
-\item{object}{an FSPY object}
+\item{object}{an CYT object}
 
 \item{color.by}{character.}
 
@@ -27,18 +27,18 @@ plotPseudotimeDensity(
 ggplot2 figure
 }
 \description{
-plot Pseudotime density of FSPY
+plot Pseudotime density of CYT
 }
 \examples{
 
 if (FALSE) {
 
-plotPseudotimeDensity(fspy)
+plotPseudotimeDensity(cyt)
 
-plotPseudotimeDensity(fspy, adjust = 1)
-plotPseudotimeDensity(fspy, adjust = 2)
+plotPseudotimeDensity(cyt, adjust = 1)
+plotPseudotimeDensity(cyt, adjust = 2)
 
-plotPseudotimeDensity(fspy, adjust = 2) +
+plotPseudotimeDensity(cyt, adjust = 2) +
   scale_color_manual(values = c("#00599F","#FF3222","#009900",
                                 "#FF9933","#FF99FF","#7A06A0"))
 

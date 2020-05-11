@@ -16,7 +16,7 @@ plotPseudotimeTraj(
 )
 }
 \arguments{
-\item{object}{An FSPY object}
+\item{object}{An CYT object}
 
 \item{cutoff}{numeric. Cutoff of trajectory value}
 
@@ -42,14 +42,14 @@ plotPseudotimeTraj
 
 if (FALSE) {
 
-plotPseudotimeTraj(fspy)
-plotPseudotimeTraj(fspy, print.curve = F)
-plotPseudotimeTraj(fspy, var.cols = T)
+plotPseudotimeTraj(cyt)
+plotPseudotimeTraj(cyt, print.curve = F)
+plotPseudotimeTraj(cyt, var.cols = T)
 
-plotPseudotimeTraj(fspy) +
+plotPseudotimeTraj(cyt) +
    scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
 
-plotPseudotimeTraj(fspy, markers = c("CD43", "CD34")) +
+plotPseudotimeTraj(cyt, markers = c("CD43", "CD34")) +
 scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
 
 }

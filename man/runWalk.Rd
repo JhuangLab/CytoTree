@@ -15,7 +15,7 @@ runWalk(
 )
 }
 \arguments{
-\item{object}{An FSPY object}
+\item{object}{An CYT object}
 
 \item{mode}{character. Specifies how igraph should interpret the supplied matrix.
 Possible values are: undirected, directed, upper, lower, max, min, plus. By 
@@ -32,7 +32,7 @@ default is undirected.}
 \item{...}{Parameters passing to calculation function.}
 }
 \value{
-An FSPY object
+An CYT object
 }
 \description{
 Walk between root cells and leaf cells
@@ -40,8 +40,8 @@ Walk between root cells and leaf cells
 \examples{
 
 if (FALSE) {
-  fspy <- runWalk(fspy, verbose = TRUE)
-  fspy <- runWalk(fspy, backward.walk = FALSE, verbose = TRUE)
+  cyt <- runWalk(cyt, verbose = TRUE)
+  cyt <- runWalk(cyt, backward.walk = FALSE, verbose = TRUE)
 }
 
 

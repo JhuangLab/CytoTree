@@ -5,11 +5,11 @@
 #'
 #' @description definition of root cells
 #'
-#' @param object an FSPY object
+#' @param object an CYT object
 #' @param root.cells vector. Cell name of the root cells
 #' @param verbose logical. Whether to print calculation progress.
 #'
-#' @return An FSPY object
+#' @return An CYT object
 #'
 #' @export
 #'
@@ -17,18 +17,18 @@
 #'
 #' if (FALSE) {
 #' # Define root cells by cluster
-#' fspy <- defRootCells(fspy, root.cells = 6, verbose = TRUE)
-#' fspy <- defRootCells(fspy, root.cells = c(6,8), verbose = TRUE)
+#' cyt <- defRootCells(cyt, root.cells = 6, verbose = TRUE)
+#' cyt <- defRootCells(cyt, root.cells = c(6,8), verbose = TRUE)
 #'
 #' # Define root cells by cell names
 #' cells <- test.meta.data$cell[which(test.meta.data$stage == "D0")]
 #' cells <- as.character(cells)
-#' fspy <- defRootCells(fspy, root.cells = cells, verbose = TRUE)
+#' cyt <- defRootCells(cyt, root.cells = cells, verbose = TRUE)
 #' }
 #'
 #'
 defRootCells <- function(object, root.cells = NULL, verbose = FALSE) {
-  if (length(object@root.cells) != 0) message(Sys.time(), " [INFO] root.cells in FSPY object exist, they will be replaced.")
+  if (length(object@root.cells) != 0) message(Sys.time(), " [INFO] root.cells in CYT object exist, they will be replaced.")
 
   if (!is.vector(root.cells)) stop(Sys.time(), " [ERROR] root.cells must be a vector")
 
@@ -62,14 +62,14 @@ defRootCells <- function(object, root.cells = NULL, verbose = FALSE) {
 #' @name defLeafCells
 #' @description definition of root cells
 #'
-#' @param object an FSPY object
+#' @param object an CYT object
 #' @param leaf.cells character or numeric. Cell name of the root cells or
 #'     cluster.id of root.cells
 #' @param pseudotime.cutoff numeric. Cutoff of pseudotime. Cells with pseudotime
 #'     over pseudotime.cutoff will be set to be leaf cells
 #' @param verbose logical. Whether to print calculation progress.
 #'
-#' @return An FSPY object
+#' @return An CYT object
 #'
 #' @export
 #'
@@ -77,18 +77,18 @@ defRootCells <- function(object, root.cells = NULL, verbose = FALSE) {
 #'
 #' if (FALSE) {
 #' # Define leaf cells by cluster
-#' fspy <- defLeafCells(fspy, leaf.cells = 1, verbose = TRUE)
-#' fspy <- defLeafCells(fspy, leaf.cells = c(1,3), verbose = TRUE)
+#' cyt <- defLeafCells(cyt, leaf.cells = 1, verbose = TRUE)
+#' cyt <- defLeafCells(cyt, leaf.cells = c(1,3), verbose = TRUE)
 #'
 #' # Define root cells by cell names
 #' cells <- test.meta.data$cell[which(test.meta.data$stage == "D10")]
 #' cells <- as.character(cells)
-#' fspy <- defLeafCells(fspy, leaf.cells = cells, verbose = TRUE)
+#' cyt <- defLeafCells(cyt, leaf.cells = cells, verbose = TRUE)
 #' }
 #'
 #'
 defLeafCells <- function(object, leaf.cells = NULL, pseudotime.cutoff = 0, verbose = FALSE) {
-  if (length(object@leaf.cells) != 0) message(Sys.time(), " [INFO] leaf.cells in FSPY object exist, they will be replaced.")
+  if (length(object@leaf.cells) != 0) message(Sys.time(), " [INFO] leaf.cells in CYT object exist, they will be replaced.")
 
   if (!is.vector(leaf.cells)) stop(Sys.time(), " [ERROR] leaf.cells must be a vector")
 
@@ -105,7 +105,7 @@ defLeafCells <- function(object, leaf.cells = NULL, pseudotime.cutoff = 0, verbo
 
   if (pseudotime.cutoff > 0) {
     if ( !all("pseudotime" %in% colnames(object@meta.data)) ) {
-      warning(Sys.time(), " [WARNING] pseudotime is not in meta.data of FSPY, please run Pseudotime first.")
+      warning(Sys.time(), " [WARNING] pseudotime is not in meta.data of CYT, please run Pseudotime first.")
       pseudotime.cutoff = 0
     }
   }
@@ -135,7 +135,7 @@ defLeafCells <- function(object, leaf.cells = NULL, pseudotime.cutoff = 0, verbo
 #'
 #' @description calculation of Pseudotime based on KNN
 #'
-#' @param object An FSPY object
+#' @param object An CYT object
 #' @param mode character. Specifies how igraph should interpret the supplied matrix.
 #'    Possible values are: directed, undirected, upper, lower, max, min, plus.
 #' @param dim.type character. Type of dimensionality reduction method used to calculate
@@ -145,7 +145,7 @@ defLeafCells <- function(object, leaf.cells = NULL, pseudotime.cutoff = 0, verbo
 #' @param ... Parameters passing to calculation function.
 #'
 #' @importFrom igraph graph.adjacency simplify distances
-#' @return An FSPY object
+#' @return An CYT object
 #'
 #' @export
 #' 
@@ -155,18 +155,18 @@ defLeafCells <- function(object, leaf.cells = NULL, pseudotime.cutoff = 0, verbo
 #'
 #' if (FALSE) {
 #' 
-#' fspy <- runPseudotime(fspy, verbose = TRUE, dim.type = "raw")
-#' fspy <- runPseudotime(fspy, verbose = TRUE, dim.type = "umap", dim.use = 1:2)
-#' fspy <- runPseudotime(fspy, verbose = TRUE, dim.type = "tsne", dim.use = 1:2)
-#' fspy <- runPseudotime(fspy, verbose = TRUE, dim.type = "dc", dim.use = 1:3)
-#' fspy <- runPseudotime(fspy, verbose = TRUE, dim.type = "pca", dim.use = 1:3)
+#' cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "raw")
+#' cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "umap", dim.use = 1:2)
+#' cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "tsne", dim.use = 1:2)
+#' cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "dc", dim.use = 1:3)
+#' cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "pca", dim.use = 1:3)
 #'
 #' # tSNE plot colored by pseudotime
-#' plot2D(fspy, item.use = c("tSNE_1", "tSNE_2"), category = "numeric",
+#' plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), category = "numeric",
 #'        size = 1, color.by = "pseudotime") +
 #'        scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
 #' # UMAP plot colored by pseudotime
-#' plot2D(fspy, item.use = c("UMAP_1", "UMAP_2"), category = "numeric",
+#' plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), category = "numeric",
 #'        size = 1, color.by = "pseudotime") +
 #'        scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
 #' }
@@ -181,7 +181,7 @@ runPseudotime <- function(object, mode = "undirected",
 
   if ("pseudotime" %in% colnames(object@meta.data)) message(Sys.time(), " [INFO] Pseudotime exists in meta.data, it will be replaced.")
 
-  if (missing(object)) stop(Sys.time(), " [ERROR] FSPY object is missing.")
+  if (missing(object)) stop(Sys.time(), " [ERROR] CYT object is missing.")
 
   dim.type <- match.arg(dim.type)
   if (dim.type %in% c("tsne", "tSNE", "TSNE", "t-SNE","t_SNE", "t") ) {

@@ -2,6 +2,6 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 jaccard_coeff <- function(idx) {
-    .Call('_flowSpy_jaccard_coeff', PACKAGE = 'flowSpy', idx)
+    .Call('_CytoTree_jaccard_coeff', PACKAGE = 'CytoTree', idx)
 }
 

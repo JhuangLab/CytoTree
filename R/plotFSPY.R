@@ -1,9 +1,9 @@
 #'
-#' plot Pseudotime density of FSPY
+#' plot Pseudotime density of CYT
 #'
 #' @name plotPseudotimeDensity
 #'
-#' @param object an FSPY object
+#' @param object an CYT object
 #' @param color.by character.
 #' @param main character. Title of the plot
 #' @param adjust numeric. A multiplicate bandwidth adjustment.
@@ -16,12 +16,12 @@
 #'
 #' if (FALSE) {
 #'
-#' plotPseudotimeDensity(fspy)
+#' plotPseudotimeDensity(cyt)
 #'
-#' plotPseudotimeDensity(fspy, adjust = 1)
-#' plotPseudotimeDensity(fspy, adjust = 2)
+#' plotPseudotimeDensity(cyt, adjust = 1)
+#' plotPseudotimeDensity(cyt, adjust = 2)
 #'
-#' plotPseudotimeDensity(fspy, adjust = 2) +
+#' plotPseudotimeDensity(cyt, adjust = 2) +
 #'   scale_color_manual(values = c("#00599F","#FF3222","#009900",
 #'                                 "#FF9933","#FF99FF","#7A06A0"))
 #'
@@ -37,9 +37,9 @@ plotPseudotimeDensity <- function(object, color.by = "stage",
   pseudotime = Pseudotime = Signal = Marker = Stage = NULL
 
   # checking items
-  if ( !all("pseudotime" %in% colnames(object@plot.meta)) ) stop(Sys.time(), " [ERROR] pseudotime is not in plot.meta of FSPY, please run Pseudotime first.")
+  if ( !all("pseudotime" %in% colnames(object@plot.meta)) ) stop(Sys.time(), " [ERROR] pseudotime is not in plot.meta of CYT, please run Pseudotime first.")
 
-  if ( !all(color.by %in% colnames(object@plot.meta)) ) stop(Sys.time(), " [ERROR] item.use is not in plot.meta of FSPY, please run updatePlotMeta first.")
+  if ( !all(color.by %in% colnames(object@plot.meta)) ) stop(Sys.time(), " [ERROR] item.use is not in plot.meta of CYT, please run updatePlotMeta first.")
 
   item.use.idx <- match("pseudotime", colnames(object@plot.meta))
   color.by.idx <- match(color.by, colnames(object@plot.meta))
@@ -69,7 +69,7 @@ plotPseudotimeDensity <- function(object, color.by = "stage",
 #'
 #' @name plotPseudotimeTraj
 #'
-#' @param object An FSPY object
+#' @param object An CYT object
 #' @param markers character. Markers used in the calculation progress
 #' @param cutoff numeric. Cutoff of trajectory value
 #' @param size numeric. Size of the dot
@@ -87,14 +87,14 @@ plotPseudotimeDensity <- function(object, color.by = "stage",
 #'
 #' if (FALSE) {
 #'
-#' plotPseudotimeTraj(fspy)
-#' plotPseudotimeTraj(fspy, print.curve = F)
-#' plotPseudotimeTraj(fspy, var.cols = T)
+#' plotPseudotimeTraj(cyt)
+#' plotPseudotimeTraj(cyt, print.curve = F)
+#' plotPseudotimeTraj(cyt, var.cols = T)
 #'
-#' plotPseudotimeTraj(fspy) +
+#' plotPseudotimeTraj(cyt) +
 #'    scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
 #'
-#' plotPseudotimeTraj(fspy, markers = c("CD43", "CD34")) +
+#' plotPseudotimeTraj(cyt, markers = c("CD43", "CD34")) +
 #' scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
 #'
 #' }
@@ -112,12 +112,12 @@ plotPseudotimeTraj <- function(object,
   object <- updatePlotMeta(object, verbose = FALSE)
 
   # checking items
-  if ( !all("pseudotime" %in% colnames(object@plot.meta)) ) stop(Sys.time(), " [ERROR] pseudotime is not in plot.meta of FSPY, please run Pseudotime first.")
+  if ( !all("pseudotime" %in% colnames(object@plot.meta)) ) stop(Sys.time(), " [ERROR] pseudotime is not in plot.meta of CYT, please run Pseudotime first.")
 
   # checking items
   if (cutoff > 0) {
     if ( !all(c("traj.value","traj.value.log") %in% colnames(object@plot.meta)) ) {
-      message(Sys.time(), " [INFO] traj.value is not in plot.meta of FSPY, please run runWalk first.")
+      message(Sys.time(), " [INFO] traj.value is not in plot.meta of CYT, please run runWalk first.")
     }
   }
   if (is.null(markers)) markers <- object@markers
@@ -177,7 +177,7 @@ plotPseudotimeTraj <- function(object,
 #'
 #' @name plotMarkerDensity
 #'
-#' @param object An FSPY object
+#' @param object An CYT object
 #' @param markers character. Markers used in the calculation progress
 #' @param cutoff numeric. Cutoff of trajectory value
 #' @param adjust numeric. Transparency (0-1) of the dot, default is 1.
@@ -192,8 +192,8 @@ plotPseudotimeTraj <- function(object,
 #'
 #' if (FALSE) {
 #'
-#' plotMarkerDensity(fspy)
-#' plotMarkerDensity(fspy, adjust = 1)
+#' plotMarkerDensity(cyt)
+#' plotMarkerDensity(cyt, adjust = 1)
 #'
 #' }
 #'
@@ -209,7 +209,7 @@ plotMarkerDensity <- function(object,
   # checking items
   if (cutoff > 0) {
     if ( !all(c("traj.value","traj.value.log") %in% colnames(object@plot.meta)) ) {
-      message(Sys.time(), " [INFO] traj.value is not in plot.meta of FSPY, please run runWalk first.")
+      message(Sys.time(), " [INFO] traj.value is not in plot.meta of CYT, please run runWalk first.")
     }
   }
   if (is.null(markers)) markers <- object@markers

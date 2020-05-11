@@ -14,7 +14,7 @@ runUMAP(
 )
 }
 \arguments{
-\item{object}{an FSPY object}
+\item{object}{an CYT object}
 
 \item{umap.config}{object of class umap.config. See \code{\link[umap]{umap}}.}
 
@@ -27,17 +27,17 @@ runUMAP(
 \item{...}{Options to pass on to the \code{\link[umap]{umap}} function}
 }
 \value{
-An FSPY object
+An CYT object
 }
 \description{
-Calculate Uniform Manifold Approximation and Projection in FSPY
+Calculate Uniform Manifold Approximation and Projection in CYT
 }
 \examples{
 
 if (FALSE) {
 
-fspy <- runUMAP(fspy, verbose = TRUE)
-fspy <- runUMAP(fspy, n_neighbors = 20, verbose = TRUE)
+cyt <- runUMAP(cyt, verbose = TRUE)
+cyt <- runUMAP(cyt, n_neighbors = 20, verbose = TRUE)
 
 }
 

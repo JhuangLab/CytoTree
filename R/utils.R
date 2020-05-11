@@ -1,18 +1,18 @@
 #'
-#' Update plot meta information of FSPY
+#' Update plot meta information of CYT
 #'
 #' @name updatePlotMeta
 #'
-#' @param object An FSPY object
+#' @param object An CYT object
 #' @param verbose logical. Whether to print calculation progress.
 #'
 #' @export
-#' @return An FSPY object
+#' @return An CYT object
 #'
 #' @examples
 #'
 #' if (FALSE) {
-#' fspy <- updatePlotMeta(fspy)
+#' cyt <- updatePlotMeta(cyt)
 #' }
 #'
 #'
@@ -40,22 +40,22 @@ updatePlotMeta <- function(object, verbose = TRUE) {
 }
 
 #'
-#' Update clusters' meta information of FSPY
+#' Update clusters' meta information of CYT
 #'
 #' @name updateClustMeta
 #'
-#' @param object An FSPY object
+#' @param object An CYT object
 #' @param verbose logical. Whether to print calculation progress.
 #'
 #' @export
-#' @return An FSPY object
+#' @return An CYT object
 #'
 #' @importFrom stats aggregate
 #'
 #' @examples
 #'
 #' if (FALSE) {
-#' fspy <- updateClustMeta(fspy)
+#' cyt <- updateClustMeta(cyt)
 #' }
 #'
 updateClustMeta <- function(object, verbose = TRUE) {
@@ -101,11 +101,11 @@ updateClustMeta <- function(object, verbose = TRUE) {
 
 
 #'
-#' Fetching plot metadata of FSPY
+#' Fetching plot metadata of CYT
 #'
 #' @name fetchPlotMeta
 #'
-#' @param object An FSPY object
+#' @param object An CYT object
 #' @param markers vector. Makers fetched from expression matrix
 #' @param verbose logical. Whether to print calculation progress.
 #'
@@ -116,10 +116,10 @@ updateClustMeta <- function(object, verbose = TRUE) {
 #' @examples
 #'
 #' if (FALSE) {
-#' plot.data <- fetchPlotMeta(fspy)
+#' plot.data <- fetchPlotMeta(cyt)
 #' head(plot.data)
 #'
-#' plot.data <- fetchPlotMeta(fspy, markers = c("CD43", "CD34"))
+#' plot.data <- fetchPlotMeta(cyt, markers = c("CD43", "CD34"))
 #' head(plot.data)
 #' }
 #'
@@ -141,11 +141,11 @@ fetchPlotMeta <- function(object, markers = NULL, verbose = FALSE) {
 }
 
 #'
-#' Fetching clusters' metadata of FSPY
+#' Fetching clusters' metadata of CYT
 #'
 #' @name fetchClustMeta
 #'
-#' @param object An FSPY object
+#' @param object An CYT object
 #' @param verbose logical. Whether to print calculation progress.
 #'
 #' @return a data.frame containing clustering information for visualization
@@ -155,7 +155,7 @@ fetchPlotMeta <- function(object, markers = NULL, verbose = FALSE) {
 #' @examples
 #'
 #' if (FALSE) {
-#' clust.data <- fetchClustMeta(fspy)
+#' clust.data <- fetchClustMeta(cyt)
 #' head(clust.data)
 #' }
 #'
@@ -169,11 +169,11 @@ fetchClustMeta <- function(object, verbose = FALSE) {
 
 
 #'
-#' Fetching cellls of FSPY
+#' Fetching cellls of CYT
 #'
 #' @name fetchCell
 #'
-#' @param object An FSPY object
+#' @param object An CYT object
 #' @param logical.connect character. "and" or "or"
 #' @param verbose logical. Whether to print calculation progress.
 #' @param ... Paramters to pass to limitation
@@ -185,9 +185,9 @@ fetchClustMeta <- function(object, verbose = FALSE) {
 #' @examples
 #'
 #' if (FALSE) {
-#' cell.fetch <- fetchCell(fspy, traj.value.log = 0.01)
-#' cell.fetch <- fetchCell(fspy, stage = c("D0", "D10"))
-#' cell.fetch <- fetchCell(fspy, stage = c("D0", "D10"), traj.value.log = 0.01,
+#' cell.fetch <- fetchCell(cyt, traj.value.log = 0.01)
+#' cell.fetch <- fetchCell(cyt, stage = c("D0", "D10"))
+#' cell.fetch <- fetchCell(cyt, stage = c("D0", "D10"), traj.value.log = 0.01,
 #'                         logical.connect = "or")
 #' }
 #'

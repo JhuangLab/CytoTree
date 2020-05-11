@@ -4,9 +4,9 @@
 #' @name runUMAP
 #'
 #' @description
-#' Calculate Uniform Manifold Approximation and Projection in FSPY
+#' Calculate Uniform Manifold Approximation and Projection in CYT
 #'
-#' @param object an FSPY object
+#' @param object an CYT object
 #' @param umap.config object of class umap.config. See \code{\link[umap]{umap}}.
 #' @param n_neighbors numeric. Number of neighbors
 #' @param dims numeric. Dim of umap, you can also change it in umap.config.
@@ -15,7 +15,7 @@
 #'
 #' @import umap
 #' @seealso \code{\link[umap]{umap}}
-#' @return An FSPY object
+#' @return An CYT object
 #'
 #' @export
 #'
@@ -23,8 +23,8 @@
 #'
 #' if (FALSE) {
 #'
-#' fspy <- runUMAP(fspy, verbose = TRUE)
-#' fspy <- runUMAP(fspy, n_neighbors = 20, verbose = TRUE)
+#' cyt <- runUMAP(cyt, verbose = TRUE)
+#' cyt <- runUMAP(cyt, n_neighbors = 20, verbose = TRUE)
 #'
 #' }
 #'

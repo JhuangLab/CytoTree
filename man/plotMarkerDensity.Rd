@@ -13,7 +13,7 @@ plotMarkerDensity(
 )
 }
 \arguments{
-\item{object}{An FSPY object}
+\item{object}{An CYT object}
 
 \item{cutoff}{numeric. Cutoff of trajectory value}
 
@@ -33,8 +33,8 @@ plotMarkerDensity
 
 if (FALSE) {
 
-plotMarkerDensity(fspy)
-plotMarkerDensity(fspy, adjust = 1)
+plotMarkerDensity(cyt)
+plotMarkerDensity(cyt, adjust = 1)
 
 }
 

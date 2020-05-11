@@ -1,10 +1,10 @@
 
 #'
-#' plot MST of FSPY
+#' plot MST of CYT
 #'
 #' @name plotTree
 #'
-#' @param object an FSPY object
+#' @param object an CYT object
 #' @param cex.size numeric. size cex of the dot
 #' @param color.by numeric. size color theme of the dot
 #' @param size.by numeric. size theme of the dot
@@ -20,20 +20,20 @@
 #'
 #' if (FALSE) {
 #'
-#' plotTree(fspy)
+#' plotTree(cyt)
 #'
-#' plotTree(fspy, show.node.name = T)
+#' plotTree(cyt, show.node.name = T)
 #'
-#' plotTree(fspy, color.by = "CD43", show.node.name = T, cex.size = 1) +
+#' plotTree(cyt, color.by = "CD43", show.node.name = T, cex.size = 1) +
 #'     scale_colour_gradientn(colors = c("#00599F", "#EEEEEE", "#FF3222"))
 #'
-#' plotTree(fspy, color.by = "D0.percent", show.node.name = T, cex.size = 1) +
+#' plotTree(cyt, color.by = "D0.percent", show.node.name = T, cex.size = 1) +
 #'     scale_colour_gradientn(colors = c("#00599F", "#EEEEEE", "#FF3222"))
 #'
-#' plotTree(fspy, color.by = "D2.percent", show.node.name = T, cex.size = 1) +
+#' plotTree(cyt, color.by = "D2.percent", show.node.name = T, cex.size = 1) +
 #'     scale_colour_gradientn(colors = c("#00599F", "#EEEEEE", "#FF3222"))
 #'
-#' plotTree(fspy, color.by = "pseudotime", cex.size = 1) +
+#' plotTree(cyt, color.by = "pseudotime", cex.size = 1) +
 #'     scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
 #'
 #' }
@@ -96,11 +96,11 @@ plotTree <- function(object,
 
 
 #'
-#' plot MST pie of FSPY
+#' plot MST pie of CYT
 #'
 #' @name plotPieTree
 #'
-#' @param object an FSPY object
+#' @param object an CYT object
 #' @param cex.size numeric. size cex of the dot
 #' @param size.by.cell.number logical. Whether to size node by cell number
 #' @param as.tree logical. Whether to show node as tree
@@ -117,7 +117,7 @@ plotTree <- function(object,
 #' if (FALSE) {
 #'
 #' # Runs only have two or more stages
-#' plotPieTree(fspy, cex.size = 1, size.by.cell.number = T) +
+#' plotPieTree(cyt, cex.size = 1, size.by.cell.number = T) +
 #'    scale_fill_manual(values = c("#00599F","#FF3222","#009900",
 #'                                 "#FF9933","#FF99FF","#7A06A0"))
 #' }

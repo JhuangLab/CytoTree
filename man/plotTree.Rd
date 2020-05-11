@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotTree.R
 \name{plotTree}
 \alias{plotTree}
-\title{plot MST of FSPY}
+\title{plot MST of CYT}
 \usage{
 plotTree(
   object,
@@ -15,7 +15,7 @@ plotTree(
 )
 }
 \arguments{
-\item{object}{an FSPY object}
+\item{object}{an CYT object}
 
 \item{cex.size}{numeric. size cex of the dot}
 
@@ -33,26 +33,26 @@ plotTree(
 ggplot2 figure
 }
 \description{
-plot MST of FSPY
+plot MST of CYT
 }
 \examples{
 
 if (FALSE) {
 
-plotTree(fspy)
+plotTree(cyt)
 
-plotTree(fspy, show.node.name = T)
+plotTree(cyt, show.node.name = T)
 
-plotTree(fspy, color.by = "CD43", show.node.name = T, cex.size = 1) +
+plotTree(cyt, color.by = "CD43", show.node.name = T, cex.size = 1) +
     scale_colour_gradientn(colors = c("#00599F", "#EEEEEE", "#FF3222"))
 
-plotTree(fspy, color.by = "D0.percent", show.node.name = T, cex.size = 1) +
+plotTree(cyt, color.by = "D0.percent", show.node.name = T, cex.size = 1) +
     scale_colour_gradientn(colors = c("#00599F", "#EEEEEE", "#FF3222"))
 
-plotTree(fspy, color.by = "D2.percent", show.node.name = T, cex.size = 1) +
+plotTree(cyt, color.by = "D2.percent", show.node.name = T, cex.size = 1) +
     scale_colour_gradientn(colors = c("#00599F", "#EEEEEE", "#FF3222"))
 
-plotTree(fspy, color.by = "pseudotime", cex.size = 1) +
+plotTree(cyt, color.by = "pseudotime", cex.size = 1) +
     scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
 
 }

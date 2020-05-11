@@ -14,14 +14,14 @@ NULL
 
 
 #'
-#' Class \code{FSPY}
+#' Class \code{CYT}
 #'
-#' @aliases FSPYclass, FSPY-class, FSPY
+#' @aliases CYTclass, CYT-class, CYT
 #'
-#' @description  All information stored in FSPY object.
-#'    You can use \code{creatFSPY} to   create an FSPY
+#' @description  All information stored in CYT object.
+#'    You can use \code{creatCYT} to   create an CYT
 #'    object. In this package, most of the functions will use
-#'    FSPY object as input, and return a modified FSPY obejct as well.
+#'    CYT object as input, and return a modified CYT obejct as well.
 #'
 #' @slot raw.data matrix. Raw signal data captured in flow
 #'     or mass cytometry.
@@ -43,7 +43,7 @@ NULL
 #' @slot som list. Store som network information calculated
 #'     using \code{\link[FlowSOM]{FlowSOM}}.
 #' @slot cluster data.frame. Cluster information
-#' @slot pca.sdev,pca.value,pca.scores PCA information of FSPY
+#' @slot pca.sdev,pca.value,pca.scores PCA information of CYT
 #'     object which are generated from \code{\link[gmodels]{fast.prcomp}}.
 #' @slot tsne.value matrix. tSNE coordinates information.
 #'     See \code{\link[Rtsne]{Rtsne}}.
@@ -66,11 +66,11 @@ NULL
 #' @slot diff.traj list. Differentiation trajectory all cells.
 #' @slot plot.meta data.frame. Plot meta information for
 #'     \code{plot2D} or \code{plot3D}.
-#' @slot tree.meta data.frame. Tree meta information of FSPY object.
+#' @slot tree.meta data.frame. Tree meta information of CYT object.
 #'
 #' @importClassesFrom destiny DiffusionMap DPT
 #'
-#' @useDynLib flowSpy
+#' @useDynLib CytoTree
 #'
 #' @export
 #'
@@ -78,7 +78,7 @@ NULL
 #' @return NULL
 #'
 #'
-setClass("FSPY", slots = c(
+setClass("CYT", slots = c(
     raw.data = "matrix",
     log.data = "matrix",
     meta.data = "data.frame",
@@ -126,7 +126,7 @@ setClass("FSPY", slots = c(
     )
 )
 
-setValidity("FSPY", function(object) {
+setValidity("CYT", function(object) {
   X <- object@log.data
   n <- nrow(X)
   p <- ncol(X)
@@ -136,13 +136,13 @@ setValidity("FSPY", function(object) {
   return(TRUE)
 })
 
-#' create an FSPY object
+#' create an CYT object
 #'
-#' @description This function is about how to build an FSPY object.
-#'    An FSPY object is the base for the whole analysizing workflow
+#' @description This function is about how to build an CYT object.
+#'    An CYT object is the base for the whole analysizing workflow
 #'    of flow and mass cytometry data.
 #'
-#' @name createFSPY
+#' @name createCYT
 #'
 #' @param raw.data matrix. Raw data read from FCS file after perform
 #'    preprocessing.
@@ -157,48 +157,47 @@ setValidity("FSPY", function(object) {
 #'    If TRUE, batch must be provided.
 #' @param normalization.method character. Normalization and transformation
 #'    method. Whether to normalize and log transformed of raw.data.
-#'    In flowSpy workflow, it's better to perform transformation of
+#'    In CytoTree workflow, it's better to perform transformation of
 #'    FCS data using \code{runExprsExtract} or \code{runExprsMerge}
-#'    before creating an FSPY object. \code{flowSpy} only provide
+#'    before creating an CYT object. \code{CytoTree} only provide
 #'    log transforma method. If you need to using truncateTransform,
 #'    scaleTransform, linearTransform, quadraticTransform and
 #'    lnTransform, see \code{flowCore} for more
 #'    information. And \code{runExprsExtract} in
-#'    \code{flowSpy}, autoLgcl, cytofAsinh, logicle, arcsinh,
+#'    \code{CytoTree}, autoLgcl, cytofAsinh, logicle, arcsinh,
 #'    and logAbs can be used to perform transformation of FCS data.
 #' @param verbose logical. Whether to print calculation progress.
-#' @param ... paramters pass to \code{correctBatchFSPY} function.
+#' @param ... paramters pass to \code{correctBatchCYT} function.
 #'
 #' @importFrom methods new
 #' @importFrom stats median
-#' @useDynLib flowSpy
+#' @useDynLib CytoTree
 #'
 #' @export
 #'
-#' @return An FSPY object with raw.data and markers and meta.data
+#' @return An CYT object with raw.data and markers and meta.data
 #'
 #' @examples
 #'
 #' if (FALSE) {
 #' ## See vignette tutorials
-#' vignette(package = "flowSpy")
-#' vignette("Quick_start", package = "flowSpy")
-#'
+#' vignette(package = "CytoTree")
+#' 
 #' ## Build using test data
 #' markers <- c("CD43", "CD34", "CD90", "CD45RA",
 #'              "CD31", "CD49f", "CD73", "FLK1", "CD38")
 #'
-#' fspy <- createFSPY(raw.data = test.fcs.data,
-#'                    markers = markers,
-#'                    meta.data = test.meta.data,
-#'                    normalization.method = "log",
-#'                    verbose = TRUE)
+#' cyt <- createCYT(raw.data = test.fcs.data,
+#'                  markers = markers,
+#'                  meta.data = test.meta.data,
+#'                  normalization.method = "log",
+#'                  verbose = TRUE)
 #'
-#' fspy
+#' cyt
 #'
 #' }
 #'
-createFSPY <- function(raw.data, markers, meta.data,
+createCYT <- function(raw.data, markers, meta.data,
                        batch = NULL, batch.correct = FALSE,
                        normalization.method = "none",
                        verbose = FALSE, ...) {
@@ -248,9 +247,9 @@ createFSPY <- function(raw.data, markers, meta.data,
     markers.idx <- markers.idx[which(!is.na(markers.idx))]
   }
 
-  # Create an FSPY object
-  if (verbose) message(Sys.time(), " [INFO] Creating FSPY object.")
-  object <- methods::new("FSPY", raw.data = raw.data, meta.data = meta.data,
+  # Create an CYT object
+  if (verbose) message(Sys.time(), " [INFO] Creating CYT object.")
+  object <- methods::new("CYT", raw.data = raw.data, meta.data = meta.data,
                 markers = markers, markers.idx = markers.idx)
 
   # normalization and Log-normalize the data
@@ -282,7 +281,7 @@ createFSPY <- function(raw.data, markers, meta.data,
     if (is.null(batch)) {
       warning(Sys.time(), " [WARNING] batch must be provided when batch.correct is TRUE ")
     } else {
-      object <- correctBatchFSPY(object, batch = batch, ...)
+      object <- correctBatchCYT(object, batch = batch, ...)
     }
   }
 
@@ -295,7 +294,7 @@ createFSPY <- function(raw.data, markers, meta.data,
   object@meta.data$is.root.cells <- 0
   object@meta.data$is.leaf.cells <- 0
 
-  if (verbose) message(Sys.time(), " [INFO] Build FSPY object succeed ")
+  if (verbose) message(Sys.time(), " [INFO] Build CYT object succeed ")
   return(object)
 }
 

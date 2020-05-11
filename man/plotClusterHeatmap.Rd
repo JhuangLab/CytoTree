@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot2D.R
 \name{plotClusterHeatmap}
 \alias{plotClusterHeatmap}
-\title{Visualization heatmap of cluster data of FSPY}
+\title{Visualization heatmap of cluster data of CYT}
 \usage{
 plotClusterHeatmap(
   object,
@@ -12,7 +12,7 @@ plotClusterHeatmap(
 )
 }
 \arguments{
-\item{object}{An FSPY object}
+\item{object}{An CYT object}
 
 \item{color}{vector. Colors used in heatmap.}
 
@@ -26,16 +26,16 @@ the row direction or the column direction, or none. Corresponding values are
 ggplot2 figure
 }
 \description{
-Visualization heatmap of cluster data of FSPY
+Visualization heatmap of cluster data of CYT
 }
 \examples{
 
 if (FALSE) {
 
-plotClusterHeatmap(fspy)
-plotClusterHeatmap(fspy, color = colorRampPalette(c("purple","white","yellow"))(100))
-plotClusterHeatmap(fspy, cluster_row = F)
-plotClusterHeatmap(fspy, cluster_row = F, cluster_col = F)
+plotClusterHeatmap(cyt)
+plotClusterHeatmap(cyt, color = colorRampPalette(c("purple","white","yellow"))(100))
+plotClusterHeatmap(cyt, cluster_row = F)
+plotClusterHeatmap(cyt, cluster_row = F, cluster_col = F)
 
 }
 

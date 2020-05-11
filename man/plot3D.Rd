@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot3D.R
 \name{plot3D}
 \alias{plot3D}
-\title{Visualization of 3D data of FSPY}
+\title{Visualization of 3D data of CYT}
 \usage{
 plot3D(
   object,
@@ -13,13 +13,13 @@ plot3D(
   angle = 60,
   scale.y = 0.8,
   category = "categorical",
-  main = "3D plot of FSPY",
+  main = "3D plot of CYT",
   color.theme = NULL,
   ...
 )
 }
 \arguments{
-\item{object}{An FSPY object}
+\item{object}{An CYT object}
 
 \item{item.use}{character. Items use to 3D plot, axes x and y and z must be numeric.}
 
@@ -46,13 +46,13 @@ of plot.meta, or it can be just "density" (the default value).}
 gplots figure
 }
 \description{
-Visualization of 3D data of FSPY
+Visualization of 3D data of CYT
 }
 \examples{
 
 if (FALSE) {
 
- plot3D(fspy, item.use = c("DC_2","DC_1","DC_3"), color.by = "stage",
+ plot3D(cyt, item.use = c("DC_2","DC_1","DC_3"), color.by = "stage",
         size = 0.5, angle = 60, color.theme = c("#FF99FF","#7A06A0","#FF3222"))
 
 }

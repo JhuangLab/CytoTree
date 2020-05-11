@@ -2,7 +2,7 @@
 % Please edit documentation in R/cluster.R
 \name{runSOM}
 \alias{runSOM}
-\title{calculation SOM in FSPY object}
+\title{calculation SOM in CYT object}
 \usage{
 runSOM(
   object,
@@ -22,7 +22,7 @@ runSOM(
 )
 }
 \arguments{
-\item{object}{an FSPY object}
+\item{object}{an CYT object}
 
 \item{xdim}{Width of the grid.}
 
@@ -55,14 +55,14 @@ Any unambiguous substring can be given. See \code{\link[stats]{dist}}}
 \item{...}{Parameters passing to \code{\link[FlowSOM]{SOM}} function}
 }
 \value{
-an FSPY object with som.id in FSPY object
+an CYT object with som.id in CYT object
 }
 \description{
 Build a self-organizing map
 }
 \examples{
 if (FALSE) {
-fspy <- runSOM(fspy, xdim = 10, ydim = 10, verbose = TRUE)
+cyt <- runSOM(cyt, xdim = 10, ydim = 10, verbose = TRUE)
 }
 
 }

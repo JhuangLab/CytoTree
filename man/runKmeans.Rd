@@ -17,7 +17,7 @@ runKmeans(
 )
 }
 \arguments{
-\item{object}{an FSPY object}
+\item{object}{an CYT object}
 
 \item{k}{numeric. The number of clusters.}
 
@@ -37,7 +37,7 @@ kmeans. Four algoritms are provided: Hartigan-Wong, Lloyd, Forgy, MacQueen.}
 \item{...}{Parameters passing to \code{\link[stats]{kmeans}} function}
 }
 \value{
-an FSPY object with kmeans.id in meta.data
+an CYT object with kmeans.id in meta.data
 }
 \description{
 Perform k-means clustering on a data matrix.
@@ -45,7 +45,7 @@ Perform k-means clustering on a data matrix.
 \examples{
 
 if (FALSE) {
-fspy <- runKmeans(fspy, k = 25, verbose = TRUE)
+cyt <- runKmeans(cyt, k = 25, verbose = TRUE)
 }
 
 }

@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // jaccard_coeff
 NumericMatrix jaccard_coeff(NumericMatrix idx);
-RcppExport SEXP _flowSpy_jaccard_coeff(SEXP idxSEXP) {
+RcppExport SEXP _CytoTree_jaccard_coeff(SEXP idxSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -18,11 +18,11 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_flowSpy_jaccard_coeff", (DL_FUNC) &_flowSpy_jaccard_coeff, 1},
+    {"_CytoTree_jaccard_coeff", (DL_FUNC) &_CytoTree_jaccard_coeff, 1},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_flowSpy(DllInfo *dll) {
+RcppExport void R_init_CytoTree(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

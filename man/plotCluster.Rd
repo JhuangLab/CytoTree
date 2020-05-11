@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot2D.R
 \name{plotCluster}
 \alias{plotCluster}
-\title{Visualization of cluster data of FSPY}
+\title{Visualization of cluster data of CYT}
 \usage{
 plotCluster(
   object,
@@ -15,12 +15,12 @@ plotCluster(
   category = "categorical",
   show.cluser.id = FALSE,
   show.cluser.id.size = 4,
-  main = "2D plot of cluster in FSPY",
+  main = "2D plot of cluster in CYT",
   plot.theme = theme_bw()
 )
 }
 \arguments{
-\item{object}{An FSPY object}
+\item{object}{An CYT object}
 
 \item{item.use}{character. Items use to 2D plot, axes x and y must be numeric.}
 
@@ -49,25 +49,25 @@ of plot.meta, or it can be just "density" (the default value).}
 ggplot2 figure
 }
 \description{
-Visualization of cluster data of FSPY
+Visualization of cluster data of CYT
 }
 \examples{
 
 if (FALSE) {
-plotCluster(fspy)
+plotCluster(cyt)
 
-plotCluster(fspy, item.use = c("PC_1", "PC_2"))
-plotCluster(fspy, item.use = c("PC_2", "PC_3"))
-plotCluster(fspy, item.use = c("PC_2", "PC_3"), color.by = "CD43", category = "numeric")
-plotCluster(fspy, item.use = c("PC_2", "PC_3"), color.by = "CD43", category = "numeric") +
+plotCluster(cyt, item.use = c("PC_1", "PC_2"))
+plotCluster(cyt, item.use = c("PC_2", "PC_3"))
+plotCluster(cyt, item.use = c("PC_2", "PC_3"), color.by = "CD43", category = "numeric")
+plotCluster(cyt, item.use = c("PC_2", "PC_3"), color.by = "CD43", category = "numeric") +
     scale_colour_gradientn(colors = c("blue", "white", "red"))
 
-plotCluster(fspy, item.use = c("tSNE_1", "tSNE_2"))
-plotCluster(fspy, item.use = c("tSNE_1", "tSNE_2"), show.cluser.id = T)
+plotCluster(cyt, item.use = c("tSNE_1", "tSNE_2"))
+plotCluster(cyt, item.use = c("tSNE_1", "tSNE_2"), show.cluser.id = T)
 
-plotCluster(fspy, item.use = c("DC_1", "DC_2"))
+plotCluster(cyt, item.use = c("DC_1", "DC_2"))
 
-plotCluster(fspy, item.use = c("UMAP_1", "UMAP_2"))
+plotCluster(cyt, item.use = c("UMAP_1", "UMAP_2"))
 }
 
 }

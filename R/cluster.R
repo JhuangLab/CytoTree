@@ -8,7 +8,7 @@
 #'    "clara" \code{\link[cluster]{clara}}, "phenograph", "kmeans" \code{\link[stats]{kmeans}} are
 #'    provided.
 #'
-#' @param object an FSPY object
+#' @param object an CYT object
 #' @param cluster.method character. Four clustering method are provided: som, clara, kmeans and phenograph.
 #'    Clustering method "hclust" and "mclust" are not recommended because of long computing time.
 #' @param verbose logic. Whether to print calculation progress.
@@ -21,40 +21,40 @@
 #'    \code{runHclust} to run clustering respectively.
 #'
 #' @export
-#' @return An FSPY object with cluster
+#' @return An CYT object with cluster
 #'
 #' @examples
 #'
 #' if (FALSE) {
-#' # After building an FSPY object
+#' # After building an CYT object
 #' # Set random seed to make results reproducible
 #'
 #' set.seed(1)
-#' fspy <- runCluster(fspy, cluster.method = "som", xdim = 3, ydim = 3, verbose = TURE)
+#' cyt <- runCluster(cyt, cluster.method = "som", xdim = 3, ydim = 3, verbose = TURE)
 #'
 #' # K-means clustering
-#' fspy <- runCluster(fspy, cluster.method = "kmeans", k = 9, verbose = TRUE)
+#' cyt <- runCluster(cyt, cluster.method = "kmeans", k = 9, verbose = TRUE)
 #'
 #' # Clara clustering
-#' fspy <- runCluster(fspy, cluster.method = "clara", k = 9, verbose = TRUE)
+#' cyt <- runCluster(cyt, cluster.method = "clara", k = 9, verbose = TRUE)
 #'
 #' # phenoGraph clustering
-#' fspy <- runCluster(fspy, cluster.method = "phenograph", verbose = TRUE)
+#' cyt <- runCluster(cyt, cluster.method = "phenograph", verbose = TRUE)
 #'
 #' # hclust clustering
 #' # not recommended for large cell size
-#' fspy <- runCluster(fspy, cluster.method = "hclust", k = 9, verbose = TRUE)
+#' cyt <- runCluster(cyt, cluster.method = "hclust", k = 9, verbose = TRUE)
 #'
 #' # mclust clustering
 #' # not recommended for large cell size
-#' fspy <- runCluster(fspy, cluster.method = "mclust", verbose = TRUE)
+#' cyt <- runCluster(cyt, cluster.method = "mclust", verbose = TRUE)
 #' }
 #'
 runCluster <- function(object, cluster.method = c("som", "kmeans", "clara", "phenograph", "hclust", "mclust"),
                        verbose = FALSE, ...) {
 
   if (missing(object)) {
-    stop(Sys.time(), " [ERROR] FSPY object is missing ")
+    stop(Sys.time(), " [ERROR] CYT object is missing ")
   }
   cluster.method <- match.arg(cluster.method)
   if (cluster.method == "som") {
@@ -97,7 +97,7 @@ runCluster <- function(object, cluster.method = c("som", "kmeans", "clara", "phe
 #'    Stochastic Neighbor Embedding (tSNE), Diffusion Map and Uniform Manifold
 #'    Approximation and Projection (UMAP) of clusters calculated by runCluster.
 #'
-#' @param object an FSPY object
+#' @param object an CYT object
 #' @param perplexity numeric. Perplexity parameter (should not be bigger than 3 *
 #'    perplexity < nrow(X) - 1, see details for interpretation). See \code{\link[Rtsne]{Rtsne}}
 #'    for more information.
@@ -114,12 +114,12 @@ runCluster <- function(object, cluster.method = c("som", "kmeans", "clara", "phe
 #' @seealso \code{\link[umap]{umap}}, \code{\link[gmodels]{fast.prcomp}},
 #'    \code{\link[Rtsne]{Rtsne}}, \code{destiny}
 #'
-#' @return An FSPY object with cluster.id in meta.data
+#' @return An CYT object with cluster.id in meta.data
 #'
 #' @importFrom stats cutree
 #'
 #' @export
-#' @return An FSPY object with dimensionality reduction of clusters
+#' @return An CYT object with dimensionality reduction of clusters
 #'
 #' @examples
 #'
@@ -127,17 +127,17 @@ runCluster <- function(object, cluster.method = c("som", "kmeans", "clara", "phe
 #'
 #' # After running clustering
 #' set.seed(1)
-#' fspy <- runCluster(fspy, cluster.method = "som", xdim = 3, ydim = 3, verbose = T)
+#' cyt <- runCluster(cyt, cluster.method = "som", xdim = 3, ydim = 3, verbose = T)
 #'
 #' # Do not perfrom downsampling
-#' fspy <- processingCluster(fspy, perplexity = 2)
+#' cyt <- processingCluster(cyt, perplexity = 2)
 #'
 #' # Perform cluster based downsampling
 #' # Only keep 50% cells
-#' fspy <- processingCluster(fspy, perplexity = 2, downsampling.size = 0.5)
+#' cyt <- processingCluster(cyt, perplexity = 2, downsampling.size = 0.5)
 #'
 #' # Processing clusters without downsampling step
-#' fspy <- processingCluster(fspy, perplexity = 2, force.resample = FALSE)
+#' cyt <- processingCluster(cyt, perplexity = 2, force.resample = FALSE)
 #'
 #' }
 #'
@@ -149,11 +149,11 @@ processingCluster <- function(object, perplexity = 5, k = 5,
                               ...) {
 
   if (missing(object)) {
-    stop(Sys.time(), " [ERROR] FSPY object is missing ")
+    stop(Sys.time(), " [ERROR] CYT object is missing ")
   }
 
   if (!"cluster.id" %in% colnames(object@meta.data)) {
-    stop(Sys.time(), " [ERROR] cluster.id is not in colnames of FSPY object, please run runCluster first ")
+    stop(Sys.time(), " [ERROR] cluster.id is not in colnames of CYT object, please run runCluster first ")
   }
 
   # checking index of markers in cluster
@@ -233,7 +233,7 @@ processingCluster <- function(object, perplexity = 5, k = 5,
 #' @description Hierarchical cluster analysis on a set of dissimilarities
 #'    and methods for analyzing it.
 #'
-#' @param object an FSPY object
+#' @param object an CYT object
 #' @param hclust.method character or a function. The agglomeration method to be used.
 #'    This should be one of "ward.D", "ward.D2", "single", "complete", "average",
 #'    "mcquitty", "median" or "centroid". Or you can specify an equation as input, for example
@@ -250,10 +250,10 @@ processingCluster <- function(object, perplexity = 5, k = 5,
 #' @importFrom stats hclust dist
 #'
 #' @export
-#' @return An FSPY object with cluster
+#' @return An CYT object with cluster
 #'
 #' if (FALSE) {
-#' fspy <- runHclust(fspy, k = 9, verbose = TRUE)
+#' cyt <- runHclust(cyt, k = 9, verbose = TRUE)
 #' }
 #'
 #'
@@ -301,7 +301,7 @@ runHclust <- function(object, k = 25,
 #'
 #' @description Perform k-means clustering on a data matrix.
 #'
-#' @param object  an FSPY object
+#' @param object  an CYT object
 #' @param k numeric. The number of clusters.
 #' @param iter.max numeric. The maximum number of iterations allowed.
 #' @param nstart numeric. If k is a number, how many random sets should be chosen.
@@ -312,7 +312,7 @@ runHclust <- function(object, k = 25,
 #' @param verbose logical. Whether to print calculation progress.
 #' @param ... Parameters passing to \code{\link[stats]{kmeans}} function
 #'
-#' @return an FSPY object with kmeans.id in meta.data
+#' @return an CYT object with kmeans.id in meta.data
 #'
 #' @seealso \code{\link[stats]{kmeans}}
 #'
@@ -321,7 +321,7 @@ runHclust <- function(object, k = 25,
 #' @examples
 #'
 #' if (FALSE) {
-#' fspy <- runKmeans(fspy, k = 25, verbose = TRUE)
+#' cyt <- runKmeans(cyt, k = 25, verbose = TRUE)
 #' }
 #'
 runKmeans <- function(object, k = 25, iter.max = 10, nstart = 1,
@@ -350,7 +350,7 @@ runKmeans <- function(object, k = 25, iter.max = 10, nstart = 1,
 #'
 #' @description Clustering a data matrix into k clusters
 #'
-#' @param object  an FSPY object
+#' @param object  an CYT object
 #' @param k numeric. The number of clusters. It is required that
 #'    0 < k < n where n is the number of observations (i.e., n = nrow(x)).
 #' @param metric character. string specifying the metric to be used for
@@ -364,7 +364,7 @@ runKmeans <- function(object, k = 25, iter.max = 10, nstart = 1,
 #' @param verbose logical. Whether to print calculation progress.
 #' @param ... Parameters passing to \code{\link[cluster]{clara}} function
 #'
-#' @return an FSPY object with clara.id in meta.data
+#' @return an CYT object with clara.id in meta.data
 #'
 #' @seealso \code{\link[cluster]{clara}}
 #'
@@ -372,7 +372,7 @@ runKmeans <- function(object, k = 25, iter.max = 10, nstart = 1,
 #' @export
 #' @examples
 #' if (FALSE) {
-#' fspy <- runClara(fspy, k = 25, verbose = TRUE)
+#' cyt <- runClara(cyt, k = 25, verbose = TRUE)
 #' }
 #'
 runClara <- function(object, k = 25, metric = c("euclidean", "manhattan", "jaccard"),
@@ -401,12 +401,12 @@ runClara <- function(object, k = 25, metric = c("euclidean", "manhattan", "jacca
 #' @description Model-based clustering based on parameterized finite Gaussian mixture models.
 #'    This function is based on \code{\link[mclust]{Mclust}}.
 #'
-#' @param object  an FSPY object
+#' @param object  an CYT object
 #' @param scale logical. Whether to use scaled data in Mclust.
 #' @param verbose logical. Whether to print calculation progress.
 #' @param ... Parameters passing to \code{\link[mclust]{Mclust}} function
 #'
-#' @return an FSPY object with mclust.id in meta.data
+#' @return an CYT object with mclust.id in meta.data
 #'
 #' @seealso \code{\link[mclust]{Mclust}}
 #'
@@ -415,7 +415,7 @@ runClara <- function(object, k = 25, metric = c("euclidean", "manhattan", "jacca
 #' @importFrom mclust Mclust mclustBIC
 #' @examples
 #' if (FALSE) {
-#' fspy <- runMclust(fspy, verbose = TRUE)
+#' cyt <- runMclust(cyt, verbose = TRUE)
 #' }
 #'
 runMclust <- function(object, scale = FALSE,
@@ -436,11 +436,11 @@ runMclust <- function(object, scale = FALSE,
 
 
 #'
-#' calculation SOM in FSPY object
+#' calculation SOM in CYT object
 #'
 #' @description Build a self-organizing map
 #'
-#' @param object  an FSPY object
+#' @param object  an CYT object
 #' @param xdim  Width of the grid.
 #' @param ydim  Hight of the grid.
 #' @param rlen  Number of times to loop over the training data for each MST
@@ -459,7 +459,7 @@ runMclust <- function(object, scale = FALSE,
 #' @param verbose logical. Whether to print calculation progress.
 #' @param ... Parameters passing to \code{\link[FlowSOM]{SOM}} function
 #'
-#' @return an FSPY object with som.id in FSPY object
+#' @return an CYT object with som.id in CYT object
 #' @seealso \code{\link{BuildSOM}}
 #'
 #' @references This code is strongly based on the \code{\link[FlowSOM]{SOM}} function.
@@ -473,7 +473,7 @@ runMclust <- function(object, scale = FALSE,
 #'
 #' @examples
 #' if (FALSE) {
-#' fspy <- runSOM(fspy, xdim = 10, ydim = 10, verbose = TRUE)
+#' cyt <- runSOM(cyt, xdim = 10, ydim = 10, verbose = TRUE)
 #' }
 #'
 runSOM <- function(object, xdim = 6, ydim = 6, rlen = 8, mst = 1,
@@ -515,7 +515,7 @@ runSOM <- function(object, xdim = 6, ydim = 6, rlen = 8, mst = 1,
 #'    using the well known [Louvain method](https://sites.google.com/site/findcommunities/)
 #'    in this graph.
 #'
-#' @param object an FSPY object.
+#' @param object an CYT object.
 #' @param scale logical. Whether to scale the expression matrix
 #' @param knn numeric. Number of nearest neighbours, default is 30.
 #' @param verbose logical. Whether to print calculation progress.
@@ -523,12 +523,12 @@ runSOM <- function(object, xdim = 6, ydim = 6, rlen = 8, mst = 1,
 #'
 #'
 #' @importFrom igraph graph.adjacency simplify distances
-#' @return An FSPY object with cluster
+#' @return An CYT object with cluster
 #'
 #' @export
 #' @examples
 #' if (FALSE) {
-#' fspy <- runPhenograph(fspy, knn = 30, verbose = TRUE)
+#' cyt <- runPhenograph(cyt, knn = 30, verbose = TRUE)
 #' }
 #'
 runPhenograph <- function(object, knn = 30, scale = FALSE, verbose = FALSE, ...){
@@ -597,7 +597,7 @@ runPhenograph <- function(object, knn = 30, scale = FALSE, verbose = FALSE, ...)
 #' @importFrom igraph graph.data.frame cluster_louvain modularity membership
 #' @import ggplot2
 #' @import Rcpp
-#' @useDynLib flowSpy
+#' @useDynLib CytoTree
 #'
 #' @export
 #' @return cluster information

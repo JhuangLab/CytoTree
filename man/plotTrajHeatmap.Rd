@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot2D.R
 \name{plotTrajHeatmap}
 \alias{plotTrajHeatmap}
-\title{Visualization heatmap of intermediate cells of FSPY}
+\title{Visualization heatmap of intermediate cells of CYT}
 \usage{
 plotTrajHeatmap(
   object,
@@ -14,7 +14,7 @@ plotTrajHeatmap(
 )
 }
 \arguments{
-\item{object}{An FSPY object}
+\item{object}{An CYT object}
 
 \item{cutoff}{numeric. value to identify intermediate state cells}
 
@@ -32,16 +32,16 @@ the row direction or the column direction, or none. Corresponding values are
 ggplot2 figure
 }
 \description{
-Visualization heatmap of intermediate cells of FSPY
+Visualization heatmap of intermediate cells of CYT
 }
 \examples{
 
 if (FALSE) {
 
-plotTrajHeatmap(fspy)
-plotBranchHeatmap(fspy, color = colorRampPalette(c("purple","white","yellow"))(100))
-plotBranchHeatmap(fspy, cluster_row = FALSE)
-plotBranchHeatmap(fspy, cluster_row = FALSE, cluster_col = FALSE)
+plotTrajHeatmap(cyt)
+plotBranchHeatmap(cyt, color = colorRampPalette(c("purple","white","yellow"))(100))
+plotBranchHeatmap(cyt, cluster_row = FALSE)
+plotBranchHeatmap(cyt, cluster_row = FALSE, cluster_col = FALSE)
 
 }
 

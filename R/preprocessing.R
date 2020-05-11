@@ -52,10 +52,10 @@
 #'
 #' if (FALSE) {
 #'   # See vignette tutorials for more information
-#'   vignette("Quick_start", package = "flowSpy")
+#'   vignette("Quick_start", package = "CytoTree")
 #'
 #'   # Path to your FCS files
-#'   fcs.path <- "flowSpy-dataset/FCS/usecase2/"
+#'   fcs.path <- "CytoTree-dataset/FCS/usecase2/"
 #'   fcs.files <- paste0(fcs.path, "D", c(0,2,4,6,8,10), "-sub.fcs")
 #'
 #'   # Merge FCS files, and each file contain 2000 cells
@@ -180,11 +180,11 @@ runExprsMerge <- function(fcsFiles,
 #'
 #' if (FALSE) {
 #' # See vignette tutorials for more information
-#' vignette(package = "flowSpy")
-#' vignette("Quick_start", package = "flowSpy")
+#' vignette(package = "CytoTree")
+#' vignette("Quick_start", package = "CytoTree")
 #'
 #'   # Path to your FCS files
-#'   fcs.path <- "flowSpy-dataset/FCS/usecase1/"
+#'   fcs.path <- "CytoTree-dataset/FCS/usecase1/"
 #'   fcs.file <- paste0(fcs.path, "FR-FCM-ZY9R-Bone_Marrow_cytof.fcs")
 #'
 #'   # Read FCS files
