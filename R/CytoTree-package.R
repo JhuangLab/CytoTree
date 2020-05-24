@@ -3,7 +3,7 @@
 #' Functions and methods to visualize and analyze flow cytometry data.
 #'
 #' \tabular{ll}{ Package: \tab CytoTree\cr Type: \tab Package\cr Version: \tab
-#' 0.99.1\cr Date: \tab 2020-05-10\cr License: \tab GPL-3.0\cr }
+#' 0.99.2\cr Date: \tab 2020-05-24\cr License: \tab GPL-3.0\cr }
 #' While high-dimensional single-cell based flow and mass cytometry data has
 #' demonstrated increased applications in microenvironment composition and
 #' stem-cell research, integrated analyzing workflow design for experimental

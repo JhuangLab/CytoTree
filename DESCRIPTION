@@ -1,8 +1,8 @@
 Package: CytoTree
 Type: Package
 Title: A Toolkit for Flow And Mass Cytometry Data
-Version: 0.99.1
-Date: 2020-05-10
+Version: 0.99.2
+Date: 2020-05-24
 Authors@R: person("Yuting", "Dai", role = c("aut", "cre"), email = "forlynna@sjtu.edu.cn")
 Description: A trajectory inference toolkit for flow and mass 
     cytometry data. CytoTree is a valuable tool to build a 
@@ -11,7 +11,7 @@ Description: A trajectory inference toolkit for flow and mass
     and dimensionality reduction to trajectory reconstruction 
     and pseudotime estimation. It offers complete analyzing 
     workflow for flow and mass cytometry data. 
-Depends: R (>= 3.6), igraph
+Depends: R (>= 4.0), igraph
 Imports: FlowSOM, Rtsne, ggplot2, destiny, gmodels,
         flowUtils, Biobase, Matrix, flowCore, sva,
         matrixStats, methods, mclust, prettydoc, 
