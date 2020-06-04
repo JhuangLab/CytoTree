@@ -34,15 +34,3 @@ ggplot2 figure
 \description{
 Visualization heatmap of intermediate cells of CYT
 }
-\examples{
-
-if (FALSE) {
-
-plotTrajHeatmap(cyt)
-plotBranchHeatmap(cyt, color = colorRampPalette(c("purple","white","yellow"))(100))
-plotBranchHeatmap(cyt, cluster_row = FALSE)
-plotBranchHeatmap(cyt, cluster_row = FALSE, cluster_col = FALSE)
-
-}
-
-}

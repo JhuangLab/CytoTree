@@ -30,13 +30,14 @@ Visualization heatmap of branch data of CYT
 }
 \examples{
 
-if (FALSE) {
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
 
 plotBranchHeatmap(cyt)
 plotBranchHeatmap(cyt, color = colorRampPalette(c("purple","white","yellow"))(100))
 plotBranchHeatmap(cyt, cluster_row = FALSE)
 plotBranchHeatmap(cyt, cluster_row = FALSE, cluster_col = FALSE)
 
-}
+
 
 }

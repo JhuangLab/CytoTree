@@ -51,11 +51,12 @@ Calculate Principal Components Analysis (PCA), t-Distributed
 }
 \examples{
 
-if (FALSE) {
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
 
 # After running clustering
 set.seed(1)
-cyt <- runCluster(cyt, cluster.method = "som", xdim = 3, ydim = 3, verbose = T)
+cyt <- runCluster(cyt, cluster.method = "som", xdim = 3, ydim = 3, verbose = TRUE)
 
 # Do not perfrom downsampling
 cyt <- processingCluster(cyt, perplexity = 2)
@@ -67,7 +68,7 @@ cyt <- processingCluster(cyt, perplexity = 2, downsampling.size = 0.5)
 # Processing clusters without downsampling step
 cyt <- processingCluster(cyt, perplexity = 2, force.resample = FALSE)
 
-}
+
 
 }
 \seealso{

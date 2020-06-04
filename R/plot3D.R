@@ -23,12 +23,13 @@
 #' @return gplots figure
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
 #'
-#'  plot3D(cyt, item.use = c("DC_2","DC_1","DC_3"), color.by = "stage",
-#'         size = 0.5, angle = 60, color.theme = c("#FF99FF","#7A06A0","#FF3222"))
+#' plot3D(cyt, item.use = c("DC_2","DC_1","DC_3"), color.by = "stage",
+#'        size = 0.5, angle = 60, color.theme = c("#FF99FF","#7A06A0","#FF3222"))
 #'
-#' }
+#' 
 #'
 plot3D <- function(object,
                    item.use = c("PC1", "PC2", "PC3"),
@@ -59,7 +60,7 @@ plot3D <- function(object,
   if (length(item.use) < 3) stop(Sys.time(), " [ERROR] item.use is less than two characters.")
   if (length(item.use) > 3) {
     warning(Sys.time(), " [WARNING] item.use is more than two characters. Only the first two will be used")
-    item.use <- item.use[1:3]
+    item.use <- item.use[ seq_len(3)]
   }
   if (length(color.by) > 1) {
     warning(Sys.time(), " [WARNING] color.by is more than one characters. Only the first one will be used")

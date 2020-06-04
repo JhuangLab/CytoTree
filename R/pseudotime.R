@@ -15,16 +15,19 @@
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
+#' 
 #' # Define root cells by cluster
 #' cyt <- defRootCells(cyt, root.cells = 6, verbose = TRUE)
 #' cyt <- defRootCells(cyt, root.cells = c(6,8), verbose = TRUE)
 #'
 #' # Define root cells by cell names
-#' cells <- test.meta.data$cell[which(test.meta.data$stage == "D0")]
+#' meta.data <- fetchPlotMeta(cyt)
+#' cells <- meta.data$cell[which(meta.data$stage == "D0")]
 #' cells <- as.character(cells)
 #' cyt <- defRootCells(cyt, root.cells = cells, verbose = TRUE)
-#' }
+#' 
 #'
 #'
 defRootCells <- function(object, root.cells = NULL, verbose = FALSE) {
@@ -75,16 +78,19 @@ defRootCells <- function(object, root.cells = NULL, verbose = FALSE) {
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
+#' 
 #' # Define leaf cells by cluster
 #' cyt <- defLeafCells(cyt, leaf.cells = 1, verbose = TRUE)
 #' cyt <- defLeafCells(cyt, leaf.cells = c(1,3), verbose = TRUE)
 #'
 #' # Define root cells by cell names
-#' cells <- test.meta.data$cell[which(test.meta.data$stage == "D10")]
+#' meta.data <- fetchPlotMeta(cyt)
+#' cells <- meta.data$cell[which(meta.data$stage == "D10")]
 #' cells <- as.character(cells)
 #' cyt <- defLeafCells(cyt, leaf.cells = cells, verbose = TRUE)
-#' }
+#' 
 #'
 #'
 defLeafCells <- function(object, leaf.cells = NULL, pseudotime.cutoff = 0, verbose = FALSE) {
@@ -153,26 +159,25 @@ defLeafCells <- function(object, leaf.cells = NULL, pseudotime.cutoff = 0, verbo
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
 #' 
 #' cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "raw")
-#' cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "umap", dim.use = 1:2)
-#' cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "tsne", dim.use = 1:2)
-#' cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "dc", dim.use = 1:3)
-#' cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "pca", dim.use = 1:3)
+#' cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "umap", dim.use = seq_len(2))
+#' cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "tsne", dim.use = seq_len(2))
+#' cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "dc", dim.use = seq_len(3))
+#' cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "pca", dim.use = seq_len(3))
 #'
 #' # tSNE plot colored by pseudotime
 #' plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), category = "numeric",
-#'        size = 1, color.by = "pseudotime") +
-#'        scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
+#'        size = 1, color.by = "pseudotime") 
 #' # UMAP plot colored by pseudotime
 #' plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), category = "numeric",
-#'        size = 1, color.by = "pseudotime") +
-#'        scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
-#' }
+#'        size = 1, color.by = "pseudotime") 
+#' 
 #'
 runPseudotime <- function(object, mode = "undirected",
-                          dim.type = c("raw", "pca", "tsne", "dc", "umap"), dim.use = 1:2,
+                          dim.type = c("raw", "pca", "tsne", "dc", "umap"), dim.use = seq_len(2),
                           verbose = FALSE, ...) {
 
   if (missing(object)) stop(Sys.time(), " [ERROR] object is missing.")
@@ -205,7 +210,7 @@ runPseudotime <- function(object, mode = "undirected",
   object@meta.data$core.pseudotime <- 0
   if (dim(mat)[1] > 40000) {
     kmean.mat <- kmeans(mat, centers = 40000)
-    sub.cell <- kmean.mat$cluster[match(1:40000, kmean.mat$cluster)]
+    sub.cell <- kmean.mat$cluster[match(seq_len(40000), kmean.mat$cluster)]
     object@meta.data$seed.pseudotime[match(names(sub.cell), object@meta.data$cell)] <- 1
     object@meta.data$core.pseudotime[match(names(kmean.mat$cluster), object@meta.data$cell)] <- kmean.mat$cluster
     sub.cell.name <- object@meta.data$cell[which(object@meta.data$seed.pseudotime == 1)]
@@ -213,7 +218,7 @@ runPseudotime <- function(object, mode = "undirected",
     object <- runKNN(object, given.mat = mat, verbose = FALSE)
   } else {
     object@meta.data$seed.pseudotime[match(rownames(mat), object@meta.data$cell)] <- 1
-    object@meta.data$core.pseudotime[match(rownames(mat), object@meta.data$cell)] <- 1:dim(mat)[1]
+    object@meta.data$core.pseudotime[match(rownames(mat), object@meta.data$cell)] <- seq_len(dim(mat)[1])
     object <- runKNN(object, given.mat = mat, verbose = FALSE)
   }
 

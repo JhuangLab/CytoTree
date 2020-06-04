@@ -14,18 +14,15 @@
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
 #'
 #' plotPseudotimeDensity(cyt)
 #'
 #' plotPseudotimeDensity(cyt, adjust = 1)
 #' plotPseudotimeDensity(cyt, adjust = 2)
 #'
-#' plotPseudotimeDensity(cyt, adjust = 2) +
-#'   scale_color_manual(values = c("#00599F","#FF3222","#009900",
-#'                                 "#FF9933","#FF99FF","#7A06A0"))
-#'
-#' }
+#' 
 #'
 plotPseudotimeDensity <- function(object, color.by = "stage",
                                   main = "Density of pseudotime",
@@ -85,19 +82,16 @@ plotPseudotimeDensity <- function(object, color.by = "stage",
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
 #'
 #' plotPseudotimeTraj(cyt)
-#' plotPseudotimeTraj(cyt, print.curve = F)
-#' plotPseudotimeTraj(cyt, var.cols = T)
+#' plotPseudotimeTraj(cyt, print.curve = FALSE)
+#' plotPseudotimeTraj(cyt, var.cols = TRUE)
 #'
-#' plotPseudotimeTraj(cyt) +
-#'    scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
+#' plotPseudotimeTraj(cyt, markers = c("CD43", "CD34"))
 #'
-#' plotPseudotimeTraj(cyt, markers = c("CD43", "CD34")) +
-#' scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
-#'
-#' }
+#' 
 #'
 plotPseudotimeTraj <- function(object,
                                cutoff = -1,
@@ -123,7 +117,7 @@ plotPseudotimeTraj <- function(object,
   if (is.null(markers)) markers <- object@markers
   if (length(markers) > 30) {
     warning(Sys.time(), " [WARNING] only the first 30 markers will be plot")
-    markers <- markers[1:30]
+    markers <- markers[ seq_len(30)]
   }
 
   plot.data <- NULL
@@ -215,7 +209,7 @@ plotMarkerDensity <- function(object,
   if (is.null(markers)) markers <- object@markers
   if (length(markers) > 30) {
     warning(Sys.time(), " [WARNING] only the first 30 markers will be plot")
-    markers <- markers[1:30]
+    markers <- markers[ seq_len(30)]
   }
 
   plot.data <- NULL

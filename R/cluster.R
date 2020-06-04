@@ -25,12 +25,14 @@
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
+#' 
 #' # After building an CYT object
 #' # Set random seed to make results reproducible
 #'
 #' set.seed(1)
-#' cyt <- runCluster(cyt, cluster.method = "som", xdim = 3, ydim = 3, verbose = TURE)
+#' cyt <- runCluster(cyt, cluster.method = "som", xdim = 3, ydim = 3, verbose = TRUE)
 #'
 #' # K-means clustering
 #' cyt <- runCluster(cyt, cluster.method = "kmeans", k = 9, verbose = TRUE)
@@ -48,7 +50,7 @@
 #' # mclust clustering
 #' # not recommended for large cell size
 #' cyt <- runCluster(cyt, cluster.method = "mclust", verbose = TRUE)
-#' }
+#' 
 #'
 runCluster <- function(object, cluster.method = c("som", "kmeans", "clara", "phenograph", "hclust", "mclust"),
                        verbose = FALSE, ...) {
@@ -123,11 +125,12 @@ runCluster <- function(object, cluster.method = c("som", "kmeans", "clara", "phe
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
 #'
 #' # After running clustering
 #' set.seed(1)
-#' cyt <- runCluster(cyt, cluster.method = "som", xdim = 3, ydim = 3, verbose = T)
+#' cyt <- runCluster(cyt, cluster.method = "som", xdim = 3, ydim = 3, verbose = TRUE)
 #'
 #' # Do not perfrom downsampling
 #' cyt <- processingCluster(cyt, perplexity = 2)
@@ -139,7 +142,7 @@ runCluster <- function(object, cluster.method = c("som", "kmeans", "clara", "phe
 #' # Processing clusters without downsampling step
 #' cyt <- processingCluster(cyt, perplexity = 2, force.resample = FALSE)
 #'
-#' }
+#' 
 #'
 processingCluster <- function(object, perplexity = 5, k = 5,
                               downsampling.size = 1,
@@ -163,17 +166,17 @@ processingCluster <- function(object, perplexity = 5, k = 5,
   # run PCA
   if (verbose) message(Sys.time(), " [INFO] Calculating PCA")
   pca.info <- fast.prcomp( t(cluster.mat), ...)
-  colnames(pca.info$rotation) <- paste0("PC_", seq_along(pca.info$rotation[1, ]))
+  colnames(pca.info$rotation) <- paste0("PC_", seq_len(ncol(pca.info$rotation)))
   if (verbose) message(Sys.time(), " [INFO] Calculating tSNE")
   tsne.info <- Rtsne(as.matrix(cluster.mat), perplexity = perplexity, ...)
-  colnames(tsne.info$Y) <- paste0("tSNE_", seq_along(tsne.info$Y[1, ]))
+  colnames(tsne.info$Y) <- paste0("tSNE_", seq_len(ncol(tsne.info$Y)))
   if (verbose) message(Sys.time(), " [INFO] Calculating Diffusion Map")
   dm.info <- DiffusionMap(cluster.mat, k=5, ...)
-  colnames(dm.info@eigenvectors) <- paste0("DC_", seq_along(dm.info@eigenvectors[1, ]))
+  colnames(dm.info@eigenvectors) <- paste0("DC_", seq_len(ncol(dm.info@eigenvectors)))
   if (verbose) message(Sys.time(), " [INFO] Calculating UMAP")
   umap.config$n_neighbors <- k
   umap.info <- umap(cluster.mat, config = umap.config, ...)
-  colnames(umap.info$layout) <- paste0("UMAP_", seq_along(umap.info$layout[1, ]))
+  colnames(umap.info$layout) <- paste0("UMAP_", seq_len(ncol(umap.info$layout)))
 
   object@cluster <- data.frame(pca.info$rotation, tsne.info$Y, dm.info@eigenvectors, umap.info$layout)
   rownames(object@cluster) <- rownames(object@tree.meta$cluster)
@@ -252,9 +255,11 @@ processingCluster <- function(object, perplexity = 5, k = 5,
 #' @export
 #' @return An CYT object with cluster
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
+#' 
 #' cyt <- runHclust(cyt, k = 9, verbose = TRUE)
-#' }
+#' 
 #'
 #'
 runHclust <- function(object, k = 25,
@@ -320,9 +325,11 @@ runHclust <- function(object, k = 25,
 #' @export
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
+#' 
 #' cyt <- runKmeans(cyt, k = 25, verbose = TRUE)
-#' }
+#' 
 #'
 runKmeans <- function(object, k = 25, iter.max = 10, nstart = 1,
                       algorithm = c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen"),
@@ -371,9 +378,12 @@ runKmeans <- function(object, k = 25, iter.max = 10, nstart = 1,
 #' @importFrom cluster clara
 #' @export
 #' @examples
-#' if (FALSE) {
+#' 
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
+#' 
 #' cyt <- runClara(cyt, k = 25, verbose = TRUE)
-#' }
+#' 
 #'
 runClara <- function(object, k = 25, metric = c("euclidean", "manhattan", "jaccard"),
                      stand = FALSE, samples = 5, scale = TRUE,
@@ -414,9 +424,12 @@ runClara <- function(object, k = 25, metric = c("euclidean", "manhattan", "jacca
 #'
 #' @importFrom mclust Mclust mclustBIC
 #' @examples
-#' if (FALSE) {
+#' 
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
+#' 
 #' cyt <- runMclust(cyt, verbose = TRUE)
-#' }
+#' 
 #'
 runMclust <- function(object, scale = FALSE,
                       verbose = FALSE, ...) {
@@ -472,9 +485,12 @@ runMclust <- function(object, scale = FALSE,
 #' @export
 #'
 #' @examples
-#' if (FALSE) {
+#' 
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
+#' 
 #' cyt <- runSOM(cyt, xdim = 10, ydim = 10, verbose = TRUE)
-#' }
+#' 
 #'
 runSOM <- function(object, xdim = 6, ydim = 6, rlen = 8, mst = 1,
                    alpha = c(0.05,  0.01), radius = 1, init = FALSE,
@@ -527,9 +543,12 @@ runSOM <- function(object, xdim = 6, ydim = 6, rlen = 8, mst = 1,
 #'
 #' @export
 #' @examples
-#' if (FALSE) {
+#' 
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
+#' 
 #' cyt <- runPhenograph(cyt, knn = 30, verbose = TRUE)
-#' }
+#' 
 #'
 runPhenograph <- function(object, knn = 30, scale = FALSE, verbose = FALSE, ...){
 
@@ -588,7 +607,7 @@ runPhenograph <- function(object, knn = 30, scale = FALSE, verbose = FALSE, ...)
 #'     Reveals Progenitor-like Cells that Correlate with Prognosis. Cell, 2015.
 #' @examples
 #' iris_unique <- unique(iris) # Remove duplicates
-#' data <- as.matrix(iris_unique[,1:4])
+#' data <- as.matrix(iris_unique[, seq_len(4)])
 #' Rphenograph_out <- Rphenograph(data, k = 45)
 #' modularity(Rphenograph_out[[2]])
 #' membership(Rphenograph_out[[2]])
@@ -668,7 +687,7 @@ Rphenograph <- function(data, k=30){
 #'
 #' @examples
 #' iris_unique <- unique(iris) # Remove duplicates
-#' data <- as.matrix(iris_unique[,1:4])
+#' data <- as.matrix(iris_unique[, seq_len(4)])
 #' neighbors <- find_neighbors(data, k=10)
 #'
 #' @importFrom RANN nn2

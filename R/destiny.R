@@ -4,7 +4,8 @@
 #' @name runDiffusionMap
 #'
 #' @param object an CYT object
-#' @param sigma.use numeric. Diffusion scale parameter of the Gaussian kernel. One of '\code{local}',
+#' @param sigma.use numeric. Diffusion scale parameter of the Gaussian kernel. 
+#'     One of '\code{local}',
 #'     '\code{global}', a \code{\link[base]{numeric}} global sigma or a Sigmas object.
 #'     When choosing '\code{global}', a global sigma will be calculated using find_sigmas
 #'     (See \code{destiny}). A larger sigma might be necessary if the eigenvalues can not
@@ -25,9 +26,11 @@
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
+#' 
 #' cyt <- runDiffusionMap(cyt, verbose = TRUE)
-#' }
+#' 
 #'
 runDiffusionMap <- function(object, sigma.use = NULL,
                             distance = c("euclidean", "cosine", "rankcor"),
@@ -57,7 +60,7 @@ runDiffusionMap <- function(object, sigma.use = NULL,
   dm.obj <- DiffusionMap(dm.data, sigma=sigma.use, k=k, density_norm = density.norm, distance=distance, ...)
 
   rownames(dm.obj@eigenvectors) <- rownames(dm.data)
-  colnames(dm.obj@eigenvectors) <- paste0("DC_", seq_along(dm.obj@eigenvectors[1, ]))
+  colnames(dm.obj@eigenvectors) <- paste0("DC_", seq_len(ncol(dm.obj@eigenvectors)))
   rownames(dm.obj@transitions) <- rownames(dm.data)
   colnames(dm.obj@transitions) <- rownames(dm.data)
 

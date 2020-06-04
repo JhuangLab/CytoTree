@@ -55,18 +55,12 @@ Apply preprocessing on each FCS file including compensation
 \examples{
 
 
-if (FALSE) {
-  # See vignette tutorials for more information
-  vignette("Quick_start", package = "CytoTree")
+# Read fcs files
+fcs.path <- system.file("extdata", package = "CytoTree")
+fcs.files <- list.files(fcs.path, pattern = '.FCS$', full = TRUE)
 
-  # Path to your FCS files
-  fcs.path <- "CytoTree-dataset/FCS/usecase2/"
-  fcs.files <- paste0(fcs.path, "D", c(0,2,4,6,8,10), "-sub.fcs")
+fcs.data <- runExprsMerge(fcs.files, comp = FALSE, transformMethod = "none")
 
-  # Merge FCS files, and each file contain 2000 cells
-  set.seed(1)
-  fcs.data <- runExprsMerge(fcs.files, comp = F, transformMethod = "none", fixedNum = 2000)
-}
 
 
 }

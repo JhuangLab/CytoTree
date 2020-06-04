@@ -38,11 +38,12 @@ Remove batch effect in CYT object
 }
 \examples{
 
-if (FALSE) {
-  plot.meta <- fetchPlotMeta(cyt)
-  batch <- as.numeric(plot.meta$stage)
-  cyt <- correctBatchCYT(object, batch = batch)
-}
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
+plot.meta <- fetchPlotMeta(cyt)
+batch <- as.numeric(plot.meta$stage)
+cyt <- correctBatchCYT(cyt, batch = batch)
+
 
 }
 \seealso{

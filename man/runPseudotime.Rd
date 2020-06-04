@@ -8,7 +8,7 @@ runPseudotime(
   object,
   mode = "undirected",
   dim.type = c("raw", "pca", "tsne", "dc", "umap"),
-  dim.use = 1:2,
+  dim.use = seq_len(2),
   verbose = FALSE,
   ...
 )
@@ -36,22 +36,21 @@ calculation of Pseudotime based on KNN
 }
 \examples{
 
-if (FALSE) {
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
 
 cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "raw")
-cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "umap", dim.use = 1:2)
-cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "tsne", dim.use = 1:2)
-cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "dc", dim.use = 1:3)
-cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "pca", dim.use = 1:3)
+cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "umap", dim.use = seq_len(2))
+cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "tsne", dim.use = seq_len(2))
+cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "dc", dim.use = seq_len(3))
+cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "pca", dim.use = seq_len(3))
 
 # tSNE plot colored by pseudotime
 plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), category = "numeric",
-       size = 1, color.by = "pseudotime") +
-       scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
+       size = 1, color.by = "pseudotime") 
 # UMAP plot colored by pseudotime
 plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), category = "numeric",
-       size = 1, color.by = "pseudotime") +
-       scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
-}
+       size = 1, color.by = "pseudotime") 
+
 
 }

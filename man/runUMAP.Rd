@@ -34,12 +34,13 @@ Calculate Uniform Manifold Approximation and Projection in CYT
 }
 \examples{
 
-if (FALSE) {
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
 
 cyt <- runUMAP(cyt, verbose = TRUE)
 cyt <- runUMAP(cyt, n_neighbors = 20, verbose = TRUE)
 
-}
+
 
 
 }

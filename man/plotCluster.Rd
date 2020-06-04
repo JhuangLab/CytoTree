@@ -53,21 +53,22 @@ Visualization of cluster data of CYT
 }
 \examples{
 
-if (FALSE) {
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
+
 plotCluster(cyt)
 
 plotCluster(cyt, item.use = c("PC_1", "PC_2"))
 plotCluster(cyt, item.use = c("PC_2", "PC_3"))
 plotCluster(cyt, item.use = c("PC_2", "PC_3"), color.by = "CD43", category = "numeric")
-plotCluster(cyt, item.use = c("PC_2", "PC_3"), color.by = "CD43", category = "numeric") +
-    scale_colour_gradientn(colors = c("blue", "white", "red"))
+plotCluster(cyt, item.use = c("PC_2", "PC_3"), color.by = "CD43", category = "numeric")
 
 plotCluster(cyt, item.use = c("tSNE_1", "tSNE_2"))
-plotCluster(cyt, item.use = c("tSNE_1", "tSNE_2"), show.cluser.id = T)
+plotCluster(cyt, item.use = c("tSNE_1", "tSNE_2"), show.cluser.id = TRUE)
 
 plotCluster(cyt, item.use = c("DC_1", "DC_2"))
 
 plotCluster(cyt, item.use = c("UMAP_1", "UMAP_2"))
-}
+
 
 }

@@ -24,9 +24,11 @@
 #' @return An CYT object with PCA
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
+#' 
 #' cyt <- runFastPCA(cyt, verbose = TRUE)
-#' }
+#' 
 #'
 runFastPCA <- function(object, center = FALSE, scale. = TRUE,
                        verbose = FALSE, ...) {
@@ -40,7 +42,7 @@ runFastPCA <- function(object, center = FALSE, scale. = TRUE,
   object@pca.value <- pca.obj$rotation
   object@pca.scores <- pca.obj$x
 
-  colnames(object@pca.value) <- paste0("PC_", seq_along(object@pca.value[1, ]))
+  colnames(object@pca.value) <- paste0("PC_", seq_len(ncol(object@pca.value)))
 
   if (verbose) message(Sys.time(), " [INFO] Calculating PCA completed. ")
 

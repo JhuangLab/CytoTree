@@ -21,13 +21,15 @@ Fetching plot metadata of CYT
 }
 \examples{
 
-if (FALSE) {
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
+
 plot.data <- fetchPlotMeta(cyt)
 head(plot.data)
 
 plot.data <- fetchPlotMeta(cyt, markers = c("CD43", "CD34"))
 head(plot.data)
-}
+
 
 
 

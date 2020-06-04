@@ -25,7 +25,7 @@ Uses a kd-tree to find the p number of
 }
 \examples{
 iris_unique <- unique(iris) # Remove duplicates
-data <- as.matrix(iris_unique[,1:4])
+data <- as.matrix(iris_unique[, seq_len(4)])
 neighbors <- find_neighbors(data, k=10)
 
 }

@@ -116,15 +116,20 @@ If there is any error in installing or librarying the `CytoTree` package, please
 
 ## 5 Version History
 
-Jun 02, 2020
- - Version 0.99.3
- - Changes:
-   - Remove if (FALSE) in examples
+Changes in version 0.99.4 (2020-06-05)
++ Change examples and provide use case
 
-May 10, 2020
- - Version 0.99.0
- - Changes:
-   - First commit of CytoTree
+Changes in version 0.99.3 (2020-06-02)
++ Update for the comments from the reviewer
+
+Changes in version 0.99.2 (2020-05-24)
++ Update R version to 4.0
+
+Changes in version 0.99.1 (2020-05-10)
++ Fixed some warnings in BiocCheck
+
+Changes in version 0.99.0 (2020-05-10)
++ First commit
 
 ## 6 Note
 

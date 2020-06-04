@@ -11,9 +11,11 @@
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
+#' 
 #' cyt <- updatePlotMeta(cyt)
-#' }
+#' 
 #'
 #'
 updatePlotMeta <- function(object, verbose = TRUE) {
@@ -54,9 +56,11 @@ updatePlotMeta <- function(object, verbose = TRUE) {
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
+#' 
 #' cyt <- updateClustMeta(cyt)
-#' }
+#' 
 #'
 updateClustMeta <- function(object, verbose = TRUE) {
 
@@ -66,18 +70,18 @@ updateClustMeta <- function(object, verbose = TRUE) {
 
   if (length(unique(plot.data$stage)) > 1) {
     cell.count <- table(plot.data[, match(c("cluster.id", "stage"), colnames(plot.data)) ])
-    cell.count<- t(sapply(1:dim(cell.count)[1], function(x) cell.count[x, ]))
+    cell.count<- t(sapply(seq_len(dim(cell.count)[1]), function(x) cell.count[x, ]))
     cell.total.number <- rowSums(cell.count)
     cell.total.number.percent <- cell.total.number/sum(cell.total.number)
-    cell.percent<- t(sapply(1:dim(cell.count)[1], function(x) cell.count[x,]/sum(cell.count[x,]) ))
+    cell.percent<- t(sapply(seq_len(dim(cell.count)[1]), function(x) cell.count[x,]/sum(cell.count[x,]) ))
     colnames(cell.percent) <- paste0(colnames(cell.count), ".percent")
   } else {
     cell.count <- table(plot.data[, match(c("cluster.id", "stage"), colnames(plot.data)) ])
-    cell.count<- t(sapply(1:dim(cell.count)[1], function(x) cell.count[x, ]))
+    cell.count<- t(sapply(seq_len(dim(cell.count)[1]), function(x) cell.count[x, ]))
     cell.count <- as.data.frame(t(cell.count))
     cell.total.number <- rowSums(cell.count)
     cell.total.number.percent <- cell.total.number/sum(cell.total.number)
-    cell.percent<- t(sapply(1:dim(cell.count)[1], function(x) cell.count[x,]/sum(cell.count[x,]) ))
+    cell.percent<- t(sapply(seq_len(dim(cell.count)[1]), function(x) cell.count[x,]/sum(cell.count[x,]) ))
     cell.percent <- as.data.frame(t(cell.percent))
     colnames(cell.count) <- paste0(unique(plot.data$stage))
     colnames(cell.percent) <- paste0(unique(plot.data$stage), ".percent")
@@ -115,13 +119,15 @@ updateClustMeta <- function(object, verbose = TRUE) {
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
+#' 
 #' plot.data <- fetchPlotMeta(cyt)
 #' head(plot.data)
 #'
 #' plot.data <- fetchPlotMeta(cyt, markers = c("CD43", "CD34"))
 #' head(plot.data)
-#' }
+#' 
 #'
 #'
 #'
@@ -154,10 +160,12 @@ fetchPlotMeta <- function(object, markers = NULL, verbose = FALSE) {
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
+#' 
 #' clust.data <- fetchClustMeta(cyt)
 #' head(clust.data)
-#' }
+#' 
 #'
 #'
 fetchClustMeta <- function(object, verbose = FALSE) {
@@ -184,12 +192,14 @@ fetchClustMeta <- function(object, verbose = FALSE) {
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
+#' 
 #' cell.fetch <- fetchCell(cyt, traj.value.log = 0.01)
 #' cell.fetch <- fetchCell(cyt, stage = c("D0", "D10"))
 #' cell.fetch <- fetchCell(cyt, stage = c("D0", "D10"), traj.value.log = 0.01,
 #'                         logical.connect = "or")
-#' }
+#' 
 #'
 fetchCell <- function(object, logical.connect = "or", verbose = FALSE, ... ) {
 
@@ -202,7 +212,7 @@ fetchCell <- function(object, logical.connect = "or", verbose = FALSE, ... ) {
 
   if (length(param.list) > 0) {
     param.list <- param.list[names(param.list) %in% colnames(plot.meta)]
-    for (i in 1:length(param.list)) {
+    for (i in seq_along(param.list)) {
       sub <- param.list[[i]]
       sub.name <- names(param.list)[i]
       if (sub.name %in% c("cell", "stage")) {
@@ -255,7 +265,7 @@ fetchCell <- function(object, logical.connect = "or", verbose = FALSE, ... ) {
 #' @examples
 #'
 #' mat <- matrix(runif(10000), nrow = 1000, ncol = 10)
-#' colnames(mat) <- LETTERS[1:10]
+#' colnames(mat) <- LETTERS[ seq_len(10)]
 #' dim(mat)
 #'
 #' mat <- constraintMatrix(mat)
@@ -271,14 +281,14 @@ constraintMatrix <- function(x, cutoff = 0.99, markers = NULL, method = "euclide
   sub <- abs(x[, markers])
   if (length(markers) > 1) {
     sub.mean <- colMeans(sub)
-    d <- sapply(1:nrow(sub), function(aa) dist(rbind(sub[aa,], sub.mean), method = method))
+    d <- sapply(seq_len(nrow(sub)), function(aa) dist(rbind(sub[aa,], sub.mean), method = method))
   } else {
     sub.mean <- mean(sub)
-    d <- sapply(1:length(sub), function(aa) dist(rbind(sub[aa], sub.mean), method = method))
+    d <- sapply(seq_along(sub), function(aa) dist(rbind(sub[aa], sub.mean), method = method))
   }
 
   filter.mat <- x[order(d), ]
-  filter.mat <- filter.mat[1:floor(cutoff*dim(filter.mat)[1]), ]
+  filter.mat <- filter.mat[seq_len(floor(cutoff*dim(filter.mat)[1])), ]
 
   return(filter.mat)
 }

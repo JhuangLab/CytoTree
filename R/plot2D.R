@@ -24,7 +24,8 @@
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
 #'
 #' # Default plot
 #' plot2D(cyt)
@@ -33,14 +34,11 @@
 #' plot2D(cyt, item.use = c("PC_1", "PC_2"))
 #' plot2D(cyt, item.use = c("PC_1", "PC_2"), color.by = "cluster.id")
 #' plot2D(cyt, item.use = c("PC_1", "PC_2"), color.by = "stage")
-#' plot2D(cyt, item.use = c("PC_2", "PC_3"), color.by = "stage") +
-#'   scale_color_manual(values = c("#00599F","#009900","#FF9933",
-#'                                 "#FF99FF","#7A06A0","#FF3222"))
+#' plot2D(cyt, item.use = c("PC_2", "PC_3"), color.by = "stage") 
 #' plot2D(cyt, item.use = c("PC_2", "PC_3"), color.by = "CD43",
 #'        category = "numeric")
 #' plot2D(cyt, item.use = c("PC_2", "PC_3"), color.by = "CD43",
-#'        category = "numeric") +
-#'        scale_colour_gradientn(colors = c("blue","white","red"))
+#'        category = "numeric")
 #'
 #' # tSNE plot
 #' plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"))
@@ -48,13 +46,10 @@
 #' plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), color.by = "cluster.id",
 #'        alpha = 0.5, main = "tSNE Plot")
 #' plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), color.by = "cluster.id",
-#'        alpha = 1, main = "tSNE Plot", show.cluser.id = T)
+#'        alpha = 1, main = "tSNE Plot", show.cluser.id = TRUE)
 #' plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), color.by = "CD43",
-#'        category = "numeric", size = 3) +
-#'        scale_colour_gradientn(colors = c("blue","white","red"))
-#' plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), color.by = "stage") +
-#'   scale_color_manual(values = c("#00599F","#009900","#FF9933",
-#'                                 "#FF99FF","#7A06A0","#FF3222"))
+#'        category = "numeric", size = 3)
+#' plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), color.by = "stage")
 #'
 #' # Diffusion Map plot
 #' plot2D(cyt, item.use = c("DC_1", "DC_2"))
@@ -62,10 +57,9 @@
 #' plot2D(cyt, item.use = c("DC_2", "DC_3"), color.by = "cluster.id",
 #'        alpha = 0.5, main = "Diffusion Map Plot")
 #' plot2D(cyt, item.use = c("DC_2", "DC_3"), color.by = "cluster.id",
-#'        alpha = 1, main = "Diffusion Map Plot", show.cluser.id = T)
+#'        alpha = 1, main = "Diffusion Map Plot", show.cluser.id = TRUE)
 #' plot2D(cyt, item.use = c("DC_1", "DC_2"), color.by = "CD43",
-#'        category = "numeric", size = 3) +
-#'        scale_colour_gradientn(colors = c("blue","white","red"))
+#'        category = "numeric", size = 3)
 #'
 #' # UMAP plot
 #' plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"))
@@ -73,24 +67,20 @@
 #' plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), color.by = "cluster.id",
 #'        alpha = 0.5, main = "UMAP Plot")
 #' plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), color.by = "cluster.id",
-#'        alpha = 1, main = "UMAP Plot", show.cluser.id = T)
+#'        alpha = 1, main = "UMAP Plot", show.cluser.id = TRUE)
 #' plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), color.by = "CD43",
-#'        category = "numeric", size = 3) +
-#'        scale_colour_gradientn(colors = c("blue","white","red"))
-#' plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), color.by = "stage") +
-#'   scale_color_manual(values = c("#00599F","#009900","#FF9933",
-#'                                 "#FF99FF","#7A06A0","#FF3222"))
+#'        category = "numeric", size = 3)
+#' plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), color.by = "stage")
 #'
 #' # Marker Plot
 #' plot2D(cyt, item.use = c("CD43", "CD90"), color.by = "cluster.id")
 #' plot2D(cyt, item.use = c("CD34", "CD90"), color.by = "CD43",
-#'        category = "numeric", size = 3) +
-#'        scale_colour_gradientn(colors = c("blue","white","red"))
+#'        category = "numeric", size = 3)
 #'
 #' # Pseudotime
 #' plot2D(cyt, item.use = c("pseudotime", "CD43"), color.by = "stage")
 #'
-#' }
+#' 
 #'
 plot2D <- function(object,
                    item.use = c("PC_1", "PC_2"),
@@ -124,7 +114,7 @@ plot2D <- function(object,
   if (length(item.use) < 2) stop(Sys.time(), " [ERROR] item.use is less than two elements.")
   if (length(item.use) > 2) {
     warning(Sys.time(), " [WARNING] item.use has more than two elements. Only the first two will be used")
-    item.use <- item.use[1:2]
+    item.use <- item.use[seq_len(2)]
   }
   if (length(color.by) > 1) {
     warning(Sys.time(), " [WARNING] color.by has more than one elements. Only the first one will be used")
@@ -167,9 +157,9 @@ plot2D <- function(object,
   gg <- gg + labs(color = color.by)
 
   if (show.cluser.id & (category == "categorical")) {
-     pos <- aggregate(  plot.data[, 1:2], list( pos = plot.data$color.by ), mean)
+     pos <- aggregate(  plot.data[, seq_len(2)], list( pos = plot.data$color.by ), mean)
 
-     for ( i in 1:length(pos$pos)) {
+     for ( i in seq_along(pos$pos)) {
        gg <- gg + annotate(geom="text", x = pos$plot.x[i], y = pos$plot.y[i], 
                            label = pos$pos[i],
                            size = show.cluser.id.size)
@@ -203,10 +193,12 @@ plot2D <- function(object,
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
+#' 
 #' plotViolin(cyt, marker = "CD34")
 #' plotViolin(cyt, marker = "CD34", order.by = "pseudotime")
-#' }
+#' 
 #'
 plotViolin <- function(object,
                        marker,
@@ -297,7 +289,9 @@ plotViolin <- function(object,
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
+#' 
 #' # Runs only have more than two stages
 #' plotPieCluster(cyt, cex.size = 0.5)
 #'
@@ -309,10 +303,8 @@ plotViolin <- function(object,
 #' plotPieCluster(cyt, item.use = c("DC_1", "DC_2"), cex.size = 0.5)
 #'
 #' plotPieCluster(cyt, item.use = c("UMAP_1", "UMAP_2"), cex.size = 1)
-#' plotPieCluster(cyt, item.use = c("UMAP_1", "UMAP_2"), cex.size = 1) +
-#'    scale_fill_manual(values = c("#00599F","#FF3222","#009900",
-#'                                 "#FF9933","#FF99FF","#7A06A0"))
-#' }
+#' plotPieCluster(cyt, item.use = c("UMAP_1", "UMAP_2"), cex.size = 1) 
+#' 
 #'
 plotPieCluster <- function(object,
                            item.use = c("PC_1", "PC_2"),
@@ -334,7 +326,7 @@ plotPieCluster <- function(object,
   if (length(item.use) < 2) stop(Sys.time(), " [ERROR] item.use is less than two elements.")
   if (length(item.use) > 2) {
     warning(Sys.time(), " [WARNING] item.use has more than two elements. Only the first two will be used")
-    item.use <- item.use[1:2]
+    item.use <- item.use[seq_len(2)]
   }
   item.use.idx <- match(item.use, colnames(object@cluster))
 
@@ -387,22 +379,23 @@ plotPieCluster <- function(object,
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
+#' 
 #' plotCluster(cyt)
 #'
 #' plotCluster(cyt, item.use = c("PC_1", "PC_2"))
 #' plotCluster(cyt, item.use = c("PC_2", "PC_3"))
 #' plotCluster(cyt, item.use = c("PC_2", "PC_3"), color.by = "CD43", category = "numeric")
-#' plotCluster(cyt, item.use = c("PC_2", "PC_3"), color.by = "CD43", category = "numeric") +
-#'     scale_colour_gradientn(colors = c("blue", "white", "red"))
+#' plotCluster(cyt, item.use = c("PC_2", "PC_3"), color.by = "CD43", category = "numeric")
 #'
 #' plotCluster(cyt, item.use = c("tSNE_1", "tSNE_2"))
-#' plotCluster(cyt, item.use = c("tSNE_1", "tSNE_2"), show.cluser.id = T)
+#' plotCluster(cyt, item.use = c("tSNE_1", "tSNE_2"), show.cluser.id = TRUE)
 #'
 #' plotCluster(cyt, item.use = c("DC_1", "DC_2"))
 #'
 #' plotCluster(cyt, item.use = c("UMAP_1", "UMAP_2"))
-#' }
+#' 
 #'
 plotCluster <- function(object,
                         item.use = c("PC_1", "PC_2"),
@@ -433,7 +426,7 @@ plotCluster <- function(object,
   if (length(item.use) < 2) stop(Sys.time(), " [ERROR] item.use is less than two elements.")
   if (length(item.use) > 2) {
     warning(Sys.time(), " [WARNING] item.use has more than two elements. Only the first two will be used")
-    item.use <- item.use[1:2]
+    item.use <- item.use[seq_len(2)]
   }
   if (length(color.by) > 1) {
     warning(Sys.time(), " [WARNING] color.by has more than one elements. Only the first one will be used")
@@ -481,7 +474,7 @@ plotCluster <- function(object,
   gg <- gg + labs(color = color.by)
 
   if (show.cluser.id) {
-    for ( i in 1:nrow(plot.data)) {
+    for ( i in seq_along(rownames(plot.data))) {
       gg <- gg + annotate(geom="text", x = plot.data$plot.x[i], y = plot.data$plot.y[i],
                           label = rownames(plot.data)[i],
                           size = show.cluser.id.size)
@@ -513,14 +506,15 @@ plotCluster <- function(object,
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
 #'
 #' plotClusterHeatmap(cyt)
 #' plotClusterHeatmap(cyt, color = colorRampPalette(c("purple","white","yellow"))(100))
-#' plotClusterHeatmap(cyt, cluster_row = F)
-#' plotClusterHeatmap(cyt, cluster_row = F, cluster_col = F)
+#' plotClusterHeatmap(cyt, cluster_row = FALSE)
+#' plotClusterHeatmap(cyt, cluster_row = FALSE, cluster_col = FALSE)
 #'
-#' }
+#' 
 #'
 plotClusterHeatmap <- function(object,
                                color = colorRampPalette(c("blue","white","red"))(100),
@@ -558,14 +552,15 @@ plotClusterHeatmap <- function(object,
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
 #'
 #' plotBranchHeatmap(cyt)
 #' plotBranchHeatmap(cyt, color = colorRampPalette(c("purple","white","yellow"))(100))
 #' plotBranchHeatmap(cyt, cluster_row = FALSE)
 #' plotBranchHeatmap(cyt, cluster_row = FALSE, cluster_col = FALSE)
 #'
-#' }
+#' 
 #'
 plotBranchHeatmap <- function(object,
                               color = colorRampPalette(c("blue","white","red"))(100),
@@ -606,16 +601,6 @@ plotBranchHeatmap <- function(object,
 #' @export
 #' @return ggplot2 figure
 #'
-#' @examples
-#'
-#' if (FALSE) {
-#'
-#' plotTrajHeatmap(cyt)
-#' plotBranchHeatmap(cyt, color = colorRampPalette(c("purple","white","yellow"))(100))
-#' plotBranchHeatmap(cyt, cluster_row = FALSE)
-#' plotBranchHeatmap(cyt, cluster_row = FALSE, cluster_col = FALSE)
-#'
-#' }
 #'
 plotTrajHeatmap <- function(object,
                             cutoff = 0,
@@ -672,14 +657,15 @@ plotTrajHeatmap <- function(object,
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
 #'
 #' plotHeatmap(cyt)
-#' plotHeatmap(cyt, cluster_rows = T)
-#' plotHeatmap(cyt, cluster_rows = T, clustering_method = "ward.D")
-#' plotHeatmap(cyt, cluster_rows = T, cluster_cols = T)
+#' plotHeatmap(cyt, cluster_rows = TRUE)
+#' plotHeatmap(cyt, cluster_rows = TRUE, clustering_method = "ward.D")
+#' plotHeatmap(cyt, cluster_rows = TRUE, cluster_cols = TRUE)
 #'
-#' }
+#' 
 #'
 #'
 plotHeatmap <- function(object,
@@ -699,7 +685,7 @@ plotHeatmap <- function(object,
   if (downsize > dim(plot.meta.data)[1]) {
     downsize = dim(plot.meta.data)[1]
   }
-  plot.meta.data <- plot.meta.data[sample(1:dim(plot.meta.data)[1], downsize), ]
+  plot.meta.data <- plot.meta.data[sample(seq_len(dim(plot.meta.data)[1]), downsize), ]
 
   if (max(plot.meta.data$pseudotime) > 0) plot.meta.data <- plot.meta.data[order(plot.meta.data$pseudotime), ]
 

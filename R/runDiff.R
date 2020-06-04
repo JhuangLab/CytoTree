@@ -24,11 +24,12 @@
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
 #'
 #' DEG.table <- runDiff(cyt)
 #'
-#' }
+#' 
 #'
 #'
 #'

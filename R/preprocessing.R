@@ -50,18 +50,12 @@
 #' @examples
 #'
 #'
-#' if (FALSE) {
-#'   # See vignette tutorials for more information
-#'   vignette("Quick_start", package = "CytoTree")
+#' # Read fcs files
+#' fcs.path <- system.file("extdata", package = "CytoTree")
+#' fcs.files <- list.files(fcs.path, pattern = '.FCS$', full = TRUE)
 #'
-#'   # Path to your FCS files
-#'   fcs.path <- "CytoTree-dataset/FCS/usecase2/"
-#'   fcs.files <- paste0(fcs.path, "D", c(0,2,4,6,8,10), "-sub.fcs")
+#' fcs.data <- runExprsMerge(fcs.files, comp = FALSE, transformMethod = "none")
 #'
-#'   # Merge FCS files, and each file contain 2000 cells
-#'   set.seed(1)
-#'   fcs.data <- runExprsMerge(fcs.files, comp = F, transformMethod = "none", fixedNum = 2000)
-#' }
 #'
 #'
 runExprsMerge <- function(fcsFiles,
@@ -82,7 +76,7 @@ runExprsMerge <- function(fcsFiles,
 
   ## test if number of events in any fcs less than fixedNum
   eventCountTest <- suppressWarnings(any(lapply(exprsL, function(x) if (nrow(x) < fixedNum) {1} else {0})))
-  ## solution 1: change mergeMethod from fixed to ceil
+  ## solution 1, change mergeMethod from fixed to ceil
   #if(mergeMethod == "fixed" && eventCountTest == TRUE){
   #  mergeMethod <- "ceil"
   #}
@@ -178,18 +172,12 @@ runExprsMerge <- function(fcsFiles,
 #'
 #' @examples
 #'
-#' if (FALSE) {
-#' # See vignette tutorials for more information
-#' vignette(package = "CytoTree")
-#' vignette("Quick_start", package = "CytoTree")
+#' # Read fcs files
+#' fcs.file <- system.file("extdata/D0.FCS", package = "CytoTree")
 #'
-#'   # Path to your FCS files
-#'   fcs.path <- "CytoTree-dataset/FCS/usecase1/"
-#'   fcs.file <- paste0(fcs.path, "FR-FCM-ZY9R-Bone_Marrow_cytof.fcs")
-#'
-#'   # Read FCS files
-#'   exp.data <- runExprsExtract(fcs.file, showDesc = FALSE, transformMethod = "autoLgcl")
-#' }
+#' # Read FCS files
+#' exp.data <- runExprsExtract(fcs.file, showDesc = FALSE, transformMethod = "none")
+#' 
 #'
 #'
 runExprsExtract <- function(fcsFile,
@@ -305,7 +293,7 @@ runExprsExtract <- function(fcsFile,
   }
 
   colnames(exprs) <- col_names[marker_id]
-  row.names(exprs) <- paste(name, 1:nrow(exprs), sep = "_")
+  row.names(exprs) <- paste(name, seq_len(nrow(exprs)), sep = "_")
 
   return(exprs)
 }

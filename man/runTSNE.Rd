@@ -53,12 +53,13 @@ Calculate t-Distributed Stochastic Neighbor Embedding in CYT
 }
 \examples{
 
-if (FALSE) {
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
 
 cyt <- runTSNE(cyt, dims = 2, verbose = TRUE)
 cyt <- runTSNE(cyt, dims = 2, perplexity = 20, verbose = TRUE)
 
-}
+
 
 }
 \references{

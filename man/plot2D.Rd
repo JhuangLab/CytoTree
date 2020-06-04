@@ -50,7 +50,8 @@ Visualization of 2D data of CYT
 }
 \examples{
 
-if (FALSE) {
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
 
 # Default plot
 plot2D(cyt)
@@ -59,14 +60,11 @@ plot2D(cyt)
 plot2D(cyt, item.use = c("PC_1", "PC_2"))
 plot2D(cyt, item.use = c("PC_1", "PC_2"), color.by = "cluster.id")
 plot2D(cyt, item.use = c("PC_1", "PC_2"), color.by = "stage")
-plot2D(cyt, item.use = c("PC_2", "PC_3"), color.by = "stage") +
-  scale_color_manual(values = c("#00599F","#009900","#FF9933",
-                                "#FF99FF","#7A06A0","#FF3222"))
+plot2D(cyt, item.use = c("PC_2", "PC_3"), color.by = "stage") 
 plot2D(cyt, item.use = c("PC_2", "PC_3"), color.by = "CD43",
        category = "numeric")
 plot2D(cyt, item.use = c("PC_2", "PC_3"), color.by = "CD43",
-       category = "numeric") +
-       scale_colour_gradientn(colors = c("blue","white","red"))
+       category = "numeric")
 
 # tSNE plot
 plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"))
@@ -74,13 +72,10 @@ plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), color.by = "stage")
 plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), color.by = "cluster.id",
        alpha = 0.5, main = "tSNE Plot")
 plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), color.by = "cluster.id",
-       alpha = 1, main = "tSNE Plot", show.cluser.id = T)
+       alpha = 1, main = "tSNE Plot", show.cluser.id = TRUE)
 plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), color.by = "CD43",
-       category = "numeric", size = 3) +
-       scale_colour_gradientn(colors = c("blue","white","red"))
-plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), color.by = "stage") +
-  scale_color_manual(values = c("#00599F","#009900","#FF9933",
-                                "#FF99FF","#7A06A0","#FF3222"))
+       category = "numeric", size = 3)
+plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), color.by = "stage")
 
 # Diffusion Map plot
 plot2D(cyt, item.use = c("DC_1", "DC_2"))
@@ -88,10 +83,9 @@ plot2D(cyt, item.use = c("DC_1", "DC_2"), color.by = "stage")
 plot2D(cyt, item.use = c("DC_2", "DC_3"), color.by = "cluster.id",
        alpha = 0.5, main = "Diffusion Map Plot")
 plot2D(cyt, item.use = c("DC_2", "DC_3"), color.by = "cluster.id",
-       alpha = 1, main = "Diffusion Map Plot", show.cluser.id = T)
+       alpha = 1, main = "Diffusion Map Plot", show.cluser.id = TRUE)
 plot2D(cyt, item.use = c("DC_1", "DC_2"), color.by = "CD43",
-       category = "numeric", size = 3) +
-       scale_colour_gradientn(colors = c("blue","white","red"))
+       category = "numeric", size = 3)
 
 # UMAP plot
 plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"))
@@ -99,23 +93,19 @@ plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), color.by = "stage")
 plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), color.by = "cluster.id",
        alpha = 0.5, main = "UMAP Plot")
 plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), color.by = "cluster.id",
-       alpha = 1, main = "UMAP Plot", show.cluser.id = T)
+       alpha = 1, main = "UMAP Plot", show.cluser.id = TRUE)
 plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), color.by = "CD43",
-       category = "numeric", size = 3) +
-       scale_colour_gradientn(colors = c("blue","white","red"))
-plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), color.by = "stage") +
-  scale_color_manual(values = c("#00599F","#009900","#FF9933",
-                                "#FF99FF","#7A06A0","#FF3222"))
+       category = "numeric", size = 3)
+plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), color.by = "stage")
 
 # Marker Plot
 plot2D(cyt, item.use = c("CD43", "CD90"), color.by = "cluster.id")
 plot2D(cyt, item.use = c("CD34", "CD90"), color.by = "CD43",
-       category = "numeric", size = 3) +
-       scale_colour_gradientn(colors = c("blue","white","red"))
+       category = "numeric", size = 3)
 
 # Pseudotime
 plot2D(cyt, item.use = c("pseudotime", "CD43"), color.by = "stage")
 
-}
+
 
 }

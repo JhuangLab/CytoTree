@@ -15,9 +15,11 @@
 #' @return Cell number of CYT object
 #'
 #' @examples
-#' if (FALSE) {
-#'   cyt
-#' }
+#' 
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
+#' cyt
+#' 
 #'
 setMethod(
   f = "show",

@@ -23,11 +23,13 @@ Fetching cellls of CYT
 }
 \examples{
 
-if (FALSE) {
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
+
 cell.fetch <- fetchCell(cyt, traj.value.log = 0.01)
 cell.fetch <- fetchCell(cyt, stage = c("D0", "D10"))
 cell.fetch <- fetchCell(cyt, stage = c("D0", "D10"), traj.value.log = 0.01,
                         logical.connect = "or")
-}
+
 
 }

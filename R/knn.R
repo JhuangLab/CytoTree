@@ -22,12 +22,6 @@
 #'
 #' @export
 #'
-#' @examples
-#' if (FALSE) {
-#'
-#' cyt <- runKNN(cyt)
-#'
-#' }
 #'
 #'
 runKNN <- function(object,

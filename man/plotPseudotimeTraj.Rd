@@ -40,18 +40,15 @@ plotPseudotimeTraj
 }
 \examples{
 
-if (FALSE) {
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
 
 plotPseudotimeTraj(cyt)
-plotPseudotimeTraj(cyt, print.curve = F)
-plotPseudotimeTraj(cyt, var.cols = T)
+plotPseudotimeTraj(cyt, print.curve = FALSE)
+plotPseudotimeTraj(cyt, var.cols = TRUE)
 
-plotPseudotimeTraj(cyt) +
-   scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
+plotPseudotimeTraj(cyt, markers = c("CD43", "CD34"))
 
-plotPseudotimeTraj(cyt, markers = c("CD43", "CD34")) +
-scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
 
-}
 
 }

@@ -19,9 +19,11 @@ Update plot meta information of CYT
 }
 \examples{
 
-if (FALSE) {
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
+
 cyt <- updatePlotMeta(cyt)
-}
+
 
 
 }

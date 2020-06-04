@@ -75,18 +75,12 @@ Extract the FCS expresssion data with preprocessing of
 }
 \examples{
 
-if (FALSE) {
-# See vignette tutorials for more information
-vignette(package = "CytoTree")
-vignette("Quick_start", package = "CytoTree")
+# Read fcs files
+fcs.file <- system.file("extdata/D0.FCS", package = "CytoTree")
 
-  # Path to your FCS files
-  fcs.path <- "CytoTree-dataset/FCS/usecase1/"
-  fcs.file <- paste0(fcs.path, "FR-FCM-ZY9R-Bone_Marrow_cytof.fcs")
+# Read FCS files
+exp.data <- runExprsExtract(fcs.file, showDesc = FALSE, transformMethod = "none")
 
-  # Read FCS files
-  exp.data <- runExprsExtract(fcs.file, showDesc = FALSE, transformMethod = "autoLgcl")
-}
 
 
 }

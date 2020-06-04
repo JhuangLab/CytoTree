@@ -33,12 +33,13 @@
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
 #'
 #' cyt <- runTSNE(cyt, dims = 2, verbose = TRUE)
 #' cyt <- runTSNE(cyt, dims = 2, perplexity = 20, verbose = TRUE)
 #'
-#' }
+#' 
 #'
 runTSNE <- function(object, dims = 2, initial_dims = 50, perplexity = 30,
                     theta = 0.5, check_duplicates = TRUE, pca = TRUE, max_iter = 1000,
@@ -58,7 +59,7 @@ runTSNE <- function(object, dims = 2, initial_dims = 50, perplexity = 30,
                     ...)
 
   object@tsne.value <- tsne.obj$Y
-  colnames(object@tsne.value) <- paste0("tSNE_", seq_along(tsne.obj$Y[1, ]))
+  colnames(object@tsne.value) <- paste0("tSNE_", seq_len(ncol(tsne.obj$Y)))
   rownames(object@tsne.value) <- rownames(mat)
 
   if (verbose) message(Sys.time(), " [INFO] Calculating tSNE completed. ")

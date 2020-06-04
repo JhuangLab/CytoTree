@@ -46,9 +46,12 @@ an CYT object with clara.id in meta.data
 Clustering a data matrix into k clusters
 }
 \examples{
-if (FALSE) {
+
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
+
 cyt <- runClara(cyt, k = 25, verbose = TRUE)
-}
+
 
 }
 \seealso{

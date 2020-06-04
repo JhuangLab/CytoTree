@@ -21,12 +21,13 @@
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
 #'
 #' cyt <- runUMAP(cyt, verbose = TRUE)
 #' cyt <- runUMAP(cyt, n_neighbors = 20, verbose = TRUE)
 #'
-#' }
+#' 
 #'
 #'
 runUMAP <- function(object, umap.config = umap.defaults,
@@ -39,7 +40,7 @@ runUMAP <- function(object, umap.config = umap.defaults,
   umap.config$n_components <- dims
   umap.out <- umap(mat, config = umap.config, ...)
   object@umap.value <- umap.out$layout
-  colnames(object@umap.value) <- paste0("UMAP_", seq_along(umap.out$layout[1, ]))
+  colnames(object@umap.value) <- paste0("UMAP_", seq_len(ncol(umap.out$layout)))
   rownames(object@umap.value) <- rownames(mat)
 
   if (verbose) message(Sys.time(), " [INFO] Calculating Umap.")

@@ -41,9 +41,11 @@ Visualization violin plot of CYT
 }
 \examples{
 
-if (FALSE) {
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
+
 plotViolin(cyt, marker = "CD34")
 plotViolin(cyt, marker = "CD34", order.by = "pseudotime")
-}
+
 
 }

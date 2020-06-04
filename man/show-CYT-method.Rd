@@ -19,9 +19,11 @@ Cell number of CYT object
 Prevents R from crashing by trying to print all slots of an CYT object  if a returned object is not stored in a variable.
 }
 \examples{
-if (FALSE) {
-  cyt
-}
+
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
+cyt
+
 
 }
 \keyword{internal}

@@ -19,10 +19,12 @@ Fetching clusters' metadata of CYT
 }
 \examples{
 
-if (FALSE) {
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
+
 clust.data <- fetchClustMeta(cyt)
 head(clust.data)
-}
+
 
 
 }

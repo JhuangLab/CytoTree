@@ -34,7 +34,9 @@ Visualization pie plot of cluster data of CYT
 }
 \examples{
 
-if (FALSE) {
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
+
 # Runs only have more than two stages
 plotPieCluster(cyt, cex.size = 0.5)
 
@@ -46,9 +48,7 @@ plotPieCluster(cyt, item.use = c("tSNE_1", "tSNE_2"), cex.size = 20)
 plotPieCluster(cyt, item.use = c("DC_1", "DC_2"), cex.size = 0.5)
 
 plotPieCluster(cyt, item.use = c("UMAP_1", "UMAP_2"), cex.size = 1)
-plotPieCluster(cyt, item.use = c("UMAP_1", "UMAP_2"), cex.size = 1) +
-   scale_fill_manual(values = c("#00599F","#FF3222","#009900",
-                                "#FF9933","#FF99FF","#7A06A0"))
-}
+plotPieCluster(cyt, item.use = c("UMAP_1", "UMAP_2"), cex.size = 1) 
+
 
 }

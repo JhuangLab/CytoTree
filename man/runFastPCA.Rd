@@ -33,9 +33,11 @@ Calculate principal components in CYT
 }
 \examples{
 
-if (FALSE) {
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
+
 cyt <- runFastPCA(cyt, verbose = TRUE)
-}
+
 
 }
 \seealso{

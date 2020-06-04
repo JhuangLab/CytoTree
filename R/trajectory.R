@@ -24,10 +24,12 @@
 #'
 #' @examples
 #'
-#' if (FALSE) {
-#'   cyt <- runWalk(cyt, verbose = TRUE)
-#'   cyt <- runWalk(cyt, backward.walk = FALSE, verbose = TRUE)
-#' }
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
+#' 
+#' cyt <- runWalk(cyt, verbose = TRUE)
+#' cyt <- runWalk(cyt, backward.walk = FALSE, verbose = TRUE)
+#' 
 #'
 #'
 #'

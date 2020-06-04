@@ -44,9 +44,11 @@ Perform k-means clustering on a data matrix.
 }
 \examples{
 
-if (FALSE) {
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
+
 cyt <- runKmeans(cyt, k = 25, verbose = TRUE)
-}
+
 
 }
 \seealso{

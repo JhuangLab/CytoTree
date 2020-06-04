@@ -23,9 +23,12 @@ Model-based clustering based on parameterized finite Gaussian mixture models.
    This function is based on \code{\link[mclust]{Mclust}}.
 }
 \examples{
-if (FALSE) {
+
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
+
 cyt <- runMclust(cyt, verbose = TRUE)
-}
+
 
 }
 \seealso{

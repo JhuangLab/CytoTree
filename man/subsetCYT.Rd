@@ -26,12 +26,14 @@ This subsets an CYT object by given a list of cells or cluster id.
 }
 \examples{
 
-if (FALSE) {
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
 
-cells <- test.meta.data$cell[which(test.meta.data$stage == "D0")]
+meta.data <- fetchPlotMeta(cyt)
+cells <- meta.data$cell[which(meta.data$stage == "D0")]
 sub.cyt <- subsetCYT(cyt, cells = cells)
 sub.cyt
 
-}
+
 
 }

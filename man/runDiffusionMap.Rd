@@ -17,7 +17,8 @@ runDiffusionMap(
 \arguments{
 \item{object}{an CYT object}
 
-\item{sigma.use}{numeric. Diffusion scale parameter of the Gaussian kernel. One of '\code{local}',
+\item{sigma.use}{numeric. Diffusion scale parameter of the Gaussian kernel. 
+ One of '\code{local}',
  '\code{global}', a \code{\link[base]{numeric}} global sigma or a Sigmas object.
  When choosing '\code{global}', a global sigma will be calculated using find_sigmas
  (See \code{destiny}). A larger sigma might be necessary if the eigenvalues can not
@@ -42,9 +43,11 @@ Calculate diffusion map in CYT
 }
 \examples{
 
-if (FALSE) {
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
+
 cyt <- runDiffusionMap(cyt, verbose = TRUE)
-}
+
 
 }
 \seealso{

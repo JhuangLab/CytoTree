@@ -10,7 +10,7 @@
 #'    By default is 'raw'.
 #' @param dim.use numeric. Number of dimensions that will be used to build the tree.
 #'    For example. If \code{dim.use} is 'raw', there is no limit for \code{dim.type}. 
-#'    And if the \code{dim.use} is 'tsne' or 'umap', the default \code{dim.use} is 1:2.
+#'    And if the \code{dim.use} is 'tsne' or 'umap', the default \code{dim.use} is seq_len(2).
 #' @param verbose logical. Whether to print calculation progress.
 #'
 #' @export
@@ -22,26 +22,27 @@
 #'
 #' @examples
 #'
-#' if (FALSE) {
-#' # build minimum spanning tree (MST) based on raw expression matrix
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
+#' 
 #' cyt <- buildTree(cyt, dim.type = "raw")
 #'
 #' # build minimum spanning tree (MST) based on tsne
-#' cyt <- buildTree(cyt, dim.type = "tsne", dim.use = 1:2)
+#' cyt <- buildTree(cyt, dim.type = "tsne", dim.use = seq_len(2))
 #'
 #' # Using PCA
-#' cyt <- buildTree(cyt, dim.type = "pca", dim.use = 1:4)
+#' cyt <- buildTree(cyt, dim.type = "pca", dim.use =seq_len(4))
 #'
 #' # Using UMAP
-#' cyt <- buildTree(cyt, dim.type = "umap", dim.use = 1:2)
+#' cyt <- buildTree(cyt, dim.type = "umap", dim.use = seq_len(2))
 #'
 #' # Using Diffusion Maps
-#' cyt <- buildTree(cyt, dim.type = "dc", dim.use = 1:3)
-#' }
+#' cyt <- buildTree(cyt, dim.type = "dc", dim.use = seq_len(3))
+#' 
 #'
 buildTree <- function(object, method = "euclidean",
                       dim.type = c("raw", "pca", "tsne", "dc", "umap"), 
-                      dim.use = 1:2,
+                      dim.use = seq_len(2),
                       verbose = FALSE) {
 
   if (verbose) message(Sys.time(), " [INFO] Calculating buildTree.")

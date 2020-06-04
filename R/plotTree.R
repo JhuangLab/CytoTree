@@ -18,25 +18,22 @@
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
 #'
 #' plotTree(cyt)
 #'
-#' plotTree(cyt, show.node.name = T)
+#' plotTree(cyt, show.node.name = TRUE)
 #'
-#' plotTree(cyt, color.by = "CD43", show.node.name = T, cex.size = 1) +
-#'     scale_colour_gradientn(colors = c("#00599F", "#EEEEEE", "#FF3222"))
+#' plotTree(cyt, color.by = "CD43", show.node.name = TRUE, cex.size = 1) 
 #'
-#' plotTree(cyt, color.by = "D0.percent", show.node.name = T, cex.size = 1) +
-#'     scale_colour_gradientn(colors = c("#00599F", "#EEEEEE", "#FF3222"))
+#' plotTree(cyt, color.by = "D0.percent", show.node.name = TRUE, cex.size = 1) 
 #'
-#' plotTree(cyt, color.by = "D2.percent", show.node.name = T, cex.size = 1) +
-#'     scale_colour_gradientn(colors = c("#00599F", "#EEEEEE", "#FF3222"))
+#' plotTree(cyt, color.by = "D2.percent", show.node.name = TRUE, cex.size = 1) 
 #'
-#' plotTree(cyt, color.by = "pseudotime", cex.size = 1) +
-#'     scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
+#' plotTree(cyt, color.by = "pseudotime", cex.size = 1)
 #'
-#' }
+#' 
 #'
 plotTree <- function(object,
                      cex.size = 1,
@@ -114,13 +111,12 @@ plotTree <- function(object,
 #'
 #' @examples
 #'
-#' if (FALSE) {
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
 #'
 #' # Runs only have two or more stages
-#' plotPieTree(cyt, cex.size = 1, size.by.cell.number = T) +
-#'    scale_fill_manual(values = c("#00599F","#FF3222","#009900",
-#'                                 "#FF9933","#FF99FF","#7A06A0"))
-#' }
+#' plotPieTree(cyt, cex.size = 1, size.by.cell.number = TRUE) 
+#' 
 #'
 plotPieTree <- function(object,
                         cex.size = 2,

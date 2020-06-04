@@ -26,7 +26,7 @@ constraint FCS data by a provid cutoff
 \examples{
 
 mat <- matrix(runif(10000), nrow = 1000, ncol = 10)
-colnames(mat) <- LETTERS[1:10]
+colnames(mat) <- LETTERS[ seq_len(10)]
 dim(mat)
 
 mat <- constraintMatrix(mat)

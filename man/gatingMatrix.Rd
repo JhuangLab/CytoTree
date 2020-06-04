@@ -22,6 +22,7 @@ a matrix
 Apply gating on the matrix data
 }
 \examples{
+
 par(mfrow=c(1,2))
 x <- matrix(rnorm(200, 3, 1), nrow = 100, ncol = 2)
 colnames(x) <- c("CD34", "CD43")

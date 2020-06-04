@@ -21,16 +21,19 @@ definition of root cells
 }
 \examples{
 
-if (FALSE) {
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
+
 # Define root cells by cluster
 cyt <- defRootCells(cyt, root.cells = 6, verbose = TRUE)
 cyt <- defRootCells(cyt, root.cells = c(6,8), verbose = TRUE)
 
 # Define root cells by cell names
-cells <- test.meta.data$cell[which(test.meta.data$stage == "D0")]
+meta.data <- fetchPlotMeta(cyt)
+cells <- meta.data$cell[which(meta.data$stage == "D0")]
 cells <- as.character(cells)
 cyt <- defRootCells(cyt, root.cells = cells, verbose = TRUE)
-}
+
 
 
 }

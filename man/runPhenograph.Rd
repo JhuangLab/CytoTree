@@ -31,8 +31,11 @@ A simple R implementation of the phenograph
    in this graph.
 }
 \examples{
-if (FALSE) {
+
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
+
 cyt <- runPhenograph(cyt, knn = 30, verbose = TRUE)
-}
+
 
 }

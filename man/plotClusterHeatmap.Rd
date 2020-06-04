@@ -30,13 +30,14 @@ Visualization heatmap of cluster data of CYT
 }
 \examples{
 
-if (FALSE) {
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
 
 plotClusterHeatmap(cyt)
 plotClusterHeatmap(cyt, color = colorRampPalette(c("purple","white","yellow"))(100))
-plotClusterHeatmap(cyt, cluster_row = F)
-plotClusterHeatmap(cyt, cluster_row = F, cluster_col = F)
+plotClusterHeatmap(cyt, cluster_row = FALSE)
+plotClusterHeatmap(cyt, cluster_row = FALSE, cluster_col = FALSE)
 
-}
+
 
 }

@@ -179,23 +179,38 @@ setValidity("CYT", function(object) {
 #'
 #' @examples
 #'
-#' if (FALSE) {
-#' ## See vignette tutorials
-#' vignette(package = "CytoTree")
-#' 
-#' ## Build using test data
-#' markers <- c("CD43", "CD34", "CD90", "CD45RA",
-#'              "CD31", "CD49f", "CD73", "FLK1", "CD38")
 #'
-#' cyt <- createCYT(raw.data = test.fcs.data,
-#'                  markers = markers,
-#'                  meta.data = test.meta.data,
+#' # Read fcs files
+#' fcs.path <- system.file("extdata", package = "CytoTree")
+#' fcs.files <- list.files(fcs.path, pattern = '.FCS$', full = TRUE)
+#'
+#' fcs.data <- runExprsMerge(fcs.files, comp = FALSE, transformMethod = "none")
+#'
+#' # Refine colnames of fcs data
+#' recol <- c(`FITC-A<CD43>` = "CD43", `APC-A<CD34>` = "CD34", 
+#'            `BV421-A<CD90>` = "CD90", `BV510-A<CD45RA>` = "CD45RA", 
+#'            `BV605-A<CD31>` = "CD31", `BV650-A<CD49f>` = "CD49f",
+#'            `BV 735-A<CD73>` = "CD73", `BV786-A<CD45>` = "CD45", 
+#'            `PE-A<FLK1>` = "FLK1", `PE-Cy7-A<CD38>` = "CD38")
+#' colnames(fcs.data)[match(names(recol), colnames(fcs.data))] = recol
+#' fcs.data <- fcs.data[, recol]
+#' 
+#' day.list <- c("D0", "D2", "D4", "D6", "D8", "D10")
+#' meta.data <- data.frame(cell = rownames(fcs.data),
+#'                         stage = gsub(".FCS.+", "", rownames(fcs.data) ) )
+#' meta.data$stage <- factor(as.character(meta.data$stage), levels = day.list)
+#' 
+#' markers <- c("CD43","CD34","CD90","CD45RA","CD31","CD49f","CD73","CD45","FLK1","CD38")
+#' 
+#'# Build the CYT object
+#' cyt <- createCYT(raw.data = fcs.data, markers = markers,
+#'                  meta.data = meta.data,
 #'                  normalization.method = "log",
 #'                  verbose = TRUE)
-#'
+#' 
+#' # See information
 #' cyt
 #'
-#' }
 #'
 createCYT <- function(raw.data, markers, meta.data,
                       batch = NULL, batch.correct = FALSE,

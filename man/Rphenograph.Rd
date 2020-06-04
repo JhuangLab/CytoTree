@@ -45,7 +45,7 @@ This function is developed by Hao Chen  and updated by Yuting Dai.
 }
 \examples{
 iris_unique <- unique(iris) # Remove duplicates
-data <- as.matrix(iris_unique[,1:4])
+data <- as.matrix(iris_unique[, seq_len(4)])
 Rphenograph_out <- Rphenograph(data, k = 45)
 modularity(Rphenograph_out[[2]])
 membership(Rphenograph_out[[2]])

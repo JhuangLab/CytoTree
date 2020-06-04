@@ -32,9 +32,10 @@ or "minkowski". Or you can specify an equation as input, for example
 \value{
 An CYT object with cluster
 
-if (FALSE) {
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
+
 cyt <- runHclust(cyt, k = 9, verbose = TRUE)
-}
 }
 \description{
 Hierarchical cluster analysis on a set of dissimilarities

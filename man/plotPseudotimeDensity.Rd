@@ -31,17 +31,14 @@ plot Pseudotime density of CYT
 }
 \examples{
 
-if (FALSE) {
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
 
 plotPseudotimeDensity(cyt)
 
 plotPseudotimeDensity(cyt, adjust = 1)
 plotPseudotimeDensity(cyt, adjust = 2)
 
-plotPseudotimeDensity(cyt, adjust = 2) +
-  scale_color_manual(values = c("#00599F","#FF3222","#009900",
-                                "#FF9933","#FF99FF","#7A06A0"))
 
-}
 
 }

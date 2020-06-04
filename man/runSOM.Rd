@@ -61,9 +61,12 @@ an CYT object with som.id in CYT object
 Build a self-organizing map
 }
 \examples{
-if (FALSE) {
+
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
+
 cyt <- runSOM(cyt, xdim = 10, ydim = 10, verbose = TRUE)
-}
+
 
 }
 \references{

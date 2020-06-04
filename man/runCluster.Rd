@@ -32,12 +32,14 @@ Compute a specific clustering using the combined flow
 }
 \examples{
 
-if (FALSE) {
+cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+cyt <- readRDS(file = cyt.file)
+
 # After building an CYT object
 # Set random seed to make results reproducible
 
 set.seed(1)
-cyt <- runCluster(cyt, cluster.method = "som", xdim = 3, ydim = 3, verbose = TURE)
+cyt <- runCluster(cyt, cluster.method = "som", xdim = 3, ydim = 3, verbose = TRUE)
 
 # K-means clustering
 cyt <- runCluster(cyt, cluster.method = "kmeans", k = 9, verbose = TRUE)
@@ -55,7 +57,7 @@ cyt <- runCluster(cyt, cluster.method = "hclust", k = 9, verbose = TRUE)
 # mclust clustering
 # not recommended for large cell size
 cyt <- runCluster(cyt, cluster.method = "mclust", verbose = TRUE)
-}
+
 
 }
 \seealso{

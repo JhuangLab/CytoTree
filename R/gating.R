@@ -12,6 +12,7 @@
 #' @return a matrix
 #'
 #' @examples
+#' 
 #' par(mfrow=c(1,2))
 #' x <- matrix(rnorm(200, 3, 1), nrow = 100, ncol = 2)
 #' colnames(x) <- c("CD34", "CD43")
@@ -56,11 +57,11 @@ gatingMatrix <- function(x, lower.gate = NULL, upper.gate = NULL) {
         warning( paste0(Sys.time(), " [WARNING] names in upper.gate is not in colnames of x") )
         return(x)
       }
-      for (i in 1:length(lname)) {
+      for (i in seq_along(lname)) {
         x <- x[which(x[, names(lname)[i]] > lname[i]), ]
         if (nrow(x) == 0) stop( paste0(Sys.time(), " [ERROR] lower.gate is out of bound") )
       }
-      for (i in 1:length(uname)) {
+      for (i in seq_along(uname)) {
         x <- x[which(x[, names(uname)[i]] < uname[i]), ]
         if (nrow(x) == 0) stop( paste0(Sys.time(), " [ERROR] upper.gate is out of bound") )
       }
