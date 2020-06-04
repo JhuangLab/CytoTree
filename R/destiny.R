@@ -57,7 +57,7 @@ runDiffusionMap <- function(object, sigma.use = NULL,
   dm.obj <- DiffusionMap(dm.data, sigma=sigma.use, k=k, density_norm = density.norm, distance=distance, ...)
 
   rownames(dm.obj@eigenvectors) <- rownames(dm.data)
-  colnames(dm.obj@eigenvectors) <- paste0("DC_", 1:ncol(dm.obj@eigenvectors))
+  colnames(dm.obj@eigenvectors) <- paste0("DC_", seq_along(dm.obj@eigenvectors[1, ]))
   rownames(dm.obj@transitions) <- rownames(dm.data)
   colnames(dm.obj@transitions) <- rownames(dm.data)
 

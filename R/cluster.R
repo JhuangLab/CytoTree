@@ -163,17 +163,17 @@ processingCluster <- function(object, perplexity = 5, k = 5,
   # run PCA
   if (verbose) message(Sys.time(), " [INFO] Calculating PCA")
   pca.info <- fast.prcomp( t(cluster.mat), ...)
-  colnames(pca.info$rotation) <- paste0("PC_", 1:ncol(pca.info$rotation))
+  colnames(pca.info$rotation) <- paste0("PC_", seq_along(pca.info$rotation[1, ]))
   if (verbose) message(Sys.time(), " [INFO] Calculating tSNE")
   tsne.info <- Rtsne(as.matrix(cluster.mat), perplexity = perplexity, ...)
-  colnames(tsne.info$Y) <- paste0("tSNE_", 1:ncol(tsne.info$Y))
+  colnames(tsne.info$Y) <- paste0("tSNE_", seq_along(tsne.info$Y[1, ]))
   if (verbose) message(Sys.time(), " [INFO] Calculating Diffusion Map")
   dm.info <- DiffusionMap(cluster.mat, k=5, ...)
-  colnames(dm.info@eigenvectors) <- paste0("DC_", 1:ncol(dm.info@eigenvectors))
+  colnames(dm.info@eigenvectors) <- paste0("DC_", seq_along(dm.info@eigenvectors[1, ]))
   if (verbose) message(Sys.time(), " [INFO] Calculating UMAP")
   umap.config$n_neighbors <- k
   umap.info <- umap(cluster.mat, config = umap.config, ...)
-  colnames(umap.info$layout) <- paste0("UMAP_", 1:ncol(umap.info$layout))
+  colnames(umap.info$layout) <- paste0("UMAP_", seq_along(umap.info$layout[1, ]))
 
   object@cluster <- data.frame(pca.info$rotation, tsne.info$Y, dm.info@eigenvectors, umap.info$layout)
   rownames(object@cluster) <- rownames(object@tree.meta$cluster)

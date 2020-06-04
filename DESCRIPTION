@@ -1,8 +1,8 @@
 Package: CytoTree
 Type: Package
 Title: A Toolkit for Flow And Mass Cytometry Data
-Version: 0.99.2
-Date: 2020-05-24
+Version: 0.99.3
+Date: 2020-06-02
 Authors@R: person("Yuting", "Dai", role = c("aut", "cre"), email = "forlynna@sjtu.edu.cn")
 Description: A trajectory inference toolkit for flow and mass 
     cytometry data. CytoTree is a valuable tool to build a 
@@ -31,8 +31,4 @@ RoxygenNote: 7.1.0
 BugReports: https://github.com/JhuangLab/CytoTree/issues
 git_url: https://github.com/JhuangLab/CytoTree
 URL: http://www.r-project.org, https://github.com/JhuangLab/CytoTree
-git_last_commit: 
-git_last_commit_date: 
-Date/Publication: 
 LinkingTo: Rcpp
-Packaged: 

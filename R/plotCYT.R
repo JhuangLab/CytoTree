@@ -129,7 +129,7 @@ plotPseudotimeTraj <- function(object,
   plot.data <- NULL
   plot.meta <- object@plot.meta
   Pseudotime <- Signal <- Marker <- Stage <- NULL
-  for (i in 1:length(markers)) {
+  for (i in seq_along(markers)) {
     sub <- data.frame(Pseudotime = plot.meta$pseudotime,
                       IsRoot = plot.meta$is.root.cells,
                       IsLeaf = plot.meta$is.leaf.cells,
@@ -221,7 +221,7 @@ plotMarkerDensity <- function(object,
   plot.data <- NULL
   Pseudotime = IsRoot = IsLeaf = Marker = Signal = Stage = TrajValue = LogTrajValue = NULL
   plot.meta <- fetchPlotMeta(object, verbose = FALSE)
-  for (i in 1:length(markers)) {
+  for (i in seq_along(markers)) {
     sub <- data.frame(Pseudotime = plot.meta$pseudotime,
                       IsRoot = plot.meta$is.root.cells,
                       IsLeaf = plot.meta$is.leaf.cells,

@@ -102,9 +102,9 @@ cyt <- runTSNE(cyt)
 cyt <- runDiffusionMap(cyt)
 cyt <- runUMAP(cyt)
 cyt <- buildTree(cyt, dim.type = "umap", dim.use = 1:2)
-cyt <- defRootCells(cyt, root.cells = "Root cells")
+cyt <- defRootCells(cyt, root.cells = 1)
 cyt <- runPseudotime(cyt)
-cyt <- defLeafCells(cyt, leaf.cells = "Leaf cells")
+cyt <- defLeafCells(cyt, leaf.cells = 2)
 cyt <- runWalk(cyt)
 
 
@@ -115,6 +115,11 @@ cyt <- runWalk(cyt)
 If there is any error in installing or librarying the `CytoTree` package, please contact us via e-mail forlynna@sjtu.edu.cn
 
 ## 5 Version History
+
+Jun 02, 2020
+ - Version 0.99.3
+ - Changes:
+   - Remove if (FALSE) in examples
 
 May 10, 2020
  - Version 0.99.0

@@ -198,9 +198,9 @@ setValidity("CYT", function(object) {
 #' }
 #'
 createCYT <- function(raw.data, markers, meta.data,
-                       batch = NULL, batch.correct = FALSE,
-                       normalization.method = "none",
-                       verbose = FALSE, ...) {
+                      batch = NULL, batch.correct = FALSE,
+                      normalization.method = "none",
+                      verbose = FALSE, ...) {
   # QC of cells
   if (missing(raw.data)) stop(Sys.time(), " [ERROR] raw.data is required")
   if (!is.matrix(raw.data)) {
