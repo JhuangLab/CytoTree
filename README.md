@@ -116,6 +116,9 @@ If there is any error in installing or librarying the `CytoTree` package, please
 
 ## 5 Version History
 
+Changes in version 0.99.5 (2020-06-18)
++ Re-build this package
+
 Changes in version 0.99.4 (2020-06-05)
 + Change examples and provide use case
 
