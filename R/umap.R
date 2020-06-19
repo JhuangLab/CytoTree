@@ -32,8 +32,8 @@
 #'
 runUMAP <- function(object, umap.config = umap.defaults,
                     n_neighbors = 30, dims = 2, verbose = FALSE, ...) {
-  if (verbose) message(Sys.time(), " [INFO] Calculating Umap.")
-  if (length(which(object@meta.data$dowsample == 1)) < 10) stop(Sys.time, " [ERROR] Not enough cells, please run processingCluster and choose correct downsampling.size paramter. ")
+  if (verbose) message(Sys.time(), " Calculating Umap.")
+  if (length(which(object@meta.data$dowsample == 1)) < 10) stop(Sys.time, " Not enough cells, please run processingCluster and choose correct downsampling.size paramter. ")
   mat <- as.matrix(object@log.data[which(object@meta.data$dowsample == 1), ])
 
   umap.config$n_neighbors <- n_neighbors
@@ -43,6 +43,6 @@ runUMAP <- function(object, umap.config = umap.defaults,
   colnames(object@umap.value) <- paste0("UMAP_", seq_len(ncol(umap.out$layout)))
   rownames(object@umap.value) <- rownames(mat)
 
-  if (verbose) message(Sys.time(), " [INFO] Calculating Umap.")
+  if (verbose) message(Sys.time(), " Calculating Umap.")
   return(object)
 }

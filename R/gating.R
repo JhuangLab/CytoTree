@@ -29,41 +29,41 @@
 #'
 gatingMatrix <- function(x, lower.gate = NULL, upper.gate = NULL) {
   if (is.null(lower.gate) & is.null(upper.gate)) {
-    warning(paste0(Sys.time(), " [WARNING] gating parameter is missing"))
+    warning(paste0(Sys.time(), " gating parameter is missing"))
     return(x)
   } else {
     if (!is.vector(lower.gate)) {
-      warning(paste0(Sys.time(), " [WARNING] lower.gate parameter must be a vector"))
+      warning(paste0(Sys.time(), " lower.gate parameter must be a vector"))
       return(x)
     } else if (!is.vector(upper.gate)) {
-      warning(paste0(Sys.time(), " [WARNING] upper.gate parameter must be a vector"))
+      warning(paste0(Sys.time(), " upper.gate parameter must be a vector"))
       return(x)
     } else {
       lname <- lower.gate[!names(lower.gate) %in% colnames(x)]
       uname <- upper.gate[!names(upper.gate) %in% colnames(x)]
       if (length(lname) > 0) {
-        warning( paste0(Sys.time(), " [WARNING] some names in lower.gate is not in colnames of x") )
+        warning( paste0(Sys.time(), " some names in lower.gate is not in colnames of x") )
       }
       if (length(uname) > 0) {
-        warning( paste0(Sys.time(), " [WARNING] some names in upper.gate is not in colnames of x") )
+        warning( paste0(Sys.time(), " some names in upper.gate is not in colnames of x") )
       }
       lname <- lower.gate[names(lower.gate) %in% colnames(x)]
       uname <- upper.gate[names(upper.gate) %in% colnames(x)]
       if (length(lname) == 0) {
-        warning( paste0(Sys.time(), " [WARNING] names in lower.gate is not in colnames of x") )
+        warning( paste0(Sys.time(), " names in lower.gate is not in colnames of x") )
         return(x)
       }
       if (length(uname) == 0) {
-        warning( paste0(Sys.time(), " [WARNING] names in upper.gate is not in colnames of x") )
+        warning( paste0(Sys.time(), " names in upper.gate is not in colnames of x") )
         return(x)
       }
       for (i in seq_along(lname)) {
         x <- x[which(x[, names(lname)[i]] > lname[i]), ]
-        if (nrow(x) == 0) stop( paste0(Sys.time(), " [ERROR] lower.gate is out of bound") )
+        if (nrow(x) == 0) stop( paste0(Sys.time(), " lower.gate is out of bound") )
       }
       for (i in seq_along(uname)) {
         x <- x[which(x[, names(uname)[i]] < uname[i]), ]
-        if (nrow(x) == 0) stop( paste0(Sys.time(), " [ERROR] upper.gate is out of bound") )
+        if (nrow(x) == 0) stop( paste0(Sys.time(), " upper.gate is out of bound") )
       }
       return(x)
     }

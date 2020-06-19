@@ -216,7 +216,7 @@ runExprsExtract <- function(fcsFile,
       fcs <- applyComp(fcs, fcs@description[["COMP"]])
       message("    Compensation is applied on ", fcsFile, "\n")
     }else{
-      warning(Sys.time(), " [WARNING] ", "Cannot find compensation matrix in the FCS files!
+      warning(Sys.time(), " ", "Cannot find compensation matrix in the FCS files!
               Please CHECK the keyword of 'SPILL', 'SPILLOVER', or 'COMP'
               in the FCS file and make sure it stores the compensation matrix.")
     }
@@ -403,7 +403,7 @@ autoLgcl <- function(x, channels, m = 4.5, q = 0.05) {
       } else {
         w <- (m - log10(t/abs(r)))/2
         if(is.nan(w) || w>2) {
-          warning(Sys.time(), " [WARNING] ", paste0("autoLgcl failed for channel: ", p, "; using default logicle transformation!"))
+          warning(Sys.time(), " ", paste0("autoLgcl failed for channel: ", p, "; using default logicle transformation!"))
           w <- 0.1
           t <- 4000
           m <- 4.5

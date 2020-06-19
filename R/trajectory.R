@@ -38,13 +38,13 @@ runWalk <- function(object, mode = c("undirected", "directed", "max", "min", "up
                     backward.walk = FALSE, max.run.backward = 20,
                     verbose = FALSE, ...) {
 
-  if (missing(object)) stop(Sys.time(), " [ERROR] object is missing.")
+  if (missing(object)) stop(Sys.time(), " object is missing.")
 
-  if (dim(object@knn.index)[1] == 0) stop(Sys.time(), " [ERROR] KNN information is missing in CYT, please run runKNN first.")
+  if (dim(object@knn.index)[1] == 0) stop(Sys.time(), " KNN information is missing in CYT, please run runKNN first.")
 
-  if (verbose) message(Sys.time(), " [INFO] Calculating walk between root.cells and leaf.cells .")
+  if (verbose) message(Sys.time(), " Calculating walk between root.cells and leaf.cells .")
 
-  if (!"pseudotime" %in% colnames(object@meta.data)) stop(Sys.time(), " [INFO] Pseudotime exists in meta.data, it will be replaced.")
+  if (!"pseudotime" %in% colnames(object@meta.data)) stop(Sys.time(), " Pseudotime exists in meta.data, it will be replaced.")
 
   knn.index <- object@knn.index
 
@@ -53,7 +53,7 @@ runWalk <- function(object, mode = c("undirected", "directed", "max", "min", "up
   pseudotime <- object@meta.data$pseudotime[which(object@meta.data$seed.pseudotime == 1)]
 
   # generating a adjacency matrix by nearest neighbors
-  if (verbose) message(Sys.time(), " [INFO] Generating an adjacency matrix.")
+  if (verbose) message(Sys.time(), " Generating an adjacency matrix.")
   for(i in seq_len(nrow(knn.index))) {
     idx <- knn.index[i,][ pseudotime[knn.index[i,]] > pseudotime[i]  ]
     adj[i, rownames(knn.index)[idx]] <- 1
@@ -63,25 +63,25 @@ runWalk <- function(object, mode = c("undirected", "directed", "max", "min", "up
   # remove self loops
   g <- simplify(g)
 
-  if (verbose) message(Sys.time(), " [INFO] Walk forward.")
+  if (verbose) message(Sys.time(), " Walk forward.")
   root.cells <- object@root.cells[object@root.cells %in% rownames(knn.index)]
   leaf.cells <- object@leaf.cells[object@leaf.cells %in% rownames(knn.index)]
   if (length(root.cells) >= max.run.forward ) {
     root.cells <- as.character(sample(root.cells, max.run.forward))
   } else {
-    warning(Sys.time(), " [WARNING] max.run.forward is too large.")
+    warning(Sys.time(), " max.run.forward is too large.")
   }
   # run forward
   walk.forward <- suppressWarnings(lapply(as.character(root.cells), function(x) shortest_paths(g, from = x, to = as.character(leaf.cells))$vpath ))
 
   # run run backward
   if (backward.walk) {
-    if (verbose) message(Sys.time(), " [INFO] Walk backward.")
+    if (verbose) message(Sys.time(), " Walk backward.")
     leaf.cells <- object@leaf.cells[object@leaf.cells %in% rownames(knn.index)]
     if (length(leaf.cells) >= max.run.backward ) {
       leaf.cells <- as.character(sample(leaf.cells, max.run.backward))
     } else {
-      warning(Sys.time(), " [WARNING] max.run.backward is too large.")
+      warning(Sys.time(), " max.run.backward is too large.")
     }
     walk.backward <- suppressWarnings(lapply(leaf.cells, function(x) shortest_paths(g, from = x, to = object@root.cells)$vpath ))
   } else {
@@ -104,7 +104,7 @@ runWalk <- function(object, mode = c("undirected", "directed", "max", "min", "up
 
   object@meta.data$traj.value.log <- log10(object@meta.data$traj.value + 1)
 
-  if (verbose) message(Sys.time(), " [INFO] Calculating walk completed.")
+  if (verbose) message(Sys.time(), " Calculating walk completed.")
 
   return(object)
 }

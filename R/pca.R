@@ -33,8 +33,8 @@
 runFastPCA <- function(object, center = FALSE, scale. = TRUE,
                        verbose = FALSE, ...) {
   # PCA calculation
-  if (verbose) message(Sys.time(), " [INFO] Calculating PCA.")
-  if (length(which(object@meta.data$dowsample == 1)) < 10) stop(Sys.time, " [ERROR] Not enough cells, please run processingCluster and choose correct downsampleing.size paramter. ")
+  if (verbose) message(Sys.time(), " Calculating PCA.")
+  if (length(which(object@meta.data$dowsample == 1)) < 10) stop(Sys.time, " Not enough cells, please run processingCluster and choose correct downsampleing.size paramter. ")
   mat <- object@log.data[which(object@meta.data$dowsample == 1), ]
   pca.obj <- fast.prcomp( t(mat), retx = TRUE, center = center, scale. = scale., ...)
 
@@ -44,7 +44,7 @@ runFastPCA <- function(object, center = FALSE, scale. = TRUE,
 
   colnames(object@pca.value) <- paste0("PC_", seq_len(ncol(object@pca.value)))
 
-  if (verbose) message(Sys.time(), " [INFO] Calculating PCA completed. ")
+  if (verbose) message(Sys.time(), " Calculating PCA completed. ")
 
   return(object)
 }

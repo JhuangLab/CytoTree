@@ -22,20 +22,10 @@ vignette: |
 
 ```{r echo = TRUE}
 knitr::opts_chunk$set(echo = TRUE, cache = FALSE, eval = TRUE,
-                      warning = TRUE, message = TRUE)
+                      warning = TRUE, message = TRUE,
+                      fig.width = 6, fig.height = 5)
 ```
 
-## Link to the tutorial
-
-See the quick start tutorial of CytoTree, please visit [Quick start of CytoTree](https://ytdai.github.io/CytoTree/Quick_start.html).
-
-See the basic tutorial of CytoTree, please visit [Tutorial of CytoTree](https://ytdai.github.io/CytoTree/basic.html).
-
-See time-course data analysis of CytoTree, please visit [Time-course workflow of CytoTree](https://ytdai.github.io/CytoTree/Time_course.html).
-
-The previous version of `CytoTree` is `flowSpy` **[link to GitHub](https://github.com/JhuangLab/CytoTree) and [link to Bioconductor](https://bioconductor.org/packages/flowSpy/)**. To improve the identification and avoid awkward duplication of names in some situations, we changed the name of `flowSpy` to `CytoTree`. `CytoTree` more fits the functional orientation of this software.
-
-We apologized for the inconvenience.
 
 ## Introduction
 
@@ -61,6 +51,202 @@ The CytoTree package is developed to complete the majority of standard analysis 
 <center> <img src="../inst/figures/algorithm.jpg" alt="Workflow of CytoTree" /> </center>
 
 <center> **Fig. 1  Workflow of CytoTree** </center>
+
+## Quick start
+
+
+``` {r eval = TRUE}
+
+# Loading packages
+suppressMessages({
+library(ggplot2)
+library(CytoTree)
+library(flowCore)
+library(stringr)
+})
+
+
+# Read fcs files
+fcs.path <- system.file("extdata", package = "CytoTree")
+fcs.files <- list.files(fcs.path, pattern = '.FCS$', full = TRUE)
+
+fcs.data <- runExprsMerge(fcs.files, comp = FALSE, transformMethod = "none")
+
+# Refine colnames of fcs data
+recol <- c(`FITC-A<CD43>` = "CD43", `APC-A<CD34>` = "CD34", 
+           `BV421-A<CD90>` = "CD90", `BV510-A<CD45RA>` = "CD45RA", 
+           `BV605-A<CD31>` = "CD31", `BV650-A<CD49f>` = "CD49f",
+           `BV 735-A<CD73>` = "CD73", `BV786-A<CD45>` = "CD45", 
+           `PE-A<FLK1>` = "FLK1", `PE-Cy7-A<CD38>` = "CD38")
+colnames(fcs.data)[match(names(recol), colnames(fcs.data))] = recol
+fcs.data <- fcs.data[, recol]
+
+day.list <- c("D0", "D2", "D4", "D6", "D8", "D10")
+meta.data <- data.frame(cell = rownames(fcs.data),
+                        stage = str_replace(rownames(fcs.data), regex(".FCS.+"), "") )
+meta.data$stage <- factor(as.character(meta.data$stage), levels = day.list)
+
+markers <- c("CD43","CD34","CD90","CD45RA","CD31","CD49f","CD73","CD45","FLK1","CD38")
+
+# Build the CYT object
+cyt <- createCYT(raw.data = fcs.data, markers = markers,
+                 meta.data = meta.data,
+                 normalization.method = "log",
+                 verbose = TRUE)
+
+# See information
+cyt
+```
+
+
+``` {r eval = TRUE}
+# Cluster cells by SOM algorithm
+# Set random seed to make results reproducible
+set.seed(1)
+cyt <- runCluster(cyt, cluster.method = "som")
+
+# Do not perform downsampling
+set.seed(1)
+cyt <- processingCluster(cyt)
+
+# run Principal Component Analysis (PCA)
+cyt <- runFastPCA(cyt)
+
+# run t-Distributed Stochastic Neighbor Embedding (tSNE)
+cyt <- runTSNE(cyt)
+
+# run Diffusion map
+cyt <- runDiffusionMap(cyt)
+
+# run Uniform Manifold Approximation and Projection (UMAP)
+cyt <- runUMAP(cyt)
+
+# build minimum spanning tree based on tsne
+cyt <- buildTree(cyt, dim.type = "tsne", dim.use = 1:2)
+
+# DEGs of different branch
+diff.list <- runDiff(cyt)
+
+# define root cells
+cyt <- defRootCells(cyt, root.cells = c(28,26))
+
+# run pseudotime
+cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "raw")
+
+# define leaf cells
+cyt <- defLeafCells(cyt, leaf.cells = c(27, 13), verbose = TRUE)
+
+# run walk between root cells and leaf cells
+cyt <- runWalk(cyt, verbose = TRUE)
+
+# Save object
+if (FALSE) {
+  save(cyt, file = "Path to you output directory")
+}
+
+######################## Visualization
+
+# Plot 2D tSNE. And cells are colored by cluster id
+plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), color.by = "cluster.id", 
+       alpha = 1, main = "tSNE", category = "categorical", show.cluser.id = TRUE)
+
+# Plot 2D UMAP. And cells are colored by cluster id
+plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), color.by = "cluster.id", 
+       alpha = 1, main = "UMAP", category = "categorical", show.cluser.id = TRUE)
+
+# Plot 2D tSNE. And cells are colored by cluster id
+plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), color.by = "branch.id", 
+       alpha = 1, main = "tSNE", category = "categorical", show.cluser.id = TRUE)
+
+# Plot 2D UMAP. And cells are colored by cluster id
+plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), color.by = "branch.id", 
+       alpha = 1, main = "UMAP", category = "categorical", show.cluser.id = TRUE)
+
+
+# Plot 2D tSNE. And cells are colored by stage
+plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), color.by = "stage", 
+       alpha = 1, main = "UMAP", category = "categorical") +
+   scale_color_manual(values = c("#00599F","#009900","#FF9933",
+                                 "#FF99FF","#7A06A0","#FF3222"))
+
+# Plot 2D UMAP. And cells are colored by stage
+plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), color.by = "stage", 
+       alpha = 1, main = "UMAP", category = "categorical") +
+   scale_color_manual(values = c("#00599F","#009900","#FF9933",
+                                 "#FF99FF","#7A06A0","#FF3222"))
+
+# Tree plot
+plotTree(cyt, color.by = "D0.percent", show.node.name = TRUE, cex.size = 1) + 
+  scale_colour_gradientn(colors = c("#00599F", "#EEEEEE", "#FF3222"))
+
+plotTree(cyt, color.by = "CD43", show.node.name = TRUE, cex.size = 1) + 
+  scale_colour_gradientn(colors = c("#00599F", "#EEEEEE", "#FF3222"))
+
+
+# plot clusters
+plotCluster(cyt, item.use = c("tSNE_1", "tSNE_2"), category = "numeric",
+            size = 100, color.by = "CD45RA") + 
+  scale_colour_gradientn(colors = c("#00599F", "#EEEEEE", "#FF3222"))
+
+# plot pie tree
+plotPieTree(cyt, cex.size = 3, size.by.cell.number = TRUE) + 
+  scale_fill_manual(values = c("#00599F","#FF3222","#009900",
+                               "#FF9933","#FF99FF","#7A06A0"))
+
+# plot pie cluster
+plotPieCluster(cyt, item.use = c("tSNE_1", "tSNE_2"), cex.size = 40) + 
+  scale_fill_manual(values = c("#00599F","#FF3222","#009900",
+                               "#FF9933","#FF99FF","#7A06A0"))
+
+# plot heatmap of cluster
+plotClusterHeatmap(cyt)
+plotBranchHeatmap(cyt)
+
+# Violin plot
+plotViolin(cyt, color.by = "cluster.id", marker = "CD45RA", text.angle = 90)
+plotViolin(cyt, color.by = "branch.id", marker = "CD45RA", text.angle = 90)
+
+# UMAP plot colored by pseudotime
+plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), category = "numeric",
+            size = 1, color.by = "pseudotime") + 
+  scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
+
+# tSNE plot colored by pseudotime
+plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), category = "numeric",
+            size = 1, color.by = "pseudotime") + 
+ scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
+
+# denisty plot by different stage
+plotPseudotimeDensity(cyt, adjust = 1) + 
+  scale_color_manual(values = c("#00599F","#009900","#FF9933",
+                                "#FF99FF","#7A06A0","#FF3222"))
+# Tree plot
+plotTree(cyt, color.by = "pseudotime", cex.size = 1.5) + 
+ scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
+
+plotViolin(cyt, color.by = "cluster.id", order.by = "pseudotime",
+           marker = "CD49f", text.angle = 90)
+
+# trajectory value
+plotPseudotimeTraj(cyt, var.cols = TRUE) + 
+ scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
+
+
+plotHeatmap(cyt, downsize = 1000, cluster_rows = TRUE, clustering_method = "ward.D",
+            color = colorRampPalette(c("#00599F","#EEEEEE","#FF3222"))(100))
+
+# plot cluster
+plotCluster(cyt, item.use = c("tSNE_1", "tSNE_2"), color.by = "traj.value.log", 
+            size = 10, show.cluser.id = TRUE, category = "numeric") + 
+ scale_colour_gradientn(colors = c("#EEEEEE", "#FF3222", "#CC0000", "#CC0000"))
+```
+
+## Announcement
+
+The previous version of `CytoTree` is `flowSpy` **[link to GitHub](https://github.com/JhuangLab/CytoTree) and [link to Bioconductor](https://bioconductor.org/packages/flowSpy/)**. To improve the identification and avoid awkward duplication of names in some situations, we changed the name of `flowSpy` to `CytoTree`. `CytoTree` more fits the functional orientation of this software.
+
+We apologized for the inconvenience.
+
 
 ## References
 

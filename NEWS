@@ -1,3 +1,7 @@
+Changes in version 0.99.6 (2020-06-19)
++ Remove INFO/WARNING/ERROR tags 
++ Add vignettes
+
 Changes in version 0.99.5 (2020-06-18)
 + Re-build this package
 

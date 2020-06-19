@@ -28,15 +28,15 @@ plotPseudotimeDensity <- function(object, color.by = "stage",
                                   main = "Density of pseudotime",
                                   adjust = 0.5,
                                   plot.theme = theme_bw()) {
-  if (missing(object)) stop(Sys.time(), " [ERROR] object is missing")
+  if (missing(object)) stop(Sys.time(), " object is missing")
   object <- updatePlotMeta(object, verbose = FALSE)
 
   pseudotime = Pseudotime = Signal = Marker = Stage = NULL
 
   # checking items
-  if ( !all("pseudotime" %in% colnames(object@plot.meta)) ) stop(Sys.time(), " [ERROR] pseudotime is not in plot.meta of CYT, please run Pseudotime first.")
+  if ( !all("pseudotime" %in% colnames(object@plot.meta)) ) stop(Sys.time(), " pseudotime is not in plot.meta of CYT, please run Pseudotime first.")
 
-  if ( !all(color.by %in% colnames(object@plot.meta)) ) stop(Sys.time(), " [ERROR] item.use is not in plot.meta of CYT, please run updatePlotMeta first.")
+  if ( !all(color.by %in% colnames(object@plot.meta)) ) stop(Sys.time(), " item.use is not in plot.meta of CYT, please run updatePlotMeta first.")
 
   item.use.idx <- match("pseudotime", colnames(object@plot.meta))
   color.by.idx <- match(color.by, colnames(object@plot.meta))
@@ -45,7 +45,7 @@ plotPseudotimeDensity <- function(object, color.by = "stage",
                           color.by = object@plot.meta[, color.by.idx])
 
   if (length(unique(plot.data$color.by)) > 50) {
-    message(Sys.time(), " [INFO] color.by is a numeric vector and has over 50 elements")
+    message(Sys.time(), " color.by is a numeric vector and has over 50 elements")
     plot.data$color.by <- 1
   }
   if (!is.factor(plot.data$color.by)) plot.data$color.by <- as.factor(as.character(plot.data$color.by))
@@ -102,21 +102,21 @@ plotPseudotimeTraj <- function(object,
                                var.cols = FALSE,
                                plot.theme = theme_bw()) {
 
-  if (missing(object)) stop(Sys.time(), " [ERROR] object is missing")
+  if (missing(object)) stop(Sys.time(), " object is missing")
   object <- updatePlotMeta(object, verbose = FALSE)
 
   # checking items
-  if ( !all("pseudotime" %in% colnames(object@plot.meta)) ) stop(Sys.time(), " [ERROR] pseudotime is not in plot.meta of CYT, please run Pseudotime first.")
+  if ( !all("pseudotime" %in% colnames(object@plot.meta)) ) stop(Sys.time(), " pseudotime is not in plot.meta of CYT, please run Pseudotime first.")
 
   # checking items
   if (cutoff > 0) {
     if ( !all(c("traj.value","traj.value.log") %in% colnames(object@plot.meta)) ) {
-      message(Sys.time(), " [INFO] traj.value is not in plot.meta of CYT, please run runWalk first.")
+      message(Sys.time(), " traj.value is not in plot.meta of CYT, please run runWalk first.")
     }
   }
   if (is.null(markers)) markers <- object@markers
   if (length(markers) > 30) {
-    warning(Sys.time(), " [WARNING] only the first 30 markers will be plot")
+    warning(Sys.time(), " only the first 30 markers will be plot")
     markers <- markers[ seq_len(30)]
   }
 
@@ -197,18 +197,18 @@ plotMarkerDensity <- function(object,
                               adjust = 0.5,
                               plot.theme = theme_bw()) {
 
-  if (missing(object)) stop(Sys.time(), " [ERROR] object is missing")
+  if (missing(object)) stop(Sys.time(), " object is missing")
   object <- updatePlotMeta(object, verbose = FALSE)
 
   # checking items
   if (cutoff > 0) {
     if ( !all(c("traj.value","traj.value.log") %in% colnames(object@plot.meta)) ) {
-      message(Sys.time(), " [INFO] traj.value is not in plot.meta of CYT, please run runWalk first.")
+      message(Sys.time(), " traj.value is not in plot.meta of CYT, please run runWalk first.")
     }
   }
   if (is.null(markers)) markers <- object@markers
   if (length(markers) > 30) {
-    warning(Sys.time(), " [WARNING] only the first 30 markers will be plot")
+    warning(Sys.time(), " only the first 30 markers will be plot")
     markers <- markers[ seq_len(30)]
   }
 

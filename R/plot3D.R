@@ -53,17 +53,17 @@ plot3D <- function(object,
     plot.meta <- cbind(plot.meta, sub)
   }
 
-  if ( !all(item.use %in% colnames(plot.meta)) ) stop(Sys.time(), " [ERROR] item.use is not in plot.meta of CYT, please run updatePlotMeta first.")
+  if ( !all(item.use %in% colnames(plot.meta)) ) stop(Sys.time(), " item.use is not in plot.meta of CYT, please run updatePlotMeta first.")
 
-  if ( !all(color.by %in% colnames(plot.meta)) ) stop(Sys.time(), " [ERROR] item.use is not in plot.meta of CYT, please run updatePlotMeta first.")
+  if ( !all(color.by %in% colnames(plot.meta)) ) stop(Sys.time(), " item.use is not in plot.meta of CYT, please run updatePlotMeta first.")
 
-  if (length(item.use) < 3) stop(Sys.time(), " [ERROR] item.use is less than two characters.")
+  if (length(item.use) < 3) stop(Sys.time(), " item.use is less than two characters.")
   if (length(item.use) > 3) {
-    warning(Sys.time(), " [WARNING] item.use is more than two characters. Only the first two will be used")
+    warning(Sys.time(), " item.use is more than two characters. Only the first two will be used")
     item.use <- item.use[ seq_len(3)]
   }
   if (length(color.by) > 1) {
-    warning(Sys.time(), " [WARNING] color.by is more than one characters. Only the first one will be used")
+    warning(Sys.time(), " color.by is more than one characters. Only the first one will be used")
     color.by <- color.by[1]
   }
 
@@ -76,7 +76,7 @@ plot3D <- function(object,
                           color.by = plot.meta[, color.by.idx])
 
   if ((length( unique(plot.data$color.by) ) > 256) & (category != "numeric")) {
-    warning(Sys.time(), " [WARNING] color.by is categorical and has more than 50 elements. It will be used as numeric instead.")
+    warning(Sys.time(), " color.by is categorical and has more than 50 elements. It will be used as numeric instead.")
     category = "numeric"
   }
 
@@ -106,7 +106,7 @@ plot3D <- function(object,
     plot.data$color.by.sd <- plot.data$color.by - min(plot.data$color.by)
     plot.data$color.by.3d <- color.lib[ ceiling( plot.data$color.by.sd/max(plot.data$color.by.sd) * 100 ) + 1 ]
   } else {
-    warning(Sys.time(), " [WARNING] Unidentified parameters of category")
+    warning(Sys.time(), " Unidentified parameters of category")
   }
 
 

@@ -36,7 +36,7 @@ updatePlotMeta <- function(object, verbose = TRUE) {
   plot.meta <- as.data.frame(plot.meta)
   object@plot.meta <- plot.meta
 
-  if (verbose) message(Sys.time(), " [INFO] Columns can be used in plot2D and plot3D: ", paste(colnames(plot.meta), collapse = " "))
+  if (verbose) message(Sys.time(), " Columns can be used in plot2D and plot3D: ", paste(colnames(plot.meta), collapse = " "))
 
   return(object)
 }
@@ -98,7 +98,7 @@ updateClustMeta <- function(object, verbose = TRUE) {
   tree.meta$branch.id <- plot.data$branch.id[match(tree.meta$cluster, plot.data$cluster.id)]
 
   object@tree.meta <- tree.meta
-  if (verbose) message(Sys.time(), " [INFO] Columns can be used in plotTree: ", paste(colnames(tree.meta), collapse = " "))
+  if (verbose) message(Sys.time(), " Columns can be used in plotTree: ", paste(colnames(tree.meta), collapse = " "))
 
   return(object)
 }
@@ -233,7 +233,7 @@ fetchCell <- function(object, logical.connect = "or", verbose = FALSE, ... ) {
       } else if (logical.connect == "or") {
         cell.left <- union(cell.left, cell.sub)
       } else {
-        stop(Sys.time(), " [ERROR] Unidentified logical.connect")
+        stop(Sys.time(), " Unidentified logical.connect")
       }
     }
   }
@@ -273,10 +273,10 @@ fetchCell <- function(object, logical.connect = "or", verbose = FALSE, ... ) {
 #'
 constraintMatrix <- function(x, cutoff = 0.99, markers = NULL, method = "euclidean") {
 
-  if (!is.numeric(x)) stop(Sys.time(), " [ERROR] x must be a matrix ")
+  if (!is.numeric(x)) stop(Sys.time(), " x must be a matrix ")
 
   if (is.null(markers)) markers <- colnames(x)
-  if (!all(markers %in% colnames(x))) stop(Sys.time(), " [ERROR] markers must belong to the colnames of x ")
+  if (!all(markers %in% colnames(x))) stop(Sys.time(), " markers must belong to the colnames of x ")
 
   sub <- abs(x[, markers])
   if (length(markers) > 1) {

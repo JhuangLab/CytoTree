@@ -217,45 +217,45 @@ createCYT <- function(raw.data, markers, meta.data,
                       normalization.method = "none",
                       verbose = FALSE, ...) {
   # QC of cells
-  if (missing(raw.data)) stop(Sys.time(), " [ERROR] raw.data is required")
+  if (missing(raw.data)) stop(Sys.time(), " raw.data is required")
   if (!is.matrix(raw.data)) {
-    warning(Sys.time(), " [WARNING] raw.data must be a matrix")
+    warning(Sys.time(), " raw.data must be a matrix")
     raw.data <- as.matrix(raw.data)
   }
-  if (verbose) message(Sys.time(), " [INFO] Number of cells in processing: ", dim(raw.data)[1])
+  if (verbose) message(Sys.time(), " Number of cells in processing: ", dim(raw.data)[1])
 
   # QC of metadata
-  if (missing(meta.data)) stop(Sys.time(), " [ERROR] meta.data must be a data.frame")
+  if (missing(meta.data)) stop(Sys.time(), " meta.data must be a data.frame")
   if (!is.data.frame(meta.data)) {
-    warning(Sys.time(), " [WARNING] meta.data must be a data.frame")
+    warning(Sys.time(), " meta.data must be a data.frame")
     meta.data <- as.matrix(meta.data)
   }
 
   if (!all(c("cell", "stage") %in% colnames(meta.data))) {
-    stop(Sys.time(), " [ERROR] cell and stage information must be provided in meta.data")
+    stop(Sys.time(), " cell and stage information must be provided in meta.data")
   }
 
   if (nrow(raw.data) != nrow(meta.data)) {
-    stop(Sys.time(), " [ERROR] cell number in raw.data is not equal to that in meta.data")
+    stop(Sys.time(), " cell number in raw.data is not equal to that in meta.data")
   } else {
-    if (verbose) message(Sys.time(), " [INFO] rownames of meta.data and raw.data will be named using column cell")
+    if (verbose) message(Sys.time(), " rownames of meta.data and raw.data will be named using column cell")
     rownames(raw.data) = as.character(meta.data$cell)
     rownames(meta.data) = as.character(meta.data$cell)
   }
 
   # load index of markers of FCS
-  if (missing(markers)) stop(Sys.time(), " [ERROR] markers is missing")
+  if (missing(markers)) stop(Sys.time(), " markers is missing")
   if (!is.vector(markers)) {
-    warning(Sys.time(), " [WARNING] markers must be a vector")
+    warning(Sys.time(), " markers must be a vector")
     markers <- as.vector(markers)
   }
 
   # check markers' index in raw.data
   markers.idx <- match(markers, colnames(raw.data))
-  if (verbose) message(Sys.time(), " [INFO] Index of markers in processing")
+  if (verbose) message(Sys.time(), " Index of markers in processing")
   if (any(is.na(markers.idx))) {
     sub.markers <- markers[which(is.na(markers.idx))]
-    warning(Sys.time(), " [WARNING] ", sub.markers, " not existes in colnames
+    warning(Sys.time(), " ", sub.markers, " not existes in colnames
             of raw.data. It will be removed. ")
 
     markers <- markers[which(!is.na(markers.idx))]
@@ -263,38 +263,38 @@ createCYT <- function(raw.data, markers, meta.data,
   }
 
   # Create an CYT object
-  if (verbose) message(Sys.time(), " [INFO] Creating CYT object.")
+  if (verbose) message(Sys.time(), " Creating CYT object.")
   object <- methods::new("CYT", raw.data = raw.data, meta.data = meta.data,
                 markers = markers, markers.idx = markers.idx)
 
   # normalization and Log-normalize the data
   if (normalization.method == "log") {
-    if (verbose) message(paste0(Sys.time(), " [INFO] Determining normalization factors"))
+    if (verbose) message(paste0(Sys.time(), " Determining normalization factors"))
     all.log.data <- abs(raw.data)
     cs <- apply(all.log.data, 2, sum)
     norm_factors <- (10**ceiling(log10(median(cs))))/cs
     norm_factors_idx <- which(!is.na(norm_factors))
     if (length(which(is.na(norm_factors))) > 0) {
-      warning(paste0(Sys.time(), " [WARNING] Unavailable log data column, please check your data"))
+      warning(paste0(Sys.time(), " Unavailable log data column, please check your data"))
     }
-    if (verbose) message(paste0(Sys.time(), " [INFO] Normalization and log-transformation."))
+    if (verbose) message(paste0(Sys.time(), " Normalization and log-transformation."))
     object@raw.data[, norm_factors_idx] <- round(
       log10(sweep(all.log.data[, norm_factors_idx], 2,
                   norm_factors[norm_factors_idx], "*")+1), digits=3)
 
     object@log.data <- object@raw.data[, markers.idx]
   } else if (normalization.method == "none") {
-    if (verbose) message(Sys.time(), " [INFO] No normalization and transformation ")
+    if (verbose) message(Sys.time(), " No normalization and transformation ")
     object@log.data <- raw.data[, markers.idx]
   } else {
-    if (verbose) message(Sys.time(), " [INFO] No normalization and transformation ")
+    if (verbose) message(Sys.time(), " No normalization and transformation ")
     object@log.data <- raw.data[, markers.idx]
   }
 
   # correcting batch effect
   if (batch.correct) {
     if (is.null(batch)) {
-      warning(Sys.time(), " [WARNING] batch must be provided when batch.correct is TRUE ")
+      warning(Sys.time(), " batch must be provided when batch.correct is TRUE ")
     } else {
       object <- correctBatchCYT(object, batch = batch, ...)
     }
@@ -309,7 +309,7 @@ createCYT <- function(raw.data, markers, meta.data,
   object@meta.data$is.root.cells <- 0
   object@meta.data$is.leaf.cells <- 0
 
-  if (verbose) message(Sys.time(), " [INFO] Build CYT object succeed ")
+  if (verbose) message(Sys.time(), " Build CYT object succeed ")
   return(object)
 }
 

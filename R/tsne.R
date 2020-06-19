@@ -48,8 +48,8 @@ runTSNE <- function(object, dims = 2, initial_dims = 50, perplexity = 30,
                     ...) {
 
   # tSNE calculation
-  if (verbose) message(Sys.time(), " [INFO] Calculating tSNE.")
-  if (length(which(object@meta.data$dowsample == 1)) < 10) stop(Sys.time, " [ERROR] Not enough cells, please run processingCluster and choose correct downsampleing.size paramter. ")
+  if (verbose) message(Sys.time(), " Calculating tSNE.")
+  if (length(which(object@meta.data$dowsample == 1)) < 10) stop(Sys.time, " Not enough cells, please run processingCluster and choose correct downsampleing.size paramter. ")
   mat <- object@log.data[which(object@meta.data$dowsample == 1), ]
   tsne.obj <- Rtsne(as.matrix(mat),
                     dims = dims, initial_dims = initial_dims, perplexity = perplexity,
@@ -62,7 +62,7 @@ runTSNE <- function(object, dims = 2, initial_dims = 50, perplexity = 30,
   colnames(object@tsne.value) <- paste0("tSNE_", seq_len(ncol(tsne.obj$Y)))
   rownames(object@tsne.value) <- rownames(mat)
 
-  if (verbose) message(Sys.time(), " [INFO] Calculating tSNE completed. ")
+  if (verbose) message(Sys.time(), " Calculating tSNE completed. ")
 
   return(object)
 }

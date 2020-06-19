@@ -56,7 +56,7 @@ runCluster <- function(object, cluster.method = c("som", "kmeans", "clara", "phe
                        verbose = FALSE, ...) {
 
   if (missing(object)) {
-    stop(Sys.time(), " [ERROR] CYT object is missing ")
+    stop(Sys.time(), " CYT object is missing ")
   }
   cluster.method <- match.arg(cluster.method)
   if (cluster.method == "som") {
@@ -78,7 +78,7 @@ runCluster <- function(object, cluster.method = c("som", "kmeans", "clara", "phe
     object <- runPhenograph(object, verbose = verbose, ...)
     object@meta.data$cluster.id <- object@meta.data$phenograph.id
   } else {
-    warning(Sys.time(), " [WARNING] Invalid cluster.method parameter ")
+    warning(Sys.time(), " Invalid cluster.method parameter ")
   }
 
   # Initialization for root cells
@@ -152,11 +152,11 @@ processingCluster <- function(object, perplexity = 5, k = 5,
                               ...) {
 
   if (missing(object)) {
-    stop(Sys.time(), " [ERROR] CYT object is missing ")
+    stop(Sys.time(), " CYT object is missing ")
   }
 
   if (!"cluster.id" %in% colnames(object@meta.data)) {
-    stop(Sys.time(), " [ERROR] cluster.id is not in colnames of CYT object, please run runCluster first ")
+    stop(Sys.time(), " cluster.id is not in colnames of CYT object, please run runCluster first ")
   }
 
   # checking index of markers in cluster
@@ -164,16 +164,16 @@ processingCluster <- function(object, perplexity = 5, k = 5,
   cluster.mat <- cluster.meta[, match(object@markers, colnames(cluster.meta))]
 
   # run PCA
-  if (verbose) message(Sys.time(), " [INFO] Calculating PCA")
+  if (verbose) message(Sys.time(), " Calculating PCA")
   pca.info <- fast.prcomp( t(cluster.mat), ...)
   colnames(pca.info$rotation) <- paste0("PC_", seq_len(ncol(pca.info$rotation)))
-  if (verbose) message(Sys.time(), " [INFO] Calculating tSNE")
+  if (verbose) message(Sys.time(), " Calculating tSNE")
   tsne.info <- Rtsne(as.matrix(cluster.mat), perplexity = perplexity, ...)
   colnames(tsne.info$Y) <- paste0("tSNE_", seq_len(ncol(tsne.info$Y)))
-  if (verbose) message(Sys.time(), " [INFO] Calculating Diffusion Map")
+  if (verbose) message(Sys.time(), " Calculating Diffusion Map")
   dm.info <- DiffusionMap(cluster.mat, k=5, ...)
   colnames(dm.info@eigenvectors) <- paste0("DC_", seq_len(ncol(dm.info@eigenvectors)))
-  if (verbose) message(Sys.time(), " [INFO] Calculating UMAP")
+  if (verbose) message(Sys.time(), " Calculating UMAP")
   umap.config$n_neighbors <- k
   umap.info <- umap(cluster.mat, config = umap.config, ...)
   colnames(umap.info$layout) <- paste0("UMAP_", seq_len(ncol(umap.info$layout)))
@@ -199,10 +199,10 @@ processingCluster <- function(object, perplexity = 5, k = 5,
 
     cell.sub <- NULL
     if (downsampling.size >= 1) {
-      if (verbose) message(Sys.time(), " [INFO] No downsampling performed")
+      if (verbose) message(Sys.time(), " No downsampling performed")
       cell.name <- object@meta.data$cell
     } else if ( downsampling.size <= 0) {
-      warning(Sys.time(), " [WARNING] The value of downsampling.size must be larger than 0 ")
+      warning(Sys.time(), " The value of downsampling.size must be larger than 0 ")
       cell.name <- object@meta.data$cell
     } else {
       if (random.cluster) {
@@ -266,7 +266,7 @@ runHclust <- function(object, k = 25,
                       hclust.method = "complete", dist.method = "euclidean",
                       verbose = FALSE) {
 
-  if (verbose) message(Sys.time(), " [INFO] Calculating Hclust.")
+  if (verbose) message(Sys.time(), " Calculating Hclust.")
 
   # check dist parameters
   if (is.character(dist.method)) {
@@ -274,7 +274,7 @@ runHclust <- function(object, k = 25,
   } else if (is.function(dist.method)) {
     d <- dist.method(object@log.data)
   } else {
-    warning(Sys.time(), " [WARNING] Invalid dist.method parameter.")
+    warning(Sys.time(), " Invalid dist.method parameter.")
     d <- stats::dist(object@log.data)
   }
 
@@ -284,7 +284,7 @@ runHclust <- function(object, k = 25,
   } else if (is.function()) {
     hc <- dist.method(d)
   } else {
-    warning(Sys.time(), " [WARNING] Invalid hclust.method parameter.")
+    warning(Sys.time(), " Invalid hclust.method parameter.")
     hc <- stats::hclust(d)
   }
 
@@ -293,7 +293,7 @@ runHclust <- function(object, k = 25,
 
   object@meta.data$hclust.id <- object@meta.data$cluster.id <- hc.tree
 
-  if (verbose) message(Sys.time(), " [INFO] Calculating Hclust completed.")
+  if (verbose) message(Sys.time(), " Calculating Hclust completed.")
   return(object)
 }
 
@@ -335,7 +335,7 @@ runKmeans <- function(object, k = 25, iter.max = 10, nstart = 1,
                       algorithm = c("Hartigan-Wong", "Lloyd", "Forgy", "MacQueen"),
                       trace=FALSE, scale = FALSE, verbose = FALSE, ...) {
 
-  if (verbose) message(Sys.time(), " [INFO] Calculating Kmeans.")
+  if (verbose) message(Sys.time(), " Calculating Kmeans.")
 
   if (scale) kmeans.data <- scale(object@log.data) else kmeans.data = object@log.data
   
@@ -345,7 +345,7 @@ runKmeans <- function(object, k = 25, iter.max = 10, nstart = 1,
 
   object@meta.data$kmeans.id <- object@meta.data$cluster.id  <- kmeans.info$cluster
 
-  if (verbose) message(Sys.time(), " [INFO] Calculating Kmeans completed.")
+  if (verbose) message(Sys.time(), " Calculating Kmeans completed.")
   return(object)
 }
 
@@ -389,7 +389,7 @@ runClara <- function(object, k = 25, metric = c("euclidean", "manhattan", "jacca
                      stand = FALSE, samples = 5, scale = TRUE,
                      trace = 0, verbose = FALSE, ...) {
 
-  if (verbose) message(Sys.time(), " [INFO] Calculating Clara")
+  if (verbose) message(Sys.time(), " Calculating Clara")
 
   if (scale) clara.data <- scale(object@log.data) else clara.data = object@log.data
 
@@ -399,7 +399,7 @@ runClara <- function(object, k = 25, metric = c("euclidean", "manhattan", "jacca
 
   object@meta.data$clara.id <- object@meta.data$cluster.id  <- clara.info$clustering
 
-  if (verbose) message(Sys.time(), " [INFO] Calculating Clara completed.")
+  if (verbose) message(Sys.time(), " Calculating Clara completed.")
   return(object)
 }
 
@@ -434,7 +434,7 @@ runClara <- function(object, k = 25, metric = c("euclidean", "manhattan", "jacca
 runMclust <- function(object, scale = FALSE,
                       verbose = FALSE, ...) {
 
-  if (verbose) message(Sys.time(), " [INFO] Calculating Mclust.")
+  if (verbose) message(Sys.time(), " Calculating Mclust.")
 
   if (scale) mclust.data <- scale(object@log.data) else mclust.data = object@log.data
 
@@ -442,7 +442,7 @@ runMclust <- function(object, scale = FALSE,
 
   object@meta.data$mclust.id <- object@meta.data$cluster.id  <- mod$classification
 
-  if (verbose) message(Sys.time(), " [INFO] Calculating Mclust completed.")
+  if (verbose) message(Sys.time(), " Calculating Mclust completed.")
   return(object)
 }
 
@@ -497,7 +497,7 @@ runSOM <- function(object, xdim = 6, ydim = 6, rlen = 8, mst = 1,
                    distf = 2, codes = NULL, importance = NULL,
                    method = "euclidean", verbose= FALSE, ...) {
 
-  if (verbose) message(Sys.time(), " [INFO] Calculating FlowSOM.")
+  if (verbose) message(Sys.time(), " Calculating FlowSOM.")
   # FlowSOM
   flowset <- as.matrix(object@log.data)
   flowsom <- FlowSOM::SOM(flowset,
@@ -515,7 +515,7 @@ runSOM <- function(object, xdim = 6, ydim = 6, rlen = 8, mst = 1,
 
   #object@som.network <- buildSOMnet(flowsom, object, method = method)
 
-  if (verbose) message(Sys.time(), " [INFO] Calculating FlowSOM completed.")
+  if (verbose) message(Sys.time(), " Calculating FlowSOM completed.")
   return(object)
 }
 
@@ -553,7 +553,7 @@ runSOM <- function(object, xdim = 6, ydim = 6, rlen = 8, mst = 1,
 runPhenograph <- function(object, knn = 30, scale = FALSE, verbose = FALSE, ...){
 
 
-  if (verbose) message(Sys.time(), " [INFO] Calculating phenoGraph")
+  if (verbose) message(Sys.time(), " Calculating phenoGraph")
 
   if (scale) phenograph.data <- scale(object@log.data) else phenograph.data = object@log.data
 
@@ -561,7 +561,7 @@ runPhenograph <- function(object, knn = 30, scale = FALSE, verbose = FALSE, ...)
 
   object@meta.data$phenograph.id <- object@meta.data$cluster.id  <- membership(mod[[2]])
 
-  if (verbose) message(Sys.time(), " [INFO] Calculating phenoGraph completed.")
+  if (verbose) message(Sys.time(), " Calculating phenoGraph completed.")
 
   return(object)
 

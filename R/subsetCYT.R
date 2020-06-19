@@ -35,7 +35,7 @@ subsetCYT <- function(object, cells = NULL,
                        knn = NA,
                        verbose = FALSE) {
   if (is.null(cells)) {
-    warning(Sys.time(), " [WARNING] cells must be provided.")
+    warning(Sys.time(), " cells must be provided.")
     cells <- rownames(object@raw.data)
   }
   # Make sure all cells are actually in the object
@@ -45,7 +45,7 @@ subsetCYT <- function(object, cells = NULL,
   log.data <- object@log.data[cells.keep, ]
   meta.data <- object@meta.data[cells.keep, ]
 
-  if (verbose) message(Sys.time(), " [INFO] Subset CYT object.")
+  if (verbose) message(Sys.time(), " Subset CYT object.")
   object.new <- new("CYT", raw.data = raw.data,
                     meta.data = meta.data,
                     log.data = log.data,

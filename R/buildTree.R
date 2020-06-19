@@ -45,8 +45,8 @@ buildTree <- function(object, method = "euclidean",
                       dim.use = seq_len(2),
                       verbose = FALSE) {
 
-  if (verbose) message(Sys.time(), " [INFO] Calculating buildTree.")
-  if (missing(object)) stop(Sys.time(), " [ERROR] CYT object is missing.")
+  if (verbose) message(Sys.time(), " Calculating buildTree.")
+  if (missing(object)) stop(Sys.time(), " CYT object is missing.")
 
   dim.type <- match.arg(dim.type)
   if (dim.type %in% c("tsne", "tSNE", "TSNE", "t-SNE","t_SNE", "t") ) {
@@ -62,12 +62,12 @@ buildTree <- function(object, method = "euclidean",
     dim.name <- paste0("UMAP_", dim.use)
     tree.mat <- object@umap.value[, dim.name]
   } else {
-    if (verbose) message(Sys.time(), " [INFO] The log data will be used to calculate trajectory")
+    if (verbose) message(Sys.time(), " The log data will be used to calculate trajectory")
     tree.mat <- object@raw.data[which(object@meta.data$dowsample == 1), ]
   }
 
   if (! "cluster.id" %in% colnames(object@meta.data)) {
-    stop(Sys.time(), " [ERROR] Invalid cluster.id, please run runCluster first")
+    stop(Sys.time(), " Invalid cluster.id, please run runCluster first")
   }
   cluster.info <- object@meta.data$cluster.id[which(object@meta.data$dowsample == 1)]
   mst.mat <- aggregate(tree.mat, list(cluster = cluster.info), mean)
@@ -93,14 +93,14 @@ buildTree <- function(object, method = "euclidean",
                          branch.id = membership(cluster_louvain(tree.graph)))
 
   # Initialization for root.cells and leaf cells
-  if (verbose) message(Sys.time(), " [INFO] Initialization for root.cells and leaf cells")
+  if (verbose) message(Sys.time(), " Initialization for root.cells and leaf cells")
   object@meta.data$is.root.cells <- 0
   object@meta.data$is.leaf.cells <- 0
 
   # update tree meta information
   object <- updateClustMeta(object, verbose = FALSE)
 
-  if (verbose) message(Sys.time(), " [INFO] Calculating buildTree completed.")
+  if (verbose) message(Sys.time(), " Calculating buildTree completed.")
   return(object)
 }
 

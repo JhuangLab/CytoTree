@@ -31,16 +31,16 @@
 #'
 #'
 defRootCells <- function(object, root.cells = NULL, verbose = FALSE) {
-  if (length(object@root.cells) != 0) message(Sys.time(), " [INFO] root.cells in CYT object exist, they will be replaced.")
+  if (length(object@root.cells) != 0) message(Sys.time(), " root.cells in CYT object exist, they will be replaced.")
 
-  if (!is.vector(root.cells)) stop(Sys.time(), " [ERROR] root.cells must be a vector")
+  if (!is.vector(root.cells)) stop(Sys.time(), " root.cells must be a vector")
 
   if (is.character(root.cells)) {
     root.cells <- root.cells[root.cells %in% object@meta.data$cell]
   } else if (is.numeric(root.cells)) {
     root.cells <- object@meta.data$cell[object@meta.data$cluster.id %in% root.cells]
   } else {
-    stop(Sys.time(), " [ERROR] invalid root.cells .")
+    stop(Sys.time(), " invalid root.cells .")
   }
 
   ds.cells <- object@meta.data$cell[which(object@meta.data$dowsample == 1)]
@@ -49,12 +49,12 @@ defRootCells <- function(object, root.cells = NULL, verbose = FALSE) {
   object@meta.data$is.root.cells <- 0
   object@meta.data$is.root.cells[match(root.cells, object@meta.data$cell)] <- 1
   if ( length(root.cells) == 0 ) {
-    stop(Sys.time(), " [ERROR] root.cells are not in meta.data")
+    stop(Sys.time(), " root.cells are not in meta.data")
   } else {
     object@root.cells <- root.cells
   }
 
-  if (verbose) message(Sys.time(), " [INFO] ", length(root.cells),  " cells will be added to root.cells .")
+  if (verbose) message(Sys.time(), " ", length(root.cells),  " cells will be added to root.cells .")
 
   return(object)
 }
@@ -94,16 +94,16 @@ defRootCells <- function(object, root.cells = NULL, verbose = FALSE) {
 #'
 #'
 defLeafCells <- function(object, leaf.cells = NULL, pseudotime.cutoff = 0, verbose = FALSE) {
-  if (length(object@leaf.cells) != 0) message(Sys.time(), " [INFO] leaf.cells in CYT object exist, they will be replaced.")
+  if (length(object@leaf.cells) != 0) message(Sys.time(), " leaf.cells in CYT object exist, they will be replaced.")
 
-  if (!is.vector(leaf.cells)) stop(Sys.time(), " [ERROR] leaf.cells must be a vector")
+  if (!is.vector(leaf.cells)) stop(Sys.time(), " leaf.cells must be a vector")
 
   if (is.character(leaf.cells)) {
     leaf.cells <- leaf.cells[leaf.cells %in% object@meta.data$cell]
   } else if (is.numeric(leaf.cells)) {
     leaf.cells <- object@meta.data$cell[object@meta.data$cluster.id %in% leaf.cells]
   } else {
-    stop(Sys.time(), " [ERROR] invalid leaf.cells.")
+    stop(Sys.time(), " invalid leaf.cells.")
   }
 
   ds.cells <- object@meta.data$cell[which(object@meta.data$dowsample == 1)]
@@ -111,7 +111,7 @@ defLeafCells <- function(object, leaf.cells = NULL, pseudotime.cutoff = 0, verbo
 
   if (pseudotime.cutoff > 0) {
     if ( !all("pseudotime" %in% colnames(object@meta.data)) ) {
-      warning(Sys.time(), " [WARNING] pseudotime is not in meta.data of CYT, please run Pseudotime first.")
+      warning(Sys.time(), " pseudotime is not in meta.data of CYT, please run Pseudotime first.")
       pseudotime.cutoff = 0
     }
   }
@@ -122,12 +122,12 @@ defLeafCells <- function(object, leaf.cells = NULL, pseudotime.cutoff = 0, verbo
   object@meta.data$is.leaf.cells <- 0
   object@meta.data$is.leaf.cells[match(leaf.cells, object@meta.data$cell)] <- 1
   if ( length(leaf.cells) == 0 ) {
-    stop(Sys.time(), " [ERROR] leaf.cells are not in meta.data")
+    stop(Sys.time(), " leaf.cells are not in meta.data")
   } else {
     object@leaf.cells <- leaf.cells
   }
 
-  if (verbose) message(Sys.time(), " [INFO] ", length(leaf.cells),  " cells will be added to leaf.cells .")
+  if (verbose) message(Sys.time(), " ", length(leaf.cells),  " cells will be added to leaf.cells .")
 
   return(object)
 }
@@ -180,13 +180,13 @@ runPseudotime <- function(object, mode = "undirected",
                           dim.type = c("raw", "pca", "tsne", "dc", "umap"), dim.use = seq_len(2),
                           verbose = FALSE, ...) {
 
-  if (missing(object)) stop(Sys.time(), " [ERROR] object is missing.")
+  if (missing(object)) stop(Sys.time(), " object is missing.")
 
-  if (verbose) message(Sys.time(), " [INFO] Calculating Pseudotime.")
+  if (verbose) message(Sys.time(), " Calculating Pseudotime.")
 
-  if ("pseudotime" %in% colnames(object@meta.data)) message(Sys.time(), " [INFO] Pseudotime exists in meta.data, it will be replaced.")
+  if ("pseudotime" %in% colnames(object@meta.data)) message(Sys.time(), " Pseudotime exists in meta.data, it will be replaced.")
 
-  if (missing(object)) stop(Sys.time(), " [ERROR] CYT object is missing.")
+  if (missing(object)) stop(Sys.time(), " CYT object is missing.")
 
   dim.type <- match.arg(dim.type)
   if (dim.type %in% c("tsne", "tSNE", "TSNE", "t-SNE","t_SNE", "t") ) {
@@ -202,7 +202,7 @@ runPseudotime <- function(object, mode = "undirected",
     dim.name <- paste0("UMAP_", dim.use)
     mat <- object@umap.value[, dim.name]
   } else {
-    if (verbose) message(Sys.time(), " [INFO] The log data will be used to calculate pseudotime")
+    if (verbose) message(Sys.time(), " The log data will be used to calculate pseudotime")
     mat <- object@log.data[which(object@meta.data$dowsample == 1), ]
   }
 
@@ -250,7 +250,7 @@ runPseudotime <- function(object, mode = "undirected",
   object@meta.data$traj.value <- 0
   object@meta.data$traj.value.log <- 0
 
-  if (verbose) message(Sys.time(), " [INFO] Calculating Pseudotime completed.")
+  if (verbose) message(Sys.time(), " Calculating Pseudotime completed.")
 
   return(object)
 }

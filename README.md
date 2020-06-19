@@ -114,27 +114,8 @@ cyt <- runWalk(cyt)
 
 If there is any error in installing or librarying the `CytoTree` package, please contact us via e-mail forlynna@sjtu.edu.cn
 
-## 5 Version History
 
-Changes in version 0.99.5 (2020-06-18)
-+ Re-build this package
-
-Changes in version 0.99.4 (2020-06-05)
-+ Change examples and provide use case
-
-Changes in version 0.99.3 (2020-06-02)
-+ Update for the comments from the reviewer
-
-Changes in version 0.99.2 (2020-05-24)
-+ Update R version to 4.0
-
-Changes in version 0.99.1 (2020-05-10)
-+ Fixed some warnings in BiocCheck
-
-Changes in version 0.99.0 (2020-05-10)
-+ First commit
-
-## 6 Note
+## 5 Note
 
 
 The previous version of `CytoTree` is `flowSpy` **[link to GitHub](https://github.com/JhuangLab/CytoTree) and [link to Bioconductor](https://bioconductor.org/packages/flowSpy/)**. To improve the identification and avoid awkward duplication of names in some situations, we changed the name of `flowSpy` to `CytoTree`. `CytoTree` more fits the functional orientation of this software.
@@ -142,7 +123,7 @@ The previous version of `CytoTree` is `flowSpy` **[link to GitHub](https://githu
 We apologized for the inconvenience.
 
 
-## 7 Reference
+## 6 Reference
 
 [1] Sofie Van Gassen, Britt Callebaut and Yvan Saeys (2019). FlowSOM: Using
   self-organizing maps for visualization and interpretation of cytometry data.

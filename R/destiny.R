@@ -38,22 +38,22 @@ runDiffusionMap <- function(object, sigma.use = NULL,
                             density.norm = TRUE,  verbose = FALSE,
                             ...) {
 
-  if (length(which(object@meta.data$dowsample == 1)) < 10) stop(Sys.time, " [ERROR] Not enough cells, please run processingCluster and choose correct downsampleing.size paramter. ")
+  if (length(which(object@meta.data$dowsample == 1)) < 10) stop(Sys.time, " Not enough cells, please run processingCluster and choose correct downsampleing.size paramter. ")
   dm.data <- as.matrix(object@log.data[which(object@meta.data$dowsample == 1), ])
 
-  if (verbose) message(Sys.time(), " [INFO] Calculating Diffusion Map.")
+  if (verbose) message(Sys.time(), " Calculating Diffusion Map.")
   # Figure out sigma
   # this function refered to URD calcDM function.
   if (is.null(sigma.use)) {
     sigma.use <- find_sigmas(dm.data, verbose = FALSE)@optimal_sigma
-    if (verbose) message(Sys.time(), " [INFO] Destiny determined an optimal global sigma: ", round(sigma.use, digits=3))
+    if (verbose) message(Sys.time(), " Destiny determined an optimal global sigma: ", round(sigma.use, digits=3))
   } else if (is.numeric(sigma.use)) {
-    if (verbose) message(Sys.time(), " [INFO] Using provided global sigma: ", round(sigma.use, digits=3))
+    if (verbose) message(Sys.time(), " Using provided global sigma: ", round(sigma.use, digits=3))
   } else if (sigma.use == "local") {
-    if (verbose) message(Sys.time(), " [INFO] Using local sigma ")
+    if (verbose) message(Sys.time(), " Using local sigma ")
   } else {
     sigma.use <- find_sigmas(dm.data, verbose = FALSE)@optimal_sigma
-    warning(Sys.time(), " [WARNING] Invalid sigma value. Using an optimal global sigma instead.")
+    warning(Sys.time(), " Invalid sigma value. Using an optimal global sigma instead.")
   }
   # Calculate the Diffusion Map
   distance <- match.arg(distance)
@@ -68,7 +68,7 @@ runDiffusionMap <- function(object, sigma.use = NULL,
   # Load diffusion map into the Dropseq object
   object@dm <- dm.obj
 
-  if (verbose) message(Sys.time(), " [INFO] Calculating Diffusion Map completed")
+  if (verbose) message(Sys.time(), " Calculating Diffusion Map completed")
 
   return(object)
 }

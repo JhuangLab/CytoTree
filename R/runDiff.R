@@ -35,9 +35,9 @@
 #'
 runDiff <- function(object, branch.id = NULL, branch.id.2 = NULL, verbose = FALSE) {
 
-  if (verbose) message(Sys.time(), " [INFO] Calculating differentially expressed markers.")
-  if (missing(object)) stop(Sys.time(), " [ERROR] CYT object is missing.")
-  if (!"branch.id" %in% colnames(object@meta.data)) stop(Sys.time(), " [ERROR] branch.id is missing, please run buildTree first.")
+  if (verbose) message(Sys.time(), " Calculating differentially expressed markers.")
+  if (missing(object)) stop(Sys.time(), " CYT object is missing.")
+  if (!"branch.id" %in% colnames(object@meta.data)) stop(Sys.time(), " branch.id is missing, please run buildTree first.")
 
   all.branch.ids <- unique(object@meta.data$branch.id)
 
@@ -45,12 +45,12 @@ runDiff <- function(object, branch.id = NULL, branch.id.2 = NULL, verbose = FALS
   branch.contrast <- NULL
   ga <- go <- NULL
   if (length(all.branch.ids) == 1) {
-    stop(Sys.time(), " [ERROR] There is only one branch in the tree.")
+    stop(Sys.time(), " There is only one branch in the tree.")
   } else {
     pdata <- object@meta.data[which(object@meta.data$dowsample == 1), c("cell", "branch.id")]
     edata <- object@raw.data[which(object@meta.data$dowsample == 1), ]
     if (is.null(branch.id) & is.null(branch.id.2)) {
-      if (verbose) message(Sys.time(), " [INFO] All branches will be calculated.")
+      if (verbose) message(Sys.time(), " All branches will be calculated.")
       for (bid in all.branch.ids) {
         pdata$contrast <- "go"
         pdata$contrast[which(pdata$branch.id == bid)] = "ga"
@@ -68,7 +68,7 @@ runDiff <- function(object, branch.id = NULL, branch.id.2 = NULL, verbose = FALS
         total.deg.list <- rbind(total.deg.list, deg_sig_list)
       }
     } else if (is.null(branch.id.2)) {
-      if (verbose) message(Sys.time(), " [INFO] Some of branches will be calculated.")
+      if (verbose) message(Sys.time(), " Some of branches will be calculated.")
       pdata$contrast <- "go"
       pdata$contrast[pdata$branch.id %in% branch.id] = "ga"
       design <- model.matrix(~ 0 + as.factor(contrast), data = pdata)
@@ -84,7 +84,7 @@ runDiff <- function(object, branch.id = NULL, branch.id.2 = NULL, verbose = FALS
       deg_sig_list$Gene <- rownames(deg_sig_list)
       total.deg.list <- deg_sig_list
     } else {
-      if (verbose) message(Sys.time(), " [INFO] Some of branches will be calculated.")
+      if (verbose) message(Sys.time(), " Some of branches will be calculated.")
       pdata$contrast <- "gz"
       pdata$contrast[pdata$branch.id %in% branch.id] = "ga"
       pdata$contrast[pdata$branch.id %in% branch.id.2] = "go"
@@ -102,6 +102,6 @@ runDiff <- function(object, branch.id = NULL, branch.id.2 = NULL, verbose = FALS
       total.deg.list <- deg_sig_list
     }
   }
-  if (verbose) message(Sys.time(), " [INFO] Calculating differentially expressed markers completed")
+  if (verbose) message(Sys.time(), " Calculating differentially expressed markers completed")
   return(total.deg.list)
 }
