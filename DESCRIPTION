@@ -1,7 +1,7 @@
 Package: CytoTree
 Type: Package
 Title: A Toolkit for Flow And Mass Cytometry Data
-Version: 1.2.2
+Version: 1.0.2
 Date: 2020-11-01
 Authors@R: person("Yuting", "Dai", role = c("aut", "cre"), email = "forlynna@sjtu.edu.cn")
 Description: A trajectory inference toolkit for flow and mass 
