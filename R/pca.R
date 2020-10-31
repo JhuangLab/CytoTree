@@ -3,7 +3,7 @@
 #'
 #' @name runFastPCA
 #'
-#' @param object an CYT object
+#' @param object a CYT object
 #' @param center logical, a logical value indicating whether the variables
 #'    should be shifted to be zero centered. Alternately, a vector
 #'    of length equal the number of columns of x can be supplied.
@@ -21,7 +21,7 @@
 #' @seealso \code{\link[gmodels]{fast.prcomp}}
 #'
 #' @export
-#' @return An CYT object with PCA
+#' @return A CYT object with PCA
 #' @examples
 #'
 #' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
@@ -35,7 +35,7 @@ runFastPCA <- function(object, center = FALSE, scale. = TRUE,
   # PCA calculation
   if (verbose) message(Sys.time(), " Calculating PCA.")
   if (length(which(object@meta.data$dowsample == 1)) < 10) stop(Sys.time, " Not enough cells, please run processingCluster and choose correct downsampleing.size paramter. ")
-  mat <- object@log.data[which(object@meta.data$dowsample == 1), ]
+  mat <- object@log.data[which(object@meta.data$dowsample == 1), object@markers.idx]
   pca.obj <- fast.prcomp( t(mat), retx = TRUE, center = center, scale. = scale., ...)
 
   object@pca.sdev <- pca.obj$sdev

@@ -5,11 +5,11 @@
 #'
 #' @description definition of root cells
 #'
-#' @param object an CYT object
+#' @param object a CYT object
 #' @param root.cells vector. Cell name of the root cells
 #' @param verbose logical. Whether to print calculation progress.
 #'
-#' @return An CYT object
+#' @return A CYT object
 #'
 #' @export
 #'
@@ -65,14 +65,14 @@ defRootCells <- function(object, root.cells = NULL, verbose = FALSE) {
 #' @name defLeafCells
 #' @description definition of root cells
 #'
-#' @param object an CYT object
+#' @param object a CYT object
 #' @param leaf.cells character or numeric. Cell name of the root cells or
 #'     cluster.id of root.cells
 #' @param pseudotime.cutoff numeric. Cutoff of pseudotime. Cells with pseudotime
 #'     over pseudotime.cutoff will be set to be leaf cells
 #' @param verbose logical. Whether to print calculation progress.
 #'
-#' @return An CYT object
+#' @return A CYT object
 #'
 #' @export
 #'
@@ -141,7 +141,7 @@ defLeafCells <- function(object, leaf.cells = NULL, pseudotime.cutoff = 0, verbo
 #'
 #' @description calculation of Pseudotime based on KNN
 #'
-#' @param object An CYT object
+#' @param object A CYT object
 #' @param mode character. Specifies how igraph should interpret the supplied matrix.
 #'    Possible values are: directed, undirected, upper, lower, max, min, plus.
 #' @param dim.type character. Type of dimensionality reduction method used to calculate
@@ -151,7 +151,7 @@ defLeafCells <- function(object, leaf.cells = NULL, pseudotime.cutoff = 0, verbo
 #' @param ... Parameters passing to calculation function.
 #'
 #' @importFrom igraph graph.adjacency simplify distances
-#' @return An CYT object
+#' @return A CYT object
 #'
 #' @export
 #' 
@@ -183,8 +183,6 @@ runPseudotime <- function(object, mode = "undirected",
   if (missing(object)) stop(Sys.time(), " object is missing.")
 
   if (verbose) message(Sys.time(), " Calculating Pseudotime.")
-
-  if ("pseudotime" %in% colnames(object@meta.data)) message(Sys.time(), " Pseudotime exists in meta.data, it will be replaced.")
 
   if (missing(object)) stop(Sys.time(), " CYT object is missing.")
 

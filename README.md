@@ -3,12 +3,7 @@
 
 CytoTree is an R package to implement cellular subpopulations identification, trajectory inference, pseudotime estimation and visualization for flow and mass cytometry data. This package is developed and maintained by [JhuangLab](https://github.com/JhuangLab) at Shanghai Institute of Hematology.
 
-See the quick start tutorial of CytoTree, please visit [Quick start of CytoTree](https://ytdai.github.io/CytoTree/Quick_start.html).
-
-See the basic tutorial of CytoTree, please visit [Tutorial of CytoTree](https://ytdai.github.io/CytoTree/basic.html).
-
-See time-course data analysis of CytoTree, please visit [Time-course workflow of CytoTree](https://ytdai.github.io/CytoTree/Time_course.html).
-
+See the tutorial of CytoTree, please visit [Tutorial of CytoTree](https://ytdai.github.io/CytoTree/index.html).
 
 Use cases could be found at: 
 
@@ -36,11 +31,12 @@ To objectively inference differential trajectory based on time courses FCS data,
 
 ## 2 Installation
 
-### 2.1 From Github
 
-This requires the `devtools` package to be installed first.
+### 2.1 GitHub
 
-```
+This requires the `devtools` package to be pre-installed first.
+
+``` {r eval = FALSE}
 
 # If not already installed
 install.packages("devtools") 
@@ -50,6 +46,24 @@ library(CytoTree)
 
 ```
 
+The link of `CytoTree` on GitHub can be visited at https://github.com/JhuangLab/CytoTree.
+
+### 2.2 Bioconductor
+
+This requires the `BiocManager` package to be pre-installed first.
+
+To install this package, start R (version "4.0") and enter:
+
+``` {r eval = FALSE}
+
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("CytoTree")
+
+```
+
+The link of `CytoTree` on Bioconductor can be visited at https://bioconductor.org/packages/CytoTree/.
 
 ## 3 Quick start (Standard Workflow)
 
@@ -115,15 +129,7 @@ cyt <- runWalk(cyt)
 If there is any error in installing or librarying the `CytoTree` package, please contact us via e-mail forlynna@sjtu.edu.cn
 
 
-## 5 Note
-
-
-The previous version of `CytoTree` is `flowSpy` **[link to GitHub](https://github.com/JhuangLab/CytoTree) and [link to Bioconductor](https://bioconductor.org/packages/flowSpy/)**. To improve the identification and avoid awkward duplication of names in some situations, we changed the name of `flowSpy` to `CytoTree`. `CytoTree` more fits the functional orientation of this software.
-
-We apologized for the inconvenience.
-
-
-## 6 Reference
+## 5 Reference
 
 [1] Sofie Van Gassen, Britt Callebaut and Yvan Saeys (2019). FlowSOM: Using
   self-organizing maps for visualization and interpretation of cytometry data.

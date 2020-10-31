@@ -7,7 +7,7 @@
 runMclust(object, scale = FALSE, verbose = FALSE, ...)
 }
 \arguments{
-\item{object}{an CYT object}
+\item{object}{a CYT object}
 
 \item{scale}{logical. Whether to use scaled data in Mclust.}
 
@@ -16,7 +16,7 @@ runMclust(object, scale = FALSE, verbose = FALSE, ...)
 \item{...}{Parameters passing to \code{\link[mclust]{Mclust}} function}
 }
 \value{
-an CYT object with mclust.id in meta.data
+a CYT object with mclust.id in meta.data
 }
 \description{
 Model-based clustering based on parameterized finite Gaussian mixture models.

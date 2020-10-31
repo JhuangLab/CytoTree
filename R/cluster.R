@@ -8,7 +8,7 @@
 #'    "clara" \code{\link[cluster]{clara}}, "phenograph", "kmeans" \code{\link[stats]{kmeans}} are
 #'    provided.
 #'
-#' @param object an CYT object
+#' @param object a CYT object
 #' @param cluster.method character. Four clustering method are provided: som, clara, kmeans and phenograph.
 #'    Clustering method "hclust" and "mclust" are not recommended because of long computing time.
 #' @param verbose logic. Whether to print calculation progress.
@@ -21,7 +21,7 @@
 #'    \code{runHclust} to run clustering respectively.
 #'
 #' @export
-#' @return An CYT object with cluster
+#' @return A CYT object with cluster
 #'
 #' @examples
 #'
@@ -99,7 +99,7 @@ runCluster <- function(object, cluster.method = c("som", "kmeans", "clara", "phe
 #'    Stochastic Neighbor Embedding (tSNE), Diffusion Map and Uniform Manifold
 #'    Approximation and Projection (UMAP) of clusters calculated by runCluster.
 #'
-#' @param object an CYT object
+#' @param object a CYT object
 #' @param perplexity numeric. Perplexity parameter (should not be bigger than 3 *
 #'    perplexity < nrow(X) - 1, see details for interpretation). See \code{\link[Rtsne]{Rtsne}}
 #'    for more information.
@@ -116,12 +116,10 @@ runCluster <- function(object, cluster.method = c("som", "kmeans", "clara", "phe
 #' @seealso \code{\link[umap]{umap}}, \code{\link[gmodels]{fast.prcomp}},
 #'    \code{\link[Rtsne]{Rtsne}}, \code{destiny}
 #'
-#' @return An CYT object with cluster.id in meta.data
-#'
 #' @importFrom stats cutree
 #'
 #' @export
-#' @return An CYT object with dimensionality reduction of clusters
+#' @return A CYT object with dimensionality reduction of clusters
 #'
 #' @examples
 #'
@@ -236,7 +234,7 @@ processingCluster <- function(object, perplexity = 5, k = 5,
 #' @description Hierarchical cluster analysis on a set of dissimilarities
 #'    and methods for analyzing it.
 #'
-#' @param object an CYT object
+#' @param object a CYT object
 #' @param hclust.method character or a function. The agglomeration method to be used.
 #'    This should be one of "ward.D", "ward.D2", "single", "complete", "average",
 #'    "mcquitty", "median" or "centroid". Or you can specify an equation as input, for example
@@ -253,7 +251,7 @@ processingCluster <- function(object, perplexity = 5, k = 5,
 #' @importFrom stats hclust dist
 #'
 #' @export
-#' @return An CYT object with cluster
+#' @return A CYT object with cluster
 #'
 #' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
 #' cyt <- readRDS(file = cyt.file)
@@ -270,12 +268,12 @@ runHclust <- function(object, k = 25,
 
   # check dist parameters
   if (is.character(dist.method)) {
-    d <- stats::dist(object@log.data, method = dist.method)
+    d <- stats::dist(object@log.data[, object@markers.idx], method = dist.method)
   } else if (is.function(dist.method)) {
-    d <- dist.method(object@log.data)
+    d <- dist.method(object@log.data[, object@markers.idx])
   } else {
     warning(Sys.time(), " Invalid dist.method parameter.")
-    d <- stats::dist(object@log.data)
+    d <- stats::dist(object@log.data[, object@markers.idx])
   }
 
   # check hclust parameters
@@ -306,7 +304,7 @@ runHclust <- function(object, k = 25,
 #'
 #' @description Perform k-means clustering on a data matrix.
 #'
-#' @param object  an CYT object
+#' @param object  a CYT object
 #' @param k numeric. The number of clusters.
 #' @param iter.max numeric. The maximum number of iterations allowed.
 #' @param nstart numeric. If k is a number, how many random sets should be chosen.
@@ -317,7 +315,7 @@ runHclust <- function(object, k = 25,
 #' @param verbose logical. Whether to print calculation progress.
 #' @param ... Parameters passing to \code{\link[stats]{kmeans}} function
 #'
-#' @return an CYT object with kmeans.id in meta.data
+#' @return a CYT object with kmeans.id in meta.data
 #'
 #' @seealso \code{\link[stats]{kmeans}}
 #'
@@ -337,7 +335,7 @@ runKmeans <- function(object, k = 25, iter.max = 10, nstart = 1,
 
   if (verbose) message(Sys.time(), " Calculating Kmeans.")
 
-  if (scale) kmeans.data <- scale(object@log.data) else kmeans.data = object@log.data
+  if (scale) kmeans.data <- scale(object@log.data[, object@markers.idx]) else kmeans.data = object@log.data[, object@markers.idx]
   
   algorithm <- match.arg(algorithm)
   kmeans.info <- kmeans(kmeans.data, centers = k, iter.max = iter.max, nstart = nstart,
@@ -357,7 +355,7 @@ runKmeans <- function(object, k = 25, iter.max = 10, nstart = 1,
 #'
 #' @description Clustering a data matrix into k clusters
 #'
-#' @param object  an CYT object
+#' @param object  a CYT object
 #' @param k numeric. The number of clusters. It is required that
 #'    0 < k < n where n is the number of observations (i.e., n = nrow(x)).
 #' @param metric character. string specifying the metric to be used for
@@ -371,7 +369,7 @@ runKmeans <- function(object, k = 25, iter.max = 10, nstart = 1,
 #' @param verbose logical. Whether to print calculation progress.
 #' @param ... Parameters passing to \code{\link[cluster]{clara}} function
 #'
-#' @return an CYT object with clara.id in meta.data
+#' @return a CYT object with clara.id in meta.data
 #'
 #' @seealso \code{\link[cluster]{clara}}
 #'
@@ -391,7 +389,7 @@ runClara <- function(object, k = 25, metric = c("euclidean", "manhattan", "jacca
 
   if (verbose) message(Sys.time(), " Calculating Clara")
 
-  if (scale) clara.data <- scale(object@log.data) else clara.data = object@log.data
+  if (scale) clara.data <- scale(object@log.data[, object@markers.idx]) else clara.data = object@log.data[, object@markers.idx]
 
   metric <- match.arg(metric)
   clara.info <- clara(clara.data, k = k, metric = metric, stand = stand, samples = samples,
@@ -411,12 +409,12 @@ runClara <- function(object, k = 25, metric = c("euclidean", "manhattan", "jacca
 #' @description Model-based clustering based on parameterized finite Gaussian mixture models.
 #'    This function is based on \code{\link[mclust]{Mclust}}.
 #'
-#' @param object  an CYT object
+#' @param object  a CYT object
 #' @param scale logical. Whether to use scaled data in Mclust.
 #' @param verbose logical. Whether to print calculation progress.
 #' @param ... Parameters passing to \code{\link[mclust]{Mclust}} function
 #'
-#' @return an CYT object with mclust.id in meta.data
+#' @return a CYT object with mclust.id in meta.data
 #'
 #' @seealso \code{\link[mclust]{Mclust}}
 #'
@@ -436,7 +434,7 @@ runMclust <- function(object, scale = FALSE,
 
   if (verbose) message(Sys.time(), " Calculating Mclust.")
 
-  if (scale) mclust.data <- scale(object@log.data) else mclust.data = object@log.data
+  if (scale) mclust.data <- scale(object@log.data[, object@markers.idx]) else mclust.data = object@log.data[, object@markers.idx]
 
   mod <- Mclust(mclust.data, ...)
 
@@ -453,7 +451,7 @@ runMclust <- function(object, scale = FALSE,
 #'
 #' @description Build a self-organizing map
 #'
-#' @param object  an CYT object
+#' @param object  a CYT object
 #' @param xdim  Width of the grid.
 #' @param ydim  Hight of the grid.
 #' @param rlen  Number of times to loop over the training data for each MST
@@ -472,7 +470,7 @@ runMclust <- function(object, scale = FALSE,
 #' @param verbose logical. Whether to print calculation progress.
 #' @param ... Parameters passing to \code{\link[FlowSOM]{SOM}} function
 #'
-#' @return an CYT object with som.id in CYT object
+#' @return a CYT object with som.id in CYT object
 #' @seealso \code{\link{BuildSOM}}
 #'
 #' @references This code is strongly based on the \code{\link[FlowSOM]{SOM}} function.
@@ -499,7 +497,7 @@ runSOM <- function(object, xdim = 6, ydim = 6, rlen = 8, mst = 1,
 
   if (verbose) message(Sys.time(), " Calculating FlowSOM.")
   # FlowSOM
-  flowset <- as.matrix(object@log.data)
+  flowset <- as.matrix(object@log.data[, object@markers.idx])
   flowsom <- FlowSOM::SOM(flowset,
                           xdim = xdim, ydim = ydim, rlen = rlen, mst = mst,
                           alpha = alpha[1], radius = radius,
@@ -531,7 +529,7 @@ runSOM <- function(object, xdim = 6, ydim = 6, rlen = 8, mst = 1,
 #'    using the well known [Louvain method](https://sites.google.com/site/findcommunities/)
 #'    in this graph.
 #'
-#' @param object an CYT object.
+#' @param object a CYT object.
 #' @param scale logical. Whether to scale the expression matrix
 #' @param knn numeric. Number of nearest neighbours, default is 30.
 #' @param verbose logical. Whether to print calculation progress.
@@ -539,7 +537,7 @@ runSOM <- function(object, xdim = 6, ydim = 6, rlen = 8, mst = 1,
 #'
 #'
 #' @importFrom igraph graph.adjacency simplify distances
-#' @return An CYT object with cluster
+#' @return A CYT object with cluster
 #'
 #' @export
 #' @examples
@@ -555,7 +553,7 @@ runPhenograph <- function(object, knn = 30, scale = FALSE, verbose = FALSE, ...)
 
   if (verbose) message(Sys.time(), " Calculating phenoGraph")
 
-  if (scale) phenograph.data <- scale(object@log.data) else phenograph.data = object@log.data
+  if (scale) phenograph.data <- scale(object@log.data[, object@markers.idx]) else phenograph.data = object@log.data[, object@markers.idx]
 
   mod <- Rphenograph(phenograph.data, k = 30)
 

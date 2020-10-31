@@ -14,7 +14,7 @@ plotTrajHeatmap(
 )
 }
 \arguments{
-\item{object}{An CYT object}
+\item{object}{A CYT object}
 
 \item{cutoff}{numeric. value to identify intermediate state cells}
 

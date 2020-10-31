@@ -3,7 +3,7 @@
 #'
 #' @name plot2D
 #'
-#' @param object An CYT object
+#' @param object A CYT object
 #' @param item.use character. Items use to 2D plot, axes x and y must be numeric.
 #' @param color.by character. Dot or mesh color by which character. It can be one of the column
 #'     of plot.meta, or it can be just "density" (the default value).
@@ -97,11 +97,11 @@ plot2D <- function(object,
   # update and fetch plot meta information
   plot.meta <- fetchPlotMeta(object, verbose = FALSE)
 
-  idx <- match(c(color.by, item.use), colnames(object@raw.data))
+  idx <- match(c(color.by, item.use), colnames(object@log.data))
   idx <- idx[which(!is.na(idx))]
   if (length(idx) > 0) {
-    sub <- as.data.frame(object@raw.data[which(object@meta.data$dowsample == 1), idx])
-    colnames(sub) <- colnames(object@raw.data)[idx]
+    sub <- as.data.frame(object@log.data[which(object@meta.data$dowsample == 1), idx])
+    colnames(sub) <- colnames(object@log.data)[idx]
     plot.meta <- cbind(plot.meta, sub)
   }
 
@@ -175,7 +175,7 @@ plot2D <- function(object,
 #'
 #' @name plotViolin
 #'
-#' @param object An CYT object
+#' @param object A CYT object
 #' @param marker character. Markers used to plot
 #' @param color.by character. Dot or mesh color by which character. It can be one of the column
 #'     of plot.meta, or it can be just "density" (the default value).
@@ -218,8 +218,8 @@ plotViolin <- function(object,
     warning(Sys.time(), " marker has more than two elements. Only the first two will be used")
     marker <- marker[1]
   }
-  if ( marker %in% colnames(object@raw.data) ) {
-    plot.meta <- data.frame(plot.meta, marker = object@raw.data[which(object@meta.data$dowsample == 1), marker])
+  if ( marker %in% colnames(object@log.data) ) {
+    plot.meta <- data.frame(plot.meta, marker = object@log.data[which(object@meta.data$dowsample == 1), marker])
   } else {
     stop(Sys.time(), " marker name is not correct")
   }
@@ -275,7 +275,7 @@ plotViolin <- function(object,
 #'
 #' @name plotPieCluster
 #'
-#' @param object An CYT object
+#' @param object A CYT object
 #' @param item.use character. Items use to 2D plot, axes x and y must be numeric.
 #' @param cex.size numeric. Size of the dot
 #' @param size.by.cell.number logical. Whether to show size of cell number.
@@ -475,7 +475,9 @@ plotCluster <- function(object,
 
   if (show.cluser.id) {
     for ( i in seq_along(rownames(plot.data))) {
-      gg <- gg + annotate(geom="text", x = plot.data$plot.x[i], y = plot.data$plot.y[i],
+      plot.x.anno = plot.data$plot.x
+      plot.y.anno = plot.data$plot.y
+      gg <- gg + annotate(geom="text", x = plot.x.anno[i], y = plot.y.anno[i],
                           label = rownames(plot.data)[i],
                           size = show.cluser.id.size)
     }
@@ -491,7 +493,7 @@ plotCluster <- function(object,
 #'
 #' @name plotClusterHeatmap
 #'
-#' @param object An CYT object
+#' @param object A CYT object
 #' @param color vector. Colors used in heatmap.
 #' @param scale character. Whether the values should be centered and scaled in either
 #'    the row direction or the column direction, or none. Corresponding values are
@@ -536,7 +538,7 @@ plotClusterHeatmap <- function(object,
 #'
 #' @name plotBranchHeatmap
 #'
-#' @param object An CYT object
+#' @param object A CYT object
 #' @param color vector. Colors used in heatmap.
 #' @param scale character. Whether the values should be centered and scaled in either
 #'    the row direction or the column direction, or none. Corresponding values are
@@ -585,7 +587,7 @@ plotBranchHeatmap <- function(object,
 #'
 #' @name plotTrajHeatmap
 #'
-#' @param object An CYT object
+#' @param object A CYT object
 #' @param cutoff numeric. value to identify intermediate state cells
 #' @param markers markers to plot on the heatmap
 #' @param color vector. Colors used in heatmap.
@@ -624,7 +626,7 @@ plotTrajHeatmap <- function(object,
   } else {
     markers <- markers[markers %in% object@markers]
   }
-  mat <- object@raw.data[match(plot.meta.data$cell, rownames(object@raw.data)), ]
+  mat <- object@log.data[match(plot.meta.data$cell, rownames(object@log.data)), object@markers.idx]
   gg <- pheatmap(t(mat), color = color, scale = scale, border_color = NA, ...)
 
   return(gg)
@@ -638,7 +640,7 @@ plotTrajHeatmap <- function(object,
 #'
 #' @name plotHeatmap
 #'
-#' @param object An CYT object
+#' @param object A CYT object
 #' @param color vector. Colors used in heatmap.
 #' @param markers vector. markers to plot on the heatmap
 #' @param scale character. Whether the values should be centered and scaled in either
@@ -689,7 +691,7 @@ plotHeatmap <- function(object,
 
   if (max(plot.meta.data$pseudotime) > 0) plot.meta.data <- plot.meta.data[order(plot.meta.data$pseudotime), ]
 
-  mat <- object@raw.data[match(plot.meta.data$cell, rownames(object@raw.data)), ]
+  mat <- object@log.data[match(plot.meta.data$cell, rownames(object@log.data)), ]
   if (is.null(markers)) {
     markers <- object@markers
   } else {

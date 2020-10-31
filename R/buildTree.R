@@ -3,7 +3,7 @@
 #'
 #' @name buildTree
 #'
-#' @param object an CYT object
+#' @param object a CYT object
 #' @param method character. Mehtod to build MST.
 #' @param dim.type character. Type of dimensions that will be used to build the tree.
 #'    Five \code{dim.type} are provided, 'raw', 'pca', 'tsne', 'dc' and 'umap'. 
@@ -18,7 +18,7 @@
 #' @importFrom stats aggregate
 #' @importFrom igraph cluster_louvain membership graph.adjacency minimum.spanning.tree
 #'
-#' @return An CYT object with tree
+#' @return A CYT object with tree
 #'
 #' @examples
 #'
@@ -63,7 +63,7 @@ buildTree <- function(object, method = "euclidean",
     tree.mat <- object@umap.value[, dim.name]
   } else {
     if (verbose) message(Sys.time(), " The log data will be used to calculate trajectory")
-    tree.mat <- object@raw.data[which(object@meta.data$dowsample == 1), ]
+    tree.mat <- object@log.data[which(object@meta.data$dowsample == 1), object@markers.idx]
   }
 
   if (! "cluster.id" %in% colnames(object@meta.data)) {

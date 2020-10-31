@@ -14,7 +14,7 @@ runPseudotime(
 )
 }
 \arguments{
-\item{object}{An CYT object}
+\item{object}{A CYT object}
 
 \item{mode}{character. Specifies how igraph should interpret the supplied matrix.
 Possible values are: directed, undirected, upper, lower, max, min, plus.}
@@ -29,7 +29,7 @@ pseudotime: raw, umap, tsne, dc and pca. By default is raw.}
 \item{...}{Parameters passing to calculation function.}
 }
 \value{
-An CYT object
+A CYT object
 }
 \description{
 calculation of Pseudotime based on KNN

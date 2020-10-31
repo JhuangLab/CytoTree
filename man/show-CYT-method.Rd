@@ -10,7 +10,7 @@
 \S4method{show}{CYT}(object)
 }
 \arguments{
-\item{object}{An CYT object}
+\item{object}{A CYT object}
 }
 \value{
 Cell number of CYT object

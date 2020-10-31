@@ -13,7 +13,7 @@ plotMarkerDensity(
 )
 }
 \arguments{
-\item{object}{An CYT object}
+\item{object}{A CYT object}
 
 \item{cutoff}{numeric. Cutoff of trajectory value}
 

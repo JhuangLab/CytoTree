@@ -13,7 +13,7 @@ buildTree(
 )
 }
 \arguments{
-\item{object}{an CYT object}
+\item{object}{a CYT object}
 
 \item{method}{character. Mehtod to build MST.}
 
@@ -28,7 +28,7 @@ And if the \code{dim.use} is 'tsne' or 'umap', the default \code{dim.use} is seq
 \item{verbose}{logical. Whether to print calculation progress.}
 }
 \value{
-An CYT object with tree
+A CYT object with tree
 }
 \description{
 buildTree

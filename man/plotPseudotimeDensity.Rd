@@ -13,7 +13,7 @@ plotPseudotimeDensity(
 )
 }
 \arguments{
-\item{object}{an CYT object}
+\item{object}{a CYT object}
 
 \item{color.by}{character.}
 

@@ -16,7 +16,7 @@ plotViolin(
 )
 }
 \arguments{
-\item{object}{An CYT object}
+\item{object}{A CYT object}
 
 \item{marker}{character. Markers used to plot}
 

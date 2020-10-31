@@ -15,7 +15,7 @@ runDiffusionMap(
 )
 }
 \arguments{
-\item{object}{an CYT object}
+\item{object}{a CYT object}
 
 \item{sigma.use}{numeric. Diffusion scale parameter of the Gaussian kernel. 
  One of '\code{local}',
@@ -36,7 +36,7 @@ For the allowed values, see \code{destiny}}
 \item{...}{options to pass on to the \code{destiny}.}
 }
 \value{
-An CYT object
+A CYT object
 }
 \description{
 Calculate diffusion map in CYT

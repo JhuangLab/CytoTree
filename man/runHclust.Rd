@@ -13,7 +13,7 @@ runHclust(
 )
 }
 \arguments{
-\item{object}{an CYT object}
+\item{object}{a CYT object}
 
 \item{k}{numeric. The number of clusters.}
 
@@ -30,7 +30,7 @@ or "minkowski". Or you can specify an equation as input, for example
 \item{verbose}{logical. Whether to print calculation progress.}
 }
 \value{
-An CYT object with cluster
+A CYT object with cluster
 
 cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
 cyt <- readRDS(file = cyt.file)

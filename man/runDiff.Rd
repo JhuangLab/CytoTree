@@ -7,7 +7,7 @@
 runDiff(object, branch.id = NULL, branch.id.2 = NULL, verbose = FALSE)
 }
 \arguments{
-\item{object}{an CYT object}
+\item{object}{a CYT object}
 
 \item{branch.id}{vector. Branch ids use to run differentially expressed markers}
 
@@ -17,7 +17,7 @@ markers in compare with branch.id}
 \item{verbose}{logic. Whether to print calculation progress.}
 }
 \value{
-An CYT object with cluster.id in meta.data
+A CYT object with cluster.id in meta.data
 
 a data.frame with differential expressed markers
 }

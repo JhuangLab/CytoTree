@@ -22,7 +22,7 @@ runTSNE(
 )
 }
 \arguments{
-\item{object}{an CYT object}
+\item{object}{a CYT object}
 
 \item{dims}{integer, Output dimensionality (default: 2)}
 
@@ -46,7 +46,7 @@ See \code{\link[Rtsne]{Rtsne}}}
 \item{...}{Parameters passing to \code{\link[Rtsne]{Rtsne}} function}
 }
 \value{
-An CYT object
+A CYT object
 }
 \description{
 Calculate t-Distributed Stochastic Neighbor Embedding in CYT

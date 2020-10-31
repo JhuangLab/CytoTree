@@ -5,7 +5,7 @@
 #'
 #' @description Calculating differentially expressed markers
 #'
-#' @param object an CYT object
+#' @param object a CYT object
 #' @param branch.id vector. Branch ids use to run differentially expressed markers
 #' @param branch.id.2 vector. Branch ids use to run differentially expressed
 #'    markers in compare with branch.id
@@ -13,7 +13,7 @@
 #'
 #' @seealso  \code{bulidTree}
 #'
-#' @return An CYT object with cluster.id in meta.data
+#' @return A CYT object with cluster.id in meta.data
 #'
 #' @import limma
 #' @importFrom stringr str_replace_all fixed
@@ -48,7 +48,7 @@ runDiff <- function(object, branch.id = NULL, branch.id.2 = NULL, verbose = FALS
     stop(Sys.time(), " There is only one branch in the tree.")
   } else {
     pdata <- object@meta.data[which(object@meta.data$dowsample == 1), c("cell", "branch.id")]
-    edata <- object@raw.data[which(object@meta.data$dowsample == 1), ]
+    edata <- object@log.data[which(object@meta.data$dowsample == 1), object@markers.idx]
     if (is.null(branch.id) & is.null(branch.id.2)) {
       if (verbose) message(Sys.time(), " All branches will be calculated.")
       for (bid in all.branch.ids) {

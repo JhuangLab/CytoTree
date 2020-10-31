@@ -15,7 +15,7 @@ plotTree(
 )
 }
 \arguments{
-\item{object}{an CYT object}
+\item{object}{a CYT object}
 
 \item{cex.size}{numeric. size cex of the dot}
 

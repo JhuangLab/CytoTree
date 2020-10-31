@@ -12,7 +12,7 @@ plotBranchHeatmap(
 )
 }
 \arguments{
-\item{object}{An CYT object}
+\item{object}{A CYT object}
 
 \item{color}{vector. Colors used in heatmap.}
 

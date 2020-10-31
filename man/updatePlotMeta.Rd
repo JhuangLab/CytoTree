@@ -7,12 +7,12 @@
 updatePlotMeta(object, verbose = TRUE)
 }
 \arguments{
-\item{object}{An CYT object}
+\item{object}{A CYT object}
 
 \item{verbose}{logical. Whether to print calculation progress.}
 }
 \value{
-An CYT object
+A CYT object
 }
 \description{
 Update plot meta information of CYT

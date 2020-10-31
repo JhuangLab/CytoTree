@@ -8,12 +8,12 @@
 #'     PCA, tSNE, umap and pseudotime. For instance, you can choose recalculate PCA and
 #'     tSNE and destiny scores by paramter recalculate.
 #'
-#' @param object An CYT object
+#' @param object A CYT object
 #' @param cells vector, Names of the cells to retain.
 #' @param knn numeric. If is NA, the KNN will be equal to the knn number in the input CYT object.
 #' @param verbose logic. Whether to print calculation progress.
 #'
-#' @return An CYT object
+#' @return A CYT object
 #'
 #' @importFrom methods new
 #'

@@ -14,7 +14,7 @@ runUMAP(
 )
 }
 \arguments{
-\item{object}{an CYT object}
+\item{object}{a CYT object}
 
 \item{umap.config}{object of class umap.config. See \code{\link[umap]{umap}}.}
 
@@ -27,7 +27,7 @@ runUMAP(
 \item{...}{Options to pass on to the \code{\link[umap]{umap}} function}
 }
 \value{
-An CYT object
+A CYT object
 }
 \description{
 Calculate Uniform Manifold Approximation and Projection in CYT

@@ -4,7 +4,7 @@
 #'
 #' @name plotTree
 #'
-#' @param object an CYT object
+#' @param object a CYT object
 #' @param cex.size numeric. size cex of the dot
 #' @param color.by numeric. size color theme of the dot
 #' @param size.by numeric. size theme of the dot
@@ -68,6 +68,7 @@ plotTree <- function(object,
   size.by.idx <- match(size.by, colnames(node.attr))
   color.by.idx <- match(color.by, colnames(node.attr))
 
+  from.x = from.y = to.x = to.y = pos.x = pos.y = cluster = NULL
   edge.attr$from.x <- node.attr$pos.x[match(edge.attr$from, node.attr$cluster)]
   edge.attr$from.y <- node.attr$pos.y[match(edge.attr$from, node.attr$cluster)]
   edge.attr$to.x <- node.attr$pos.x[match(edge.attr$to, node.attr$cluster)]
@@ -77,13 +78,15 @@ plotTree <- function(object,
   size.tree <- node.attr[, size.by.idx]
 
   gg <- ggplot()
-  gg <- gg + geom_segment(mapping = aes(x = edge.attr$from.x, y = edge.attr$from.y, xend = edge.attr$to.x, yend = edge.attr$to.y))
-  gg <- gg + geom_point(mapping = aes(x = node.attr$pos.x, y = node.attr$pos.y, color = color.tree, size = size.tree))
+  gg <- gg + geom_segment(mapping = aes(x = from.x, y = from.y, xend = to.x, yend = to.y), data = edge.attr)
+  gg <- gg + geom_point(mapping = aes(x = pos.x, y = pos.y, color = color.tree, size = size.tree), data = node.attr)
   gg <- gg + scale_size(range = c(0, 6) * cex.size)
   gg <- gg + labs(color = color.by)
   gg <- gg + labs(size = size.by)
 
-  if (show.node.name) gg <- gg + geom_text(aes(x = node.attr$pos.x, y = node.attr$pos.y, label = node.attr$cluster ), check_overlap = TRUE, size = 3 * cex.size)
+  if (show.node.name) gg <- gg + geom_text(aes(x = pos.x, y = pos.y, label = cluster ), 
+                                           data = node.attr,
+                                           check_overlap = TRUE, size = 3 * cex.size)
   gg <- gg + theme_void()
   gg <- gg + labs(x = "", y = "", title = paste0("Tree plot, color.by: ", color.by, ", size.by: ", size.by))
 
@@ -97,7 +100,7 @@ plotTree <- function(object,
 #'
 #' @name plotPieTree
 #'
-#' @param object an CYT object
+#' @param object a CYT object
 #' @param cex.size numeric. size cex of the dot
 #' @param size.by.cell.number logical. Whether to size node by cell number
 #' @param as.tree logical. Whether to show node as tree
@@ -150,13 +153,14 @@ plotPieTree <- function(object,
 
   plot.cols <- paste0(unique(object@meta.data$stage), ".percent")
 
+  from.x = from.y = to.x = to.y = NULL
   edge.attr$from.x <- node.attr$pos.x[match(edge.attr$from, node.attr$cluster)]
   edge.attr$from.y <- node.attr$pos.y[match(edge.attr$from, node.attr$cluster)]
   edge.attr$to.x <- node.attr$pos.x[match(edge.attr$to, node.attr$cluster)]
   edge.attr$to.y <- node.attr$pos.y[match(edge.attr$to, node.attr$cluster)]
 
   gg <- ggplot()
-  gg <- gg + geom_segment(mapping = aes(x = edge.attr$from.x, y = edge.attr$from.y, xend = edge.attr$to.x, yend = edge.attr$to.y))
+  gg <- gg + geom_segment(mapping = aes(x = from.x, y = from.y, xend = to.x, yend = to.y), data = edge.attr )
   if (size.by.cell.number) {
     gg <- gg + geom_scatterpie(aes(x = pos.x, y = pos.y, group = cluster, r = cell.number.percent*cex.size),
                                data = node.attr, cols = plot.cols, color=NA) + coord_equal()

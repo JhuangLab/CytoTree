@@ -53,17 +53,17 @@ NULL
 #'     calculated using \code{\link[umap]{umap}}.
 #' @slot root.cells vector, Names of root cells, which can
 #'     be modified by \code{defRootCells}.
-#'     An root cell is manually set to be the origin of all cells.
+#'     A root cell is manually set to be the origin of all cells.
 #'     Pseudotime in root cells are the lowest.
 #' @slot leaf.cells vector. Names of leaf cells, which can be
 #'     modified by \code{defLeafCells}.
-#'     An leaf cell is manually set to be the terminal state of
-#'     all cells. Pseuodtime in leaf cells are the largest.
+#' A leaf cell is manually set to be the terminal state of
+#'     all cells. Pseuodtime in leaf cells is the largest.
 #' @slot network list. Network stored in the calculation of
 #'     trajectory and pseudotime.
 #' @slot walk list. Random forward and backward walk between
 #'     \code{root.cells} and \code{leaf.cells}.
-#' @slot diff.traj list. Differentiation trajectory all cells.
+#' @slot diff.traj list. Differentiation trajectory of all cells.
 #' @slot plot.meta data.frame. Plot meta information for
 #'     \code{plot2D} or \code{plot3D}.
 #' @slot tree.meta data.frame. Tree meta information of CYT object.
@@ -136,20 +136,21 @@ setValidity("CYT", function(object) {
   return(TRUE)
 })
 
-#' create an CYT object
+#' create a CYT object
 #'
-#' @description This function is about how to build an CYT object.
-#'    An CYT object is the base for the whole analysizing workflow
+#' @description This function is about how to build a CYT object.
+#'    A CYT object is the base for the whole analyzing workflow
 #'    of flow and mass cytometry data.
 #'
 #' @name createCYT
 #'
-#' @param raw.data matrix. Raw data read from FCS file after perform
+#' @param raw.data matrix. Raw data read from FCS file after performing
 #'    preprocessing.
 #' @param markers vector. Detailed marker information in the gate of
-#'    flow cytometer.
+#'    flow cytometer. The default value is the colnames of `raw.data`
 #' @param meta.data data.frame. Raw metadata of each cell.
-#'    Columns "cell" and "stage" are required.
+#'    Columns "cell" and "stage" are required. If not input, the meta.data
+#'    will be generated with default the name of FCS data.
 #' @param batch vector. Batch covariate (only one batch allowed).
 #'    Method to correct batch effect
 #'    function is refered to \code{\link[sva]{ComBat}}.
@@ -160,12 +161,12 @@ setValidity("CYT", function(object) {
 #'    In CytoTree workflow, it's better to perform transformation of
 #'    FCS data using \code{runExprsExtract} or \code{runExprsMerge}
 #'    before creating an CYT object. \code{CytoTree} only provide
-#'    log transforma method. If you need to using truncateTransform,
+#'    log transform method. If you need to using truncateTransform,
 #'    scaleTransform, linearTransform, quadraticTransform and
 #'    lnTransform, see \code{flowCore} for more
 #'    information. And \code{runExprsExtract} in
 #'    \code{CytoTree}, autoLgcl, cytofAsinh, logicle, arcsinh,
-#'    and logAbs can be used to perform transformation of FCS data.
+#'    and logAbs can be used to perform the transformation of FCS data.
 #' @param verbose logical. Whether to print calculation progress.
 #' @param ... paramters pass to \code{correctBatchCYT} function.
 #'
@@ -175,7 +176,7 @@ setValidity("CYT", function(object) {
 #'
 #' @export
 #'
-#' @return An CYT object with raw.data and markers and meta.data
+#' @return A CYT object with raw.data and markers and meta.data
 #'
 #' @examples
 #'
@@ -195,16 +196,8 @@ setValidity("CYT", function(object) {
 #' colnames(fcs.data)[match(names(recol), colnames(fcs.data))] = recol
 #' fcs.data <- fcs.data[, recol]
 #' 
-#' day.list <- c("D0", "D2", "D4", "D6", "D8", "D10")
-#' meta.data <- data.frame(cell = rownames(fcs.data),
-#'                         stage = gsub(".FCS.+", "", rownames(fcs.data) ) )
-#' meta.data$stage <- factor(as.character(meta.data$stage), levels = day.list)
-#' 
-#' markers <- c("CD43","CD34","CD90","CD45RA","CD31","CD49f","CD73","CD45","FLK1","CD38")
-#' 
 #'# Build the CYT object
-#' cyt <- createCYT(raw.data = fcs.data, markers = markers,
-#'                  meta.data = meta.data,
+#' cyt <- createCYT(raw.data = fcs.data,
 #'                  normalization.method = "log",
 #'                  verbose = TRUE)
 #' 
@@ -212,7 +205,7 @@ setValidity("CYT", function(object) {
 #' cyt
 #'
 #'
-createCYT <- function(raw.data, markers, meta.data,
+createCYT <- function(raw.data, markers = NULL, meta.data = NULL,
                       batch = NULL, batch.correct = FALSE,
                       normalization.method = "none",
                       verbose = FALSE, ...) {
@@ -225,10 +218,16 @@ createCYT <- function(raw.data, markers, meta.data,
   if (verbose) message(Sys.time(), " Number of cells in processing: ", dim(raw.data)[1])
 
   # QC of metadata
-  if (missing(meta.data)) stop(Sys.time(), " meta.data must be a data.frame")
+  if (is.null(meta.data)) {
+    if (verbose) message(Sys.time(), " Meta data not input")
+    cell = stage = NULL
+    meta.data <- data.frame(cell = row.names(raw.data),
+                            stage = gsub(".FCS.+", "", row.names(raw.data)))
+
+  }
   if (!is.data.frame(meta.data)) {
     warning(Sys.time(), " meta.data must be a data.frame")
-    meta.data <- as.matrix(meta.data)
+    meta.data <- as.data.frame(meta.data)
   }
 
   if (!all(c("cell", "stage") %in% colnames(meta.data))) {
@@ -244,9 +243,12 @@ createCYT <- function(raw.data, markers, meta.data,
   }
 
   # load index of markers of FCS
-  if (missing(markers)) stop(Sys.time(), " markers is missing")
+  if (is.null(markers)) {
+    if (verbose) message(Sys.time(), " Markers not input")
+    markers <- colnames(raw.data)
+  }
   if (!is.vector(markers)) {
-    warning(Sys.time(), " markers must be a vector")
+    warning(Sys.time(), " Markers must be a vector")
     markers <- as.vector(markers)
   }
 
@@ -255,7 +257,7 @@ createCYT <- function(raw.data, markers, meta.data,
   if (verbose) message(Sys.time(), " Index of markers in processing")
   if (any(is.na(markers.idx))) {
     sub.markers <- markers[which(is.na(markers.idx))]
-    warning(Sys.time(), " ", sub.markers, " not existes in colnames
+    warning(Sys.time(), " ", sub.markers, " not exist in colnames
             of raw.data. It will be removed. ")
 
     markers <- markers[which(!is.na(markers.idx))]
@@ -265,7 +267,8 @@ createCYT <- function(raw.data, markers, meta.data,
   # Create an CYT object
   if (verbose) message(Sys.time(), " Creating CYT object.")
   object <- methods::new("CYT", raw.data = raw.data, meta.data = meta.data,
-                markers = markers, markers.idx = markers.idx)
+                         markers = markers, log.data = raw.data,
+                         markers.idx = markers.idx)
 
   # normalization and Log-normalize the data
   if (normalization.method == "log") {
@@ -278,23 +281,21 @@ createCYT <- function(raw.data, markers, meta.data,
       warning(paste0(Sys.time(), " Unavailable log data column, please check your data"))
     }
     if (verbose) message(paste0(Sys.time(), " Normalization and log-transformation."))
-    object@raw.data[, norm_factors_idx] <- round(
+    object@log.data[, norm_factors_idx] <- round(
       log10(sweep(all.log.data[, norm_factors_idx], 2,
                   norm_factors[norm_factors_idx], "*")+1), digits=3)
-
-    object@log.data <- object@raw.data[, markers.idx]
   } else if (normalization.method == "none") {
     if (verbose) message(Sys.time(), " No normalization and transformation ")
-    object@log.data <- raw.data[, markers.idx]
+    object@log.data <- raw.data
   } else {
     if (verbose) message(Sys.time(), " No normalization and transformation ")
-    object@log.data <- raw.data[, markers.idx]
+    object@log.data <- raw.data
   }
 
   # correcting batch effect
   if (batch.correct) {
     if (is.null(batch)) {
-      warning(Sys.time(), " batch must be provided when batch.correct is TRUE ")
+      warning(Sys.time(), " Batch must be provided when batch.correct is TRUE ")
     } else {
       object <- correctBatchCYT(object, batch = batch, ...)
     }

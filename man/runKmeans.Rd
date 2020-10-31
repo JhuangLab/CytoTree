@@ -17,7 +17,7 @@ runKmeans(
 )
 }
 \arguments{
-\item{object}{an CYT object}
+\item{object}{a CYT object}
 
 \item{k}{numeric. The number of clusters.}
 
@@ -37,7 +37,7 @@ kmeans. Four algoritms are provided: Hartigan-Wong, Lloyd, Forgy, MacQueen.}
 \item{...}{Parameters passing to \code{\link[stats]{kmeans}} function}
 }
 \value{
-an CYT object with kmeans.id in meta.data
+a CYT object with kmeans.id in meta.data
 }
 \description{
 Perform k-means clustering on a data matrix.

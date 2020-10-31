@@ -60,13 +60,13 @@ calculated using \code{\link[umap]{umap}}.}
 
 \item{\code{root.cells}}{vector, Names of root cells, which can
 be modified by \code{defRootCells}.
-An root cell is manually set to be the origin of all cells.
+A root cell is manually set to be the origin of all cells.
 Pseudotime in root cells are the lowest.}
 
 \item{\code{leaf.cells}}{vector. Names of leaf cells, which can be
-modified by \code{defLeafCells}.
-An leaf cell is manually set to be the terminal state of
-all cells. Pseuodtime in leaf cells are the largest.}
+    modified by \code{defLeafCells}.
+A leaf cell is manually set to be the terminal state of
+    all cells. Pseuodtime in leaf cells is the largest.}
 
 \item{\code{network}}{list. Network stored in the calculation of
 trajectory and pseudotime.}
@@ -74,7 +74,7 @@ trajectory and pseudotime.}
 \item{\code{walk}}{list. Random forward and backward walk between
 \code{root.cells} and \code{leaf.cells}.}
 
-\item{\code{diff.traj}}{list. Differentiation trajectory all cells.}
+\item{\code{diff.traj}}{list. Differentiation trajectory of all cells.}
 
 \item{\code{plot.meta}}{data.frame. Plot meta information for
 \code{plot2D} or \code{plot3D}.}

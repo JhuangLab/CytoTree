@@ -16,7 +16,7 @@
 #'
 #' @seealso \code{\link[BiocNeighbors]{findKNN}}
 #'
-#' @return An CYT object with knn, knn.index and knn.distance information.
+#' @return A CYT object with knn, knn.index and knn.distance information.
 #'
 #' @import BiocNeighbors
 #'
@@ -44,9 +44,9 @@ runKNN <- function(object,
   }
 
   if (is.null(given.mat)) {
-    mat <- object@log.data[which(object@meta.data$seed.pseudotime == 1), ]
+    mat <- object@log.data[which(object@meta.data$seed.pseudotime == 1), object@markers.idx]
   } else {
-    if (nrow(given.mat) != nrow(object@log.data[which(object@meta.data$seed.pseudotime == 1), ])) {
+    if (nrow(given.mat) != nrow(object@log.data[which(object@meta.data$seed.pseudotime == 1), object@markers.idx])) {
       stop(Sys.time, " Invalid given.mat ")
     } else {
       mat <- given.mat

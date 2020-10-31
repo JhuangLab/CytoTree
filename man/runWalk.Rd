@@ -15,7 +15,7 @@ runWalk(
 )
 }
 \arguments{
-\item{object}{An CYT object}
+\item{object}{A CYT object}
 
 \item{mode}{character. Specifies how igraph should interpret the supplied matrix.
 Possible values are: undirected, directed, upper, lower, max, min, plus. By 
@@ -32,7 +32,7 @@ default is undirected.}
 \item{...}{Parameters passing to calculation function.}
 }
 \value{
-An CYT object
+A CYT object
 }
 \description{
 Walk between root cells and leaf cells

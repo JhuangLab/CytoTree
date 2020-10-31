@@ -3,7 +3,7 @@
 #'
 #' @name runDiffusionMap
 #'
-#' @param object an CYT object
+#' @param object a CYT object
 #' @param sigma.use numeric. Diffusion scale parameter of the Gaussian kernel. 
 #'     One of '\code{local}',
 #'     '\code{global}', a \code{\link[base]{numeric}} global sigma or a Sigmas object.
@@ -22,7 +22,7 @@
 #' @import destiny
 #'
 #' @export
-#' @return An CYT object
+#' @return A CYT object
 #'
 #' @examples
 #'
@@ -39,7 +39,7 @@ runDiffusionMap <- function(object, sigma.use = NULL,
                             ...) {
 
   if (length(which(object@meta.data$dowsample == 1)) < 10) stop(Sys.time, " Not enough cells, please run processingCluster and choose correct downsampleing.size paramter. ")
-  dm.data <- as.matrix(object@log.data[which(object@meta.data$dowsample == 1), ])
+  dm.data <- as.matrix(object@log.data[which(object@meta.data$dowsample == 1), object@markers.idx])
 
   if (verbose) message(Sys.time(), " Calculating Diffusion Map.")
   # Figure out sigma

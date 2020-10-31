@@ -19,7 +19,7 @@ plot2D(
 )
 }
 \arguments{
-\item{object}{An CYT object}
+\item{object}{A CYT object}
 
 \item{item.use}{character. Items use to 2D plot, axes x and y must be numeric.}
 

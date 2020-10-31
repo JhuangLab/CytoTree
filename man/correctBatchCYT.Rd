@@ -14,7 +14,7 @@ correctBatchCYT(
 )
 }
 \arguments{
-\item{object}{An CYT object}
+\item{object}{a CYT object}
 
 \item{batch}{vector. Batch covariate (only one batch allowed)}
 
@@ -29,9 +29,7 @@ effect (no scale adjustment)}
 \item{...}{Parameters passing to \code{\link[sva]{ComBat}} function}
 }
 \value{
-An CYT object after removing batch effect
-
-An CYT object with corrected batch effects
+A CYT object with corrected batch effects
 }
 \description{
 Remove batch effect in CYT object

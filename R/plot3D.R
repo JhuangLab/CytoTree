@@ -3,7 +3,7 @@
 #'
 #' @name plot3D
 #'
-#' @param object An CYT object
+#' @param object A CYT object
 #' @param item.use character. Items use to 3D plot, axes x and y and z must be numeric.
 #' @param color.by character. Dot or mesh color by which character. It can be one of the column
 #'     of plot.meta, or it can be just "density" (the default value).
@@ -45,11 +45,11 @@ plot3D <- function(object,
 
   # update and fetch plot meta information
   plot.meta <- fetchPlotMeta(object, verbose = FALSE)
-  idx <- match(c(color.by, item.use), colnames(object@raw.data))
+  idx <- match(c(color.by, item.use), colnames(object@log.data))
   idx <- idx[which(!is.na(idx))]
   if (length(idx) > 0) {
-    sub <- as.data.frame(object@raw.data[which(object@meta.data$dowsample == 1), idx])
-    colnames(sub) <- colnames(object@raw.data)[idx]
+    sub <- as.data.frame(object@log.data[which(object@meta.data$dowsample == 1), idx])
+    colnames(sub) <- colnames(object@log.data)[idx]
     plot.meta <- cbind(plot.meta, sub)
   }
 

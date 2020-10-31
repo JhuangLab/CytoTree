@@ -7,7 +7,7 @@
 runFastPCA(object, center = FALSE, scale. = TRUE, verbose = FALSE, ...)
 }
 \arguments{
-\item{object}{an CYT object}
+\item{object}{a CYT object}
 
 \item{center}{logical, a logical value indicating whether the variables
 should be shifted to be zero centered. Alternately, a vector
@@ -26,7 +26,7 @@ The value is passed to scale. See \code{\link[gmodels]{fast.prcomp}}}
 \item{...}{Parameters passing to \code{\link[gmodels]{fast.prcomp}} function}
 }
 \value{
-An CYT object with PCA
+A CYT object with PCA
 }
 \description{
 Calculate principal components in CYT

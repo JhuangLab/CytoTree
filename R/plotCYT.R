@@ -3,7 +3,7 @@
 #'
 #' @name plotPseudotimeDensity
 #'
-#' @param object an CYT object
+#' @param object a CYT object
 #' @param color.by character.
 #' @param main character. Title of the plot
 #' @param adjust numeric. A multiplicate bandwidth adjustment.
@@ -50,7 +50,7 @@ plotPseudotimeDensity <- function(object, color.by = "stage",
   }
   if (!is.factor(plot.data$color.by)) plot.data$color.by <- as.factor(as.character(plot.data$color.by))
 
-  gg <- ggplot(plot.data, aes(x=pseudotime, colour = color.by))
+  gg <- ggplot(plot.data, aes(x = pseudotime, colour = color.by))
   gg <- gg + geom_density(adjust = adjust)
   gg <- gg + plot.theme
   gg <- gg + labs(color = color.by)
@@ -66,7 +66,7 @@ plotPseudotimeDensity <- function(object, color.by = "stage",
 #'
 #' @name plotPseudotimeTraj
 #'
-#' @param object An CYT object
+#' @param object A CYT object
 #' @param markers character. Markers used in the calculation progress
 #' @param cutoff numeric. Cutoff of trajectory value
 #' @param size numeric. Size of the dot
@@ -128,7 +128,7 @@ plotPseudotimeTraj <- function(object,
                       IsRoot = plot.meta$is.root.cells,
                       IsLeaf = plot.meta$is.leaf.cells,
                       Marker = markers[i],
-                      Signal = object@raw.data[which(object@meta.data$dowsample == 1), markers[i]],
+                      Signal = object@log.data[which(object@meta.data$dowsample == 1), markers[i]],
                       Stage = plot.meta$stage,
                       TrajValue = plot.meta$traj.value,
                       LogTrajValue = plot.meta$traj.value.log)
@@ -149,7 +149,7 @@ plotPseudotimeTraj <- function(object,
     plot.data <- rbind(plot.data, sub)
   }
 
-  gg <- ggplot(plot.data, aes(x=Pseudotime, y=Signal, color = Pseudotime)) + geom_point(size = size, alpha = alpha)
+  gg <- ggplot(plot.data, aes(x = Pseudotime, y = Signal, color = Pseudotime)) + geom_point(size = size, alpha = alpha)
   gg <- gg + plot.theme
 
   if (var.cols) {
@@ -171,7 +171,7 @@ plotPseudotimeTraj <- function(object,
 #'
 #' @name plotMarkerDensity
 #'
-#' @param object An CYT object
+#' @param object A CYT object
 #' @param markers character. Markers used in the calculation progress
 #' @param cutoff numeric. Cutoff of trajectory value
 #' @param adjust numeric. Transparency (0-1) of the dot, default is 1.
@@ -220,7 +220,7 @@ plotMarkerDensity <- function(object,
                       IsRoot = plot.meta$is.root.cells,
                       IsLeaf = plot.meta$is.leaf.cells,
                       Marker = markers[i],
-                      Signal = object@raw.data[which(object@meta.data$dowsample == 1), markers[i]],
+                      Signal = object@log.data[which(object@meta.data$dowsample == 1), markers[i]],
                       Stage = plot.meta$stage,
                       TrajValue = plot.meta$traj.value,
                       LogTrajValue = plot.meta$traj.value.log)

@@ -33,38 +33,70 @@ Although multidimensional single-cell-based flow and mass cytometry have been in
 
 <img src="../inst/figures/logo.png" align="right" height=150 width=150/>
 
-## Overview of CytoTree workflow
-
-The CytoTree package is developed to complete the majority of standard analysis and visualization workflow for FCS data. In CytoTree workflow, an S4 object in R is built to implement the statistical and computational approach, and all computational modules are integrated into one single channel which only requires a specified input data format.
-
-`CytoTree` can help you to perform four main types of analysis:
-
-- **Clustering**. `CytoTree` can help you to discover and identify subtypes of cells. 
-
-- **Dimensionality Reduction**. Several dimensionality reduction methods are provided in `CytoTree` package such as Principal Components Analysis (PCA), t-distributed Stochastic Neighbor Embedding (tSNE), Diffusion Maps and Uniform Manifold Approximation and Projection (UMAP). CytoTree provides both cell-based and cluster-based dimensionality reduction.
-
-- **Trajectory Inference**. `CytoTree` can help you to construct the cellular differential based on minimum spanning tree (MST) algorithm. 
-
-- **Pseudotime and Intermediate states definition**. The root cells need to be defined by users. The trajctroy value will be calculated based on Shortest Path from root cells and leaf cells using R `igraph` package. Subset FCS data set in `CytoTree` and find the key intermediate cell states based on trajectory value.
+**See the detailed tutorial of CytoTree, please visit [Tutorial of CytoTree](https://ytdai.github.io/CytoTree/index.html).**
 
 
-<center> <img src="../inst/figures/algorithm.jpg" alt="Workflow of CytoTree" /> </center>
+## Overview of Workflow
 
-<center> **Fig. 1  Workflow of CytoTree** </center>
+The `CytoTree` package is developed to complete the majority of standard analysis and visualization workflow for FCS data. In CytoTree workflow, an S4 object in R is built to implement the statistical and computational approach, and all computational functionalities are integrated into one single channel which only requires a specified input data format. Computational functionalities of `CytoTree` can be divided into four main parts (Fig. 2.1): preprocessing, trajectory, analysis and visualization. 
 
-## Quick start
+ - **Preprocessing**. Data import, compensation, quality control, filtration, normalization and merge cells from different samples can be implemented in the preprocessing part. After preprocessing, a matrix that contains clean cytometric signaling data is required to build a CYT object. There are other optional data recommended to build the CYT object, including a data frame containing meta-information of the experiment and a vector contains all markers enrolled in the computational process. 
+
+ - **Trajectory**. Cells built in the CYT object are classified into different clusters based on the expression level of input markers. You can choose different clustering methods by inputting different parameters. After clustering, cells are downsampled in a cluster-dependent fashion to reduce the total cell size and avoid small cluster deletion. Dimensionality reduction for both cells and clusters are also implemented in the clustering procedure. After dimensionality reduction, we use Minimus Spanning Tree (MST) to construct cell trajectory.
+
+ - **Analysis**. This part is designed for time course FCS data. Before running pseudotime, root cells must be defined first based on users' prior knowledge. Root cells in `CytoTree` workflow are the initial cells of the trajectory tree. So it can be set using one vertex node of the tree or a cluster of cells with specific antibodies combination. Intermediate state evaluation is also involved in the pseudotime part. Leaf cells are defined by the end node of the trajectory or the end stage of the experiment. Intermediate state cells are cells with higher betweenness in the graph built on cell-cell connection, which plays an important role between the connection of root cells and leaf cells.
+
+ - **Visualization**. The visualization part can provide clear and concise visualization of FCS data in an effective and easy-to-comprehend manner. `CytoTree` package offers various plotting functions to generate customizable and publication-quality plots. A two-dimensional or three-dimensional plot can fit most requirements from dimensionality reduction results. And tree-based plot can visualize cell trajectory as a force-directed layout tree. Other special plots such as heatmap and violin plot are also provided in `CytoTree`.
+
+<center> <img src="../inst/figures/algorithm.jpg" align="center" height=80% width=80%/> </center>
+<center> Figure 1 Workflow of CytoTree </center>
+
+## Installation
+
+### GitHub
+
+This requires the `devtools` package to be pre-installed first.
+
+``` {r eval = FALSE}
+
+# If not already installed
+install.packages("devtools") 
+devtools::install_github("JhuangLab/CytoTree")
+
+library(CytoTree)
+
+```
+
+The link of `CytoTree` on GitHub can be visited at https://github.com/JhuangLab/CytoTree.
+
+### Bioconductor
+
+This requires the `BiocManager` package to be pre-installed first.
+
+To install this package, start R (version "4.0") and enter:
+
+``` {r eval = FALSE}
+
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("CytoTree")
+
+```
+
+The link of `CytoTree` on Bioconductor can be visited at https://bioconductor.org/packages/CytoTree/.
+
+## Quick-start code
+
+To run `CytoTree`, the first step is to build a CYT object. Here are the main functions in `CytoTree`. This figure describes the available functionalities: preprocessing, trajectory, analysis, visualization, and set operations. A short description (black font) and the corresponding function (blue font) are provided for each function. The CytoTree workflow begins with the reading of the FCS data. Compensation, filtration, concatenation, and normalization are included in the preprocessing part. A clean matrix after preprocessing is required to build a CYT object, and the analysis workflows of all other functionalities are all based on the CYT object. The trajectory module contains functions used to perform clustering and dimensionality reduction for cells. The analysis module is based on calculation results from the trajectory part. The visualization part includes functions to generate publication-quality plots from the CYT object. The set operations part includes a function for subsetting a CYT object based on user-defined cells or fetching meta information for clusters and cells during the analysis.
 
 
 ``` {r eval = TRUE}
 
 # Loading packages
 suppressMessages({
-library(ggplot2)
 library(CytoTree)
-library(flowCore)
-library(stringr)
 })
-
 
 # Read fcs files
 fcs.path <- system.file("extdata", package = "CytoTree")
@@ -72,79 +104,86 @@ fcs.files <- list.files(fcs.path, pattern = '.FCS$', full = TRUE)
 
 fcs.data <- runExprsMerge(fcs.files, comp = FALSE, transformMethod = "none")
 
-# Refine colnames of fcs data
-recol <- c(`FITC-A<CD43>` = "CD43", `APC-A<CD34>` = "CD34", 
-           `BV421-A<CD90>` = "CD90", `BV510-A<CD45RA>` = "CD45RA", 
-           `BV605-A<CD31>` = "CD31", `BV650-A<CD49f>` = "CD49f",
-           `BV 735-A<CD73>` = "CD73", `BV786-A<CD45>` = "CD45", 
-           `PE-A<FLK1>` = "FLK1", `PE-Cy7-A<CD38>` = "CD38")
-colnames(fcs.data)[match(names(recol), colnames(fcs.data))] = recol
-fcs.data <- fcs.data[, recol]
-
-day.list <- c("D0", "D2", "D4", "D6", "D8", "D10")
-meta.data <- data.frame(cell = rownames(fcs.data),
-                        stage = str_replace(rownames(fcs.data), regex(".FCS.+"), "") )
-meta.data$stage <- factor(as.character(meta.data$stage), levels = day.list)
-
-markers <- c("CD43","CD34","CD90","CD45RA","CD31","CD49f","CD73","CD45","FLK1","CD38")
-
 # Build the CYT object
-cyt <- createCYT(raw.data = fcs.data, markers = markers,
-                 meta.data = meta.data,
-                 normalization.method = "log",
-                 verbose = TRUE)
+cyt <- createCYT(raw.data = fcs.data, normalization.method = "log")
 
 # See information
 cyt
+
+################################################
+##### Running CytoTree in one line code
+################################################
+
+# Run without dimensionality reduction steps
+# Run CytoTree as pipeline and visualize as tree
+cyt <- cyt %>% runCluster() %>% processingCluster() %>% buildTree()
+plotTree(cyt)
+
+# Or you can run with dimensionality reduction steps
+# Run CytoTree as pipeline and visualize as tree
+cyt <- cyt %>% runCluster() %>% processingCluster() %>% runFastPCA() %>% runTSNE() %>%  runDiffusionMap() %>% runUMAP() %>% buildTree()
+plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"))
+
 ```
 
+Here we provied the running template of trajectory inference using CYT object is as follows:
 
 ``` {r eval = TRUE}
-# Cluster cells by SOM algorithm
-# Set random seed to make results reproducible
-set.seed(1)
-cyt <- runCluster(cyt, cluster.method = "som")
 
-# Do not perform downsampling
+# Cluster cells by SOM algorithm
 set.seed(1)
+cyt <- runCluster(cyt)
+
+# Processing Clusters
 cyt <- processingCluster(cyt)
 
+# This is an optional step
 # run Principal Component Analysis (PCA)
 cyt <- runFastPCA(cyt)
 
+# This is an optional step
 # run t-Distributed Stochastic Neighbor Embedding (tSNE)
 cyt <- runTSNE(cyt)
 
+# This is an optional step
 # run Diffusion map
 cyt <- runDiffusionMap(cyt)
 
+# This is an optional step
 # run Uniform Manifold Approximation and Projection (UMAP)
 cyt <- runUMAP(cyt)
 
-# build minimum spanning tree based on tsne
-cyt <- buildTree(cyt, dim.type = "tsne", dim.use = 1:2)
+# build minimum spanning tree
+cyt <- buildTree(cyt)
 
 # DEGs of different branch
 diff.list <- runDiff(cyt)
 
 # define root cells
-cyt <- defRootCells(cyt, root.cells = c(28,26))
+cyt <- defRootCells(cyt, root.cells = c(32,26))
 
 # run pseudotime
-cyt <- runPseudotime(cyt, verbose = TRUE, dim.type = "raw")
+cyt <- runPseudotime(cyt)
 
 # define leaf cells
-cyt <- defLeafCells(cyt, leaf.cells = c(27, 13), verbose = TRUE)
+cyt <- defLeafCells(cyt, leaf.cells = c(30))
 
 # run walk between root cells and leaf cells
-cyt <- runWalk(cyt, verbose = TRUE)
+cyt <- runWalk(cyt)
 
 # Save object
 if (FALSE) {
-  save(cyt, file = "Path to you output directory")
+  saveRDS(cyt, file = "Path to you output directory")
 }
 
-######################## Visualization
+```
+
+## Visualization
+
+The running template of visualization is as follows:
+
+```{r  eval = TRUE, out.width='50%', fig.asp=.75, fig.align='center'}
+
 
 # Plot 2D tSNE. And cells are colored by cluster id
 plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), color.by = "cluster.id", 
@@ -162,90 +201,74 @@ plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), color.by = "branch.id",
 plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), color.by = "branch.id", 
        alpha = 1, main = "UMAP", category = "categorical", show.cluser.id = TRUE)
 
-
 # Plot 2D tSNE. And cells are colored by stage
 plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), color.by = "stage", 
-       alpha = 1, main = "UMAP", category = "categorical") +
-   scale_color_manual(values = c("#00599F","#009900","#FF9933",
-                                 "#FF99FF","#7A06A0","#FF3222"))
+       alpha = 1, main = "UMAP", category = "categorical")
 
 # Plot 2D UMAP. And cells are colored by stage
 plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), color.by = "stage", 
-       alpha = 1, main = "UMAP", category = "categorical") +
-   scale_color_manual(values = c("#00599F","#009900","#FF9933",
-                                 "#FF99FF","#7A06A0","#FF3222"))
+       alpha = 1, main = "UMAP", category = "categorical")
 
 # Tree plot
-plotTree(cyt, color.by = "D0.percent", show.node.name = TRUE, cex.size = 1) + 
-  scale_colour_gradientn(colors = c("#00599F", "#EEEEEE", "#FF3222"))
+plotTree(cyt, color.by = "D0.percent", show.node.name = TRUE, cex.size = 1)
 
-plotTree(cyt, color.by = "CD43", show.node.name = TRUE, cex.size = 1) + 
-  scale_colour_gradientn(colors = c("#00599F", "#EEEEEE", "#FF3222"))
+# Tree plot
+plotTree(cyt, color.by = "FITC-A<CD43>", show.node.name = TRUE, cex.size = 1) 
 
 
 # plot clusters
 plotCluster(cyt, item.use = c("tSNE_1", "tSNE_2"), category = "numeric",
-            size = 100, color.by = "CD45RA") + 
-  scale_colour_gradientn(colors = c("#00599F", "#EEEEEE", "#FF3222"))
+            size = 100, color.by = "BV510-A<CD45RA>") 
 
 # plot pie tree
-plotPieTree(cyt, cex.size = 3, size.by.cell.number = TRUE) + 
-  scale_fill_manual(values = c("#00599F","#FF3222","#009900",
-                               "#FF9933","#FF99FF","#7A06A0"))
+plotPieTree(cyt, cex.size = 3, size.by.cell.number = TRUE)
 
 # plot pie cluster
-plotPieCluster(cyt, item.use = c("tSNE_1", "tSNE_2"), cex.size = 40) + 
-  scale_fill_manual(values = c("#00599F","#FF3222","#009900",
-                               "#FF9933","#FF99FF","#7A06A0"))
+plotPieCluster(cyt, item.use = c("tSNE_1", "tSNE_2"), cex.size = 40) 
 
-# plot heatmap of cluster
+# plot heatmap of clusters
 plotClusterHeatmap(cyt)
+
+# plot heatmap of branches
 plotBranchHeatmap(cyt)
 
 # Violin plot
-plotViolin(cyt, color.by = "cluster.id", marker = "CD45RA", text.angle = 90)
-plotViolin(cyt, color.by = "branch.id", marker = "CD45RA", text.angle = 90)
+plotViolin(cyt, color.by = "cluster.id", marker = "BV510-A<CD45RA>", text.angle = 90)
+
+# Violin plot
+plotViolin(cyt, color.by = "branch.id", marker = "BV510-A<CD45RA>", text.angle = 90)
 
 # UMAP plot colored by pseudotime
 plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"), category = "numeric",
-            size = 1, color.by = "pseudotime") + 
-  scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
+            size = 1, color.by = "pseudotime")
 
 # tSNE plot colored by pseudotime
 plot2D(cyt, item.use = c("tSNE_1", "tSNE_2"), category = "numeric",
-            size = 1, color.by = "pseudotime") + 
- scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
+            size = 1, color.by = "pseudotime") 
 
 # denisty plot by different stage
-plotPseudotimeDensity(cyt, adjust = 1) + 
-  scale_color_manual(values = c("#00599F","#009900","#FF9933",
-                                "#FF99FF","#7A06A0","#FF3222"))
+plotPseudotimeDensity(cyt, adjust = 1) 
 # Tree plot
-plotTree(cyt, color.by = "pseudotime", cex.size = 1.5) + 
- scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
+plotTree(cyt, color.by = "pseudotime", cex.size = 1.5) 
 
+# Violin plot
 plotViolin(cyt, color.by = "cluster.id", order.by = "pseudotime",
-           marker = "CD49f", text.angle = 90)
+           marker = "BV650-A<CD49f>", text.angle = 90)
 
 # trajectory value
-plotPseudotimeTraj(cyt, var.cols = TRUE) + 
- scale_colour_gradientn(colors = c("#F4D31D", "#FF3222","#7A06A0"))
+plotPseudotimeTraj(cyt, var.cols = TRUE)
 
-
+# Heatmap plot
 plotHeatmap(cyt, downsize = 1000, cluster_rows = TRUE, clustering_method = "ward.D",
             color = colorRampPalette(c("#00599F","#EEEEEE","#FF3222"))(100))
 
 # plot cluster
 plotCluster(cyt, item.use = c("tSNE_1", "tSNE_2"), color.by = "traj.value.log", 
-            size = 10, show.cluser.id = TRUE, category = "numeric") + 
- scale_colour_gradientn(colors = c("#EEEEEE", "#FF3222", "#CC0000", "#CC0000"))
+            size = 10, show.cluser.id = TRUE, category = "numeric") 
+
+
 ```
 
-## Announcement
-
-The previous version of `CytoTree` is `flowSpy` **[link to GitHub](https://github.com/JhuangLab/CytoTree) and [link to Bioconductor](https://bioconductor.org/packages/flowSpy/)**. To improve the identification and avoid awkward duplication of names in some situations, we changed the name of `flowSpy` to `CytoTree`. `CytoTree` more fits the functional orientation of this software.
-
-We apologized for the inconvenience.
 
 
 ## References

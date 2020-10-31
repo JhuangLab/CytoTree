@@ -3,7 +3,7 @@
 #'
 #' @name runTSNE
 #'
-#' @param object an CYT object
+#' @param object a CYT object
 #' @param dims integer, Output dimensionality (default: 2)
 #' @param initial_dims integer. the number of dimensions that should
 #'    be retained in the initial PCA step (default: 50). See \code{\link[Rtsne]{Rtsne}}
@@ -20,7 +20,7 @@
 #'
 #' @import Rtsne
 #' @seealso \code{\link[Rtsne]{Rtsne}}
-#' @return An CYT object
+#' @return A CYT object
 #'
 #' @references
 #'    Maaten, L. Van Der, 2014. Accelerating t-SNE using Tree-Based
@@ -50,7 +50,7 @@ runTSNE <- function(object, dims = 2, initial_dims = 50, perplexity = 30,
   # tSNE calculation
   if (verbose) message(Sys.time(), " Calculating tSNE.")
   if (length(which(object@meta.data$dowsample == 1)) < 10) stop(Sys.time, " Not enough cells, please run processingCluster and choose correct downsampleing.size paramter. ")
-  mat <- object@log.data[which(object@meta.data$dowsample == 1), ]
+  mat <- object@log.data[which(object@meta.data$dowsample == 1), object@markers.idx]
   tsne.obj <- Rtsne(as.matrix(mat),
                     dims = dims, initial_dims = initial_dims, perplexity = perplexity,
                     theta = theta, check_duplicates = check_duplicates, pca = pca, max_iter = max_iter,

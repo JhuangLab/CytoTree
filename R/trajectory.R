@@ -6,7 +6,7 @@
 #'
 #' @description Walk between root cells and leaf cells
 #'
-#' @param object An CYT object
+#' @param object A CYT object
 #' @param mode character. Specifies how igraph should interpret the supplied matrix.
 #'    Possible values are: undirected, directed, upper, lower, max, min, plus. By 
 #'    default is undirected.
@@ -18,7 +18,7 @@
 #'
 #' @importFrom igraph graph.adjacency simplify shortest_paths
 #'
-#' @return An CYT object
+#' @return A CYT object
 #'
 #' @export
 #'

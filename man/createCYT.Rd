@@ -2,12 +2,12 @@
 % Please edit documentation in R/AllClasses.R
 \name{createCYT}
 \alias{createCYT}
-\title{create an CYT object}
+\title{create a CYT object}
 \usage{
 createCYT(
   raw.data,
-  markers,
-  meta.data,
+  markers = NULL,
+  meta.data = NULL,
   batch = NULL,
   batch.correct = FALSE,
   normalization.method = "none",
@@ -16,14 +16,15 @@ createCYT(
 )
 }
 \arguments{
-\item{raw.data}{matrix. Raw data read from FCS file after perform
+\item{raw.data}{matrix. Raw data read from FCS file after performing
 preprocessing.}
 
 \item{markers}{vector. Detailed marker information in the gate of
-flow cytometer.}
+flow cytometer. The default value is the colnames of `raw.data`}
 
 \item{meta.data}{data.frame. Raw metadata of each cell.
-Columns "cell" and "stage" are required.}
+Columns "cell" and "stage" are required. If not input, the meta.data
+will be generated with default the name of FCS data.}
 
 \item{batch}{vector. Batch covariate (only one batch allowed).
 Method to correct batch effect
@@ -37,23 +38,23 @@ method. Whether to normalize and log transformed of raw.data.
 In CytoTree workflow, it's better to perform transformation of
 FCS data using \code{runExprsExtract} or \code{runExprsMerge}
 before creating an CYT object. \code{CytoTree} only provide
-log transforma method. If you need to using truncateTransform,
+log transform method. If you need to using truncateTransform,
 scaleTransform, linearTransform, quadraticTransform and
 lnTransform, see \code{flowCore} for more
 information. And \code{runExprsExtract} in
 \code{CytoTree}, autoLgcl, cytofAsinh, logicle, arcsinh,
-and logAbs can be used to perform transformation of FCS data.}
+and logAbs can be used to perform the transformation of FCS data.}
 
 \item{verbose}{logical. Whether to print calculation progress.}
 
 \item{...}{paramters pass to \code{correctBatchCYT} function.}
 }
 \value{
-An CYT object with raw.data and markers and meta.data
+A CYT object with raw.data and markers and meta.data
 }
 \description{
-This function is about how to build an CYT object.
-   An CYT object is the base for the whole analysizing workflow
+This function is about how to build a CYT object.
+   A CYT object is the base for the whole analyzing workflow
    of flow and mass cytometry data.
 }
 \examples{
@@ -74,16 +75,8 @@ recol <- c(`FITC-A<CD43>` = "CD43", `APC-A<CD34>` = "CD34",
 colnames(fcs.data)[match(names(recol), colnames(fcs.data))] = recol
 fcs.data <- fcs.data[, recol]
 
-day.list <- c("D0", "D2", "D4", "D6", "D8", "D10")
-meta.data <- data.frame(cell = rownames(fcs.data),
-                        stage = gsub(".FCS.+", "", rownames(fcs.data) ) )
-meta.data$stage <- factor(as.character(meta.data$stage), levels = day.list)
-
-markers <- c("CD43","CD34","CD90","CD45RA","CD31","CD49f","CD73","CD45","FLK1","CD38")
-
 # Build the CYT object
-cyt <- createCYT(raw.data = fcs.data, markers = markers,
-                 meta.data = meta.data,
+cyt <- createCYT(raw.data = fcs.data,
                  normalization.method = "log",
                  verbose = TRUE)
 

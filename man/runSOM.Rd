@@ -22,7 +22,7 @@ runSOM(
 )
 }
 \arguments{
-\item{object}{an CYT object}
+\item{object}{a CYT object}
 
 \item{xdim}{Width of the grid.}
 
@@ -55,7 +55,7 @@ Any unambiguous substring can be given. See \code{\link[stats]{dist}}}
 \item{...}{Parameters passing to \code{\link[FlowSOM]{SOM}} function}
 }
 \value{
-an CYT object with som.id in CYT object
+a CYT object with som.id in CYT object
 }
 \description{
 Build a self-organizing map

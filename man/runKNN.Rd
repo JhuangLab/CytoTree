@@ -27,7 +27,7 @@ runKNN(
 \item{...}{Parameters passing to \code{\link[BiocNeighbors]{findKNN}} function}
 }
 \value{
-An CYT object with knn, knn.index and knn.distance information.
+A CYT object with knn, knn.index and knn.distance information.
 }
 \description{
 Calculates and stores a k-nearest neighbor graph based on Euclidean

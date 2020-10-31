@@ -16,7 +16,7 @@ plotHeatmap(
 )
 }
 \arguments{
-\item{object}{An CYT object}
+\item{object}{A CYT object}
 
 \item{markers}{vector. markers to plot on the heatmap}
 

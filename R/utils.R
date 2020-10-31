@@ -3,11 +3,11 @@
 #'
 #' @name updatePlotMeta
 #'
-#' @param object An CYT object
+#' @param object A CYT object
 #' @param verbose logical. Whether to print calculation progress.
 #'
 #' @export
-#' @return An CYT object
+#' @return A CYT object
 #'
 #' @examples
 #'
@@ -41,16 +41,126 @@ updatePlotMeta <- function(object, verbose = TRUE) {
   return(object)
 }
 
+#' 
+#' Change marker used in the calculation of CYT
+#' 
+#' @name changeMarker
+#' 
+#' @param object A CYT object
+#' @param markers vector. Markers used in the calculation
+#'     of PCA, tSNE, diffusion map and UMAP.
+#' @param verbose logical. Whether to print calculation progress.
+#'     
+#' @export
+#' @return A CYT object
+#' 
+#' @examples
+#' 
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
+#' 
+#' markers <- c("CD43", "CD34", "CD90", "CD45RA")
+#' 
+#' cyt <- changeMarker(cyt, markers = markers)
+#' 
+#' 
+#'       
+changeMarker <- function(object, markers = NULL, verbose = FALSE) {
+  
+  if (is.null(markers)) {
+    stop(Sys.time(), " Markers not input")
+  }
+  if (!is.vector(markers)) {
+    warning(Sys.time(), " Markers must be a vector")
+    markers <- as.vector(markers)
+  }
+  if ( (sum(!markers %in% object@markers) == 0) & (sum(!object@markers %in% markers) == 0) ) {
+    if (verbose) message(Sys.time(), " Markers is not changed")
+    return(object)
+  } 
+  
+  # check markers' index in raw.data
+  markers.idx <- match(markers, colnames(object@raw.data))
+  if (verbose) message(Sys.time(), " Index of markers in processing")
+  if (any(is.na(markers.idx))) {
+    sub.markers <- markers[which(is.na(markers.idx))]
+    warning(Sys.time(), " ", sub.markers, " not exist in colnames
+            of raw.data. It will be removed. ")
+    
+    markers <- markers[which(!is.na(markers.idx))]
+    markers.idx <- markers.idx[which(!is.na(markers.idx))]
+  }
+  object@markers <- markers
+  object@markers.idx <- markers.idx
+  
+  return(object)
+  
+}
+
+#' 
+#' Add meta information of CYT
+#' 
+#' @name addMetaData
+#' 
+#' @param object A CYT object
+#' @param meta.info a vector, meta data of cell information
+#' @param name character, colname of `meta.info`
+#' @param verbose logical. Whether to print calculation progress.
+#' 
+#' @export
+#' @return A CYT object
+#' 
+#' @examples
+#' 
+#' cyt.file <- system.file("extdata/cyt.rds", package = "CytoTree")
+#' cyt <- readRDS(file = cyt.file)
+#' 
+#' plot.meta <- fetchPlotMeta(cyt)
+#' meta.info <- 1:nrow(plot.meta)
+#' names(meta.info) <- plot.meta$cell
+#' 
+#' cyt <- addMetaData(cyt, meta.info = meta.info, name = "MyInformation")
+#' plot.meta <- fetchPlotMeta(cyt)
+#' 
+#' 
+addMetaData <- function(object, meta.info,
+                        name = "NewCol",
+                        verbose = FALSE) {
+  
+  if (missing(meta.info)) {
+    stop(Sys.time(), " meta.info is missing")
+  } 
+  if (length(meta.info) != nrow(object@raw.data)) {
+    stop(Sys.time(), " meta.info must be a vector or factor and the length is equal to cell number")
+  }
+  if (is.null(names(meta.info))) {
+    if (verbose) message(Sys.time(), " the name of meta.info is missing")
+    names(meta.info) <- rownames(object@meta.data)
+  }
+  if (name %in% colnames(object@meta.data)) {
+    if (verbose) message(Sys.time(), " the colname is exist in meta.data of CYT object. The old one will be replaced")
+    object@meta.data[, which(colnames(object@meta.data) == name)] <- meta.info[match(rownames(object@meta.data), names(meta.info))]
+  } else {
+    object@meta.data$NewCol <- meta.info[match(rownames(object@meta.data), names(meta.info))]
+    colnames(object@meta.data)[which(colnames(object@meta.data) == "NewCol")] = name
+  }
+  
+  return(object)
+}
+
+
+
+
 #'
 #' Update clusters' meta information of CYT
 #'
 #' @name updateClustMeta
 #'
-#' @param object An CYT object
+#' @param object A CYT object
 #' @param verbose logical. Whether to print calculation progress.
 #'
 #' @export
-#' @return An CYT object
+#' @return A CYT object
 #'
 #' @importFrom stats aggregate
 #'
@@ -62,11 +172,11 @@ updatePlotMeta <- function(object, verbose = TRUE) {
 #' cyt <- updateClustMeta(cyt)
 #' 
 #'
-updateClustMeta <- function(object, verbose = TRUE) {
+updateClustMeta <- function(object, verbose = FALSE) {
 
   # Generating tree meta information
   plot.data <- fetchPlotMeta(object, verbose = FALSE)
-  plot.data <- cbind(plot.data, object@raw.data[which(object@meta.data$dowsample == 1), ])
+  plot.data <- cbind(plot.data, object@log.data[which(object@meta.data$dowsample == 1), ])
 
   if (length(unique(plot.data$stage)) > 1) {
     cell.count <- table(plot.data[, match(c("cluster.id", "stage"), colnames(plot.data)) ])
@@ -87,7 +197,7 @@ updateClustMeta <- function(object, verbose = TRUE) {
     colnames(cell.percent) <- paste0(unique(plot.data$stage), ".percent")
   }
 
-  idx.redim <- match(c(colnames(object@raw.data), "pseudotime", "traj.value", "traj.value.log"), colnames(plot.data))
+  idx.redim <- match(c(colnames(object@log.data), "pseudotime", "traj.value", "traj.value.log"), colnames(plot.data))
   idx.redim <- unique(idx.redim)
   tree.meta <- stats::aggregate(plot.data[, idx.redim], list(cluster = plot.data[, "cluster.id"]), mean)
   tree.meta.1 <- data.frame(cell.count,
@@ -136,10 +246,10 @@ fetchPlotMeta <- function(object, markers = NULL, verbose = FALSE) {
     # update and fetch plot meta information
   object <- updatePlotMeta(object, verbose = FALSE)
   plot.meta <- object@plot.meta
-  idx <- match(markers, colnames(object@raw.data))
+  idx <- match(markers, colnames(object@log.data))
   idx <- idx[which(!is.na(idx))]
   if (length(idx) > 0) {
-    plot.meta <- cbind(plot.meta, object@raw.data[which(object@meta.data$dowsample == 1), idx])
+    plot.meta <- cbind(plot.meta, object@log.data[which(object@meta.data$dowsample == 1), idx])
   }
 
 

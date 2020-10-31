@@ -7,7 +7,7 @@
 defLeafCells(object, leaf.cells = NULL, pseudotime.cutoff = 0, verbose = FALSE)
 }
 \arguments{
-\item{object}{an CYT object}
+\item{object}{a CYT object}
 
 \item{leaf.cells}{character or numeric. Cell name of the root cells or
 cluster.id of root.cells}
@@ -18,7 +18,7 @@ over pseudotime.cutoff will be set to be leaf cells}
 \item{verbose}{logical. Whether to print calculation progress.}
 }
 \value{
-An CYT object
+A CYT object
 }
 \description{
 definition of root cells

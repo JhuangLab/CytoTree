@@ -7,7 +7,7 @@
 runPhenograph(object, knn = 30, scale = FALSE, verbose = FALSE, ...)
 }
 \arguments{
-\item{object}{an CYT object.}
+\item{object}{a CYT object.}
 
 \item{knn}{numeric. Number of nearest neighbours, default is 30.}
 
@@ -18,7 +18,7 @@ runPhenograph(object, knn = 30, scale = FALSE, verbose = FALSE, ...)
 \item{...}{Parameters passing to \code{igraph} function}
 }
 \value{
-An CYT object with cluster
+A CYT object with cluster
 }
 \description{
 A simple R implementation of the phenograph

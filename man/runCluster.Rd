@@ -12,7 +12,7 @@ runCluster(
 )
 }
 \arguments{
-\item{object}{an CYT object}
+\item{object}{a CYT object}
 
 \item{cluster.method}{character. Four clustering method are provided: som, clara, kmeans and phenograph.
 Clustering method "hclust" and "mclust" are not recommended because of long computing time.}
@@ -22,7 +22,7 @@ Clustering method "hclust" and "mclust" are not recommended because of long comp
 \item{...}{options to pass on to the clustering functions.}
 }
 \value{
-An CYT object with cluster
+A CYT object with cluster
 }
 \description{
 Compute a specific clustering using the combined flow

@@ -19,7 +19,7 @@ plot3D(
 )
 }
 \arguments{
-\item{object}{An CYT object}
+\item{object}{A CYT object}
 
 \item{item.use}{character. Items use to 3D plot, axes x and y and z must be numeric.}
 

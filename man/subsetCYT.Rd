@@ -7,7 +7,7 @@
 subsetCYT(object, cells = NULL, knn = NA, verbose = FALSE)
 }
 \arguments{
-\item{object}{An CYT object}
+\item{object}{A CYT object}
 
 \item{cells}{vector, Names of the cells to retain.}
 
@@ -16,7 +16,7 @@ subsetCYT(object, cells = NULL, knn = NA, verbose = FALSE)
 \item{verbose}{logic. Whether to print calculation progress.}
 }
 \value{
-An CYT object
+A CYT object
 }
 \description{
 This subsets an CYT object by given a list of cells or cluster id.
