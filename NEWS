@@ -1,3 +1,7 @@
+Changes in version 1.0.3 (2020-11-11)
++ Change error messages in plot2D
++ Update tutorial
+
 Changes in version 1.0.2 (2020-11-01)
 + Add detailed tutorial  
 + Change meta.data and marker as optional

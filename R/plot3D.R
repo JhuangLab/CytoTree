@@ -53,9 +53,21 @@ plot3D <- function(object,
     plot.meta <- cbind(plot.meta, sub)
   }
 
-  if ( !all(item.use %in% colnames(plot.meta)) ) stop(Sys.time(), " item.use is not in plot.meta of CYT, please run updatePlotMeta first.")
+  if ( !all(item.use %in% colnames(plot.meta)) ) {
+    if (all(item.use %in% paste0("tSNE_", 1:10))) {
+      stop(Sys.time(), " item.use is not in plot.meta of CYT, please run runTSNE first.")
+    } else if (all(item.use %in% paste0("PCA_", 1:10))) {
+      stop(Sys.time(), " item.use is not in plot.meta of CYT, please run runFastPCA first.")
+    } else if (all(item.use %in% paste0("DC_", 1:10))) {
+      stop(Sys.time(), " item.use is not in plot.meta of CYT, please run runDiffusionMap first.")
+    } else if (all(item.use %in% paste0("UMAP_", 1:10))) {
+      stop(Sys.time(), " item.use is not in plot.meta of CYT, please run runUMAP first.")
+    } else {
+      stop(Sys.time(), " item.use is not in plot.meta of CYT.")
+    }
+  }
 
-  if ( !all(color.by %in% colnames(plot.meta)) ) stop(Sys.time(), " item.use is not in plot.meta of CYT, please run updatePlotMeta first.")
+  if ( !all(color.by %in% colnames(plot.meta)) ) stop(Sys.time(), " item.use is not in plot.meta of CYT.")
 
   if (length(item.use) < 3) stop(Sys.time(), " item.use is less than two characters.")
   if (length(item.use) > 3) {

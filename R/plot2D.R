@@ -106,10 +106,22 @@ plot2D <- function(object,
   }
 
   # check item.use parameter in plot.meta data.frame
-  if ( !all(item.use %in% colnames(plot.meta)) ) stop(Sys.time(), " item.use is not in plot.meta of CYT, please run updatePlotMeta first.")
+  if ( !all(item.use %in% colnames(plot.meta)) ) {
+    if (all(item.use %in% paste0("tSNE_", 1:10))) {
+      stop(Sys.time(), " item.use is not in plot.meta of CYT, please run runTSNE first.")
+    } else if (all(item.use %in% paste0("PCA_", 1:10))) {
+      stop(Sys.time(), " item.use is not in plot.meta of CYT, please run runFastPCA first.")
+    } else if (all(item.use %in% paste0("DC_", 1:10))) {
+      stop(Sys.time(), " item.use is not in plot.meta of CYT, please run runDiffusionMap first.")
+    } else if (all(item.use %in% paste0("UMAP_", 1:10))) {
+      stop(Sys.time(), " item.use is not in plot.meta of CYT, please run runUMAP first.")
+    } else {
+      stop(Sys.time(), " item.use is not in plot.meta of CYT.")
+    }
+  }
 
   # check color.by parameter in plot.meta data.frame
-  if ( !all(color.by %in% colnames(plot.meta)) ) stop(Sys.time(), " color.by is not in plot.meta of CYT, please run updatePlotMeta first.")
+  if ( !all(color.by %in% colnames(plot.meta)) ) stop(Sys.time(), " color.by is not in plot.meta of CYT.")
 
   if (length(item.use) < 2) stop(Sys.time(), " item.use is less than two elements.")
   if (length(item.use) > 2) {
@@ -226,7 +238,7 @@ plotViolin <- function(object,
 
 
   # check color.by parameter in plot.meta data.frame
-  if ( !all(color.by %in% colnames(plot.meta)) ) stop(Sys.time(), " color.by is not in plot.meta of CYT, please run updatePlotMeta first.")
+  if ( !all(color.by %in% colnames(plot.meta)) ) stop(Sys.time(), " color.by is not in plot.meta of CYT.")
 
   if (length(color.by) > 1) {
     warning(Sys.time(), " color.by has more than one elements. Only the first one will be used")
@@ -320,8 +332,6 @@ plotPieCluster <- function(object,
   # update plot meta information
   plot.data <- fetchClustMeta(object, verbose = FALSE)
 
-  # check item.use parameter in cluster data.frame
-  if ( !all(item.use %in% colnames(object@cluster)) ) stop(Sys.time(), " item.use is not in plot.meta of CYT, please run updatePlotMeta first.")
 
   if (length(item.use) < 2) stop(Sys.time(), " item.use is less than two elements.")
   if (length(item.use) > 2) {
@@ -415,13 +425,15 @@ plotCluster <- function(object,
   plot.meta.data <- cbind(plot.meta.data, object@cluster)
 
   # check item.use parameter in plot.meta data.frame
-  if ( !all(item.use %in% colnames(plot.meta.data)) ) stop(Sys.time(), " item.use is not in cluster data of CYT, please run processingCluster first.")
+  if ( !all(item.use %in% colnames(plot.meta.data)) ) {
+    stop(Sys.time(), " item.use is not in cluster data of CYT.")
+  }
 
   # check color.by parameter in plot.meta data.frame
-  if ( !all(color.by %in% colnames(plot.meta.data)) ) stop(Sys.time(), " color.by is not in cluster data of CYT, please run processingCluster first.")
+  if ( !all(color.by %in% colnames(plot.meta.data)) ) stop(Sys.time(), " color.by is not in cluster data of CYT.")
 
   # check size.by parameter in plot.meta data.frame
-  if ( !all(size.by %in% colnames(plot.meta.data)) ) stop(Sys.time(), " size.by is not in cluster data of CYT, please run processingCluster first.")
+  if ( !all(size.by %in% colnames(plot.meta.data)) ) stop(Sys.time(), " size.by is not in cluster data of CYT.")
 
   if (length(item.use) < 2) stop(Sys.time(), " item.use is less than two elements.")
   if (length(item.use) > 2) {

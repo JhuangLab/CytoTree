@@ -498,13 +498,14 @@ runSOM <- function(object, xdim = 6, ydim = 6, rlen = 8, mst = 1,
   if (verbose) message(Sys.time(), " Calculating FlowSOM.")
   # FlowSOM
   flowset <- as.matrix(object@log.data[, object@markers.idx])
-  flowsom <- FlowSOM::SOM(flowset,
-                          xdim = xdim, ydim = ydim, rlen = rlen, mst = mst,
-                          alpha = alpha[1], radius = radius,
-                          init = init,
-                          distf = distf, silent = verbose,
-                          codes = codes, importance = importance,
-                          ...)
+  suppressMessages(
+    flowsom <- FlowSOM::SOM(flowset,
+                            xdim = xdim, ydim = ydim, rlen = rlen, mst = mst,
+                            alpha = alpha[1], radius = radius,
+                            init = init,
+                            distf = distf, silent = verbose,
+                            codes = codes, importance = importance,
+                            ...))
 
   # generating som network
   object@meta.data$som.id <- object@meta.data$cluster.id  <- flowsom$mapping[, 1]

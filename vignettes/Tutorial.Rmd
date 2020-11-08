@@ -71,7 +71,7 @@ The link of `CytoTree` on GitHub can be visited at https://github.com/JhuangLab/
 
 ### Bioconductor
 
-This requires the `BiocManager` package to be pre-installed first.
+This requires the `BiocManager` package to be pre-installed first, and make sure the version of Bioc is 3.12.
 
 To install this package, start R (version "4.0") and enter:
 
@@ -102,6 +102,8 @@ library(CytoTree)
 fcs.path <- system.file("extdata", package = "CytoTree")
 fcs.files <- list.files(fcs.path, pattern = '.FCS$', full = TRUE)
 
+# Using runExprsMerge for multip FCS files
+# Or using runExprsExtract for one single FCS file
 fcs.data <- runExprsMerge(fcs.files, comp = FALSE, transformMethod = "none")
 
 # Build the CYT object
@@ -121,7 +123,9 @@ plotTree(cyt)
 
 # Or you can run with dimensionality reduction steps
 # Run CytoTree as pipeline and visualize as tree
-cyt <- cyt %>% runCluster() %>% processingCluster() %>% runFastPCA() %>% runTSNE() %>%  runDiffusionMap() %>% runUMAP() %>% buildTree()
+cyt <- cyt %>% runCluster() %>% processingCluster() %>% 
+  runFastPCA() %>% runTSNE() %>%  runDiffusionMap() %>% runUMAP() %>% 
+  buildTree()
 plot2D(cyt, item.use = c("UMAP_1", "UMAP_2"))
 
 ```
